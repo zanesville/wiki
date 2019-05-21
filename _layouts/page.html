@@ -1,0 +1,6 @@
+---
+layout: default
+---
+<h1>{% if page.title %}{{page.title}}{% else %}{{ page.name | replace: ".md", " "}}{% endif %}</h1>
+
+{{ content }}

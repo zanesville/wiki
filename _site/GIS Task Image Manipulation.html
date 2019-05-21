@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>COZ GIS Wiki</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,500,500i,700,700i|Noto+Sans:400,400i,700,700i|Source+Code+Pro&amp;subset=latin-ext">
+  <!-- <link rel="stylesheet" href="/wing.css"/> -->
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+  <!-- <link rel="stylesheet" href="https://unpkg.com/chota@latest"> -->
+  <style>
+    :root {
+      --color-primary: #1a639f;
+      --color-lightGrey: #d2d6dd;
+      --color-grey: #7e818b;
+      --color-darkGrey: #3f4144;
+      --color-error: #d43939;
+      --color-success: #28bd14;
+      --grid-maxWidth: 140rem;
+      --grid-gutter: 2rem;
+      --font-size: 1.6rem;
+      --font-family: "Noto Sans", -apple-system, BlinkMacSystemFont, Avenir, "Avenir Next", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif
+    }
+
+    body {
+      background: white;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: "Montserrat";
+      font-weight: 700;
+    }
+    nav {
+      background: white;
+    }
+    .off-canvas-content, .off-canvas-sidebar {
+      padding: 1rem;
+      min-height: 100vh;
+    }
+    .off-canvas-sidebar {
+      background: whitesmoke;
+    }
+    p {
+      margin: 0 0 0.8rem;
+    }
+    .content {
+      padding: 1rem 0;
+    }
+  </style>
+</head>
+
+<body>
+  <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+  <div class="off-canvas off-canvas-sidebar-show">
+    <!-- off-screen toggle button -->
+    <a class="off-canvas-toggle btn btn-primary btn-action" href="#sidebar-id">
+      <i class="icon icon-menu"></i>
+    </a>
+  
+    <div id="sidebar-id" class="off-canvas-sidebar">
+      <div class="container">
+          <h4><a href="/">COZ GIS Wiki</a></h4>
+          
+          
+          <p><a href="/GIS%20Task%20ArcGIS%20Online%20Collector%20Setup.html">GIS Task ArcGIS Online Collector Setup </a></p>
+          
+          
+          
+          <p><a href="/GIS%20Task%20Create%20OpenMapTiles%20Vector%20Tiles.html">GIS Task Create OpenMapTiles Vector Tiles </a></p>
+          
+          
+          
+          <p><a href="/GIS%20Task%20Image%20Manipulation.html">GIS Task Image Manipulation </a></p>
+          
+          
+          
+          <p><a href="/GIS%20Task%20Vector%20Tile%20Servers.html">GIS Task Vector Tile Servers </a></p>
+          
+          
+          
+          <p><a href="/GIS%20Web%20Server%20and%20Apps%20Resources.html">GIS Web Server and Apps Resources </a></p>
+          
+          
+          
+          <p><a href="/Understanding%20ArcGIS%20Enterprise.html">Understanding ArcGIS Enterprise </a></p>
+          
+          
+          
+          
+      </div>
+    </div>
+  
+    <a class="off-canvas-overlay" href="#close"></a>
+  
+    <div class="off-canvas-content">
+      <div class="container">
+        <div class="content">
+            <h1>GIS Task Image Manipulation </h1>
+
+<h2 id="clipping-and-resizing-using-gdal-or-qgis">Clipping and Resizing using GDAL or QGIS</h2>
+
+<p><strong>Two images will be created, one in the original projection Ohio SP South - EPSG:3735 with a JPEG quality of 75. This one is for desktop GIS use. The second image will be in Web Mercator EPSG:3857, with a JPEG quality between 50 and 60, which will be used to create the image tile cache for web applications.</strong></p>
+
+<p>Saving using LZW or DEFLATE resulted in a very large tif. Using <code class="highlighter-rouge">-co compression=JPEG -co JPEG_QUALITY=75</code> results in great image quality in a much smaller file. Settings used:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-multi 			// Uses two processes to manipulate the images
+-wo			// DOES NOT SEEM TO BE WORKING Total number of CPUs for calculations
+-cutline		// Shapefile to clip the polygon referenced with the full file path in quotes
+-crop_to_cutline	// Clip the raster using the cutline polygon 
+-co			// Compression used and options
+-dstalpha		// Use an Alpha layer to store transparency - the original channel is used if none is provided elsewhere
+
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gdalwarp -multi -wo NUM_THREADS=8 -of GTiff -cutline E:\ortho18\clip-coz.shp -crop_to_cutline -dstalpha -co COMPRESS=JPEG -co JPEG_QUALITY=75 "E:/ortho18/Area Wide Mosaics/OHMUSK18-SID-3INCH/OHMUSK18-SID-3INCH.sid" E:/ortho18/qgis-testing/OHMUSK18_3IN_GDALWARP_CLIP_JPG75_ALPHA.tif
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gdalwarp -wo NUM_THREADS=ALL_CPUS -multi -of GTiff -cutline E:\ortho18\clip-coz.shp -crop_to_cutline -dstalpha -co COMPRESS=JPEG -co JPEG_QUALITY=75 -co TILED=yes -co BIGTIFF=YES "E:/ortho18/Area Wide Mosaics/OHMUSK18-SID-3INCH/OHMUSK18-SID-3INCH.sid" E:/ortho18/qgis-testing/OHMUSK18_3IN_GDALWARP_CLIP_JPG75_ALPHA_BIGTIFF.tif
+</code></pre></div></div>
+
+<p>If an error comes up about the size being too large try adding these settings -</p>
+
+<p><code class="highlighter-rouge">-co TILED=yes -co BLOCKXSIZE=256 -co BLOCKYSIZE=256</code> - <strong>started task at 11:30 on march 26th</strong></p>
+
+<h3 id="references">References</h3>
+
+<p><a href="https://www.gdal.org/frmt_gtiff.html">https://www.gdal.org/frmt_gtiff.html</a></p>
+
+<p><a href="https://www.gdal.org/gdalwarp.html">https://www.gdal.org/gdalwarp.html</a></p>
+
+<p><a href="https://github.com/dwtkns/gdal-cheat-sheet">https://github.com/dwtkns/gdal-cheat-sheet</a></p>
+
+<hr />
+<h2 id="creating-image-tiles-for-the-web-viewers">Creating Image Tiles for the Web Viewers</h2>
+
+<h3 id="use-gdal2tiles-or-gdaladdo">Use gdal2tiles or gdaladdo</h3>
+
+<h4 id="using-gdal2tiles">Using gdal2tiles</h4>
+
+<ol>
+  <li>Reproject the original image to EPSG:3857 using gdalwarp. Use all the same options as before expcept use a higher compression.
+    <ul>
+      <li><code class="highlighter-rouge">gdalwarp -of GeoTIFF -co COMPRESS=JPEG -co JPEG_QUALITY=60 ...</code></li>
+    </ul>
+  </li>
+  <li>Use the customized gdal2tilesp.py python script to cut the tif into a folder of tiles for use in web mapping. There are similar scripts that will output to mbtiles or geopackage, but for now we are using simply a folder of image files. This script was originally written by the developer of MapTiler. The gdal2tiles that is built in to gdal only outputs images in png format and does not use parallel processing. The default for this updated script is to use all the availabel cpu cores, so be careful when running it or set –processes to something like half the available cores to not lock up your machine.
+ 	- <code class="highlighter-rouge">python gdal2tilesp.py -f JPEG -e -z 0-19 input.tif outputFolder</code></li>
+</ol>
+
+<p>References</p>
+<ul>
+  <li><a href="https://alastaira.wordpress.com/2011/07/11/maptiler-gdal2tiles-and-raster-resampling/">https://alastaira.wordpress.com/2011/07/11/maptiler-gdal2tiles-and-raster-resampling/</a></li>
+  <li>https://github.com/pramsey/gdal2tilesp</li>
+  <li><a href="https://pvanb.wordpress.com/2017/03/06/raster2mbtiles/">https://pvanb.wordpress.com/2017/03/06/raster2mbtiles/</a></li>
+</ul>
+
+<ol>
+  <li>Reproject the original image to EPSG:3857 using gdalwarp. Use all the same options as before expcept use a higher compression.
+    <ul>
+      <li><code class="highlighter-rouge">gdalwarp -of GeoTIFF -co COMPRESS=JPEG -co JPEG_QUALITY=60 ...</code></li>
+    </ul>
+  </li>
+  <li>Use gdal_translate to generate the mbtiles file
+    <ul>
+      <li><code class="highlighter-rouge">gdal_translate -of mbtiles mymap.tif mymap.mbtiles</code></li>
+    </ul>
+  </li>
+  <li>Use gdal_gdaladdo to generate the rest of the tiles (overview tiles)
+    <ul>
+      <li><code class="highlighter-rouge">gdaladdo -r nearest mymap.mbtiles 2 4 8 16</code></li>
+      <li>this results in tiles from z levels??</li>
+      <li>unpack the mbiles to folders using <a href="https://github.com/mapbox/mbutil">mbutil</a> which is a python script, run it using cmd.exe in its own folder like this:
+<code class="highlighter-rouge">python mb-util</code></li>
+    </ul>
+  </li>
+  <li>Alternative - Upload the image to Mapbox (50GB free tile hosting) and cross fingers that it processes without timing out!</li>
+</ol>
+
+<h3 id="references-1">References</h3>
+
+<p><a href="https://www.azavea.com/blog/2018/10/11/creating-leaflet-tiles-from-open-data/">https://www.azavea.com/blog/2018/10/11/creating-leaflet-tiles-from-open-data/</a></p>
+
+<p><a href="http://www.thesjg.com/2013/03/generating-aerial-tiles-from-naip-imagery/">http://www.thesjg.com/2013/03/generating-aerial-tiles-from-naip-imagery/</a></p>
+
+<p><a href="https://gis.stackexchange.com/questions/104453/why-result-of-merge-of-multiple-raster-is-so-big">https://gis.stackexchange.com/questions/104453/why-result-of-merge-of-multiple-raster-is-so-big</a></p>
+
+<p><a href="http://docs.geonode.org/en/master/tutorials/advanced/adv_data_mgmt/adv_raster/processing.html">http://docs.geonode.org/en/master/tutorials/advanced/adv_data_mgmt/adv_raster/processing.html</a></p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="" async defer></script>
+</body>
+
+</html>

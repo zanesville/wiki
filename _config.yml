@@ -1,0 +1,15 @@
+title: COZ GIS Wiki
+
+description: A Jekyll Theme
+baseurl: 
+url: 
+
+defaults:
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+    values:
+      layout: "page"
+      
+plugins:
+  - jekyll-admin
