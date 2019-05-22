@@ -48,18 +48,39 @@
     nav {
       background: white;
     }
-    .off-canvas-content, .off-canvas-sidebar {
-      padding: 1rem;
-      min-height: 100vh;
-    }
-    .off-canvas-sidebar {
-      background: whitesmoke;
-    }
     p {
       margin: 0 0 0.8rem;
     }
     .content {
       padding: 1rem 0;
+    }
+    .off-canvas .off-canvas-content {
+      padding: .4rem .4rem .4rem 2rem;
+      min-height: 100vh;
+    }
+    .off-canvas .off-canvas-sidebar {
+      padding: 1rem;
+      min-height: 100vh;
+    }
+    .off-canvas .off-canvas-sidebar {
+      background: whitesmoke;
+      width: 360px;
+    }
+    @media screen and (min-width:960px) {
+      .off-canvas .off-canvas-sidebar {
+        position: fixed;
+      }
+      .off-canvas .off-canvas-content {
+        position: relative;
+        left: 360px;
+        max-width: calc(100vw - 360px);
+      }
+    }
+    .js-toc {
+      position: fixed;
+    }
+    .toc-list li {
+      list-style: none;
     }
   </style>
 </head>
