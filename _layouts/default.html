@@ -108,7 +108,7 @@
       <div class="container">
           <h4><a href="/">{{site.title}}</a></h4>
           {% for page in site.pages %}
-          {% if page.name != "index.html" %}
+          {% if page.name != "index.html" and page.name != "style.scss" %}
           <p><a href="{{site.baseurl}}{{page.url}}">{{page.name | replace: ".md", " "}}</a></p>
           <!--{{page.url}}-->
           {% endif %}
