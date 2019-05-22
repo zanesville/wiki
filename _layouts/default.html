@@ -79,7 +79,7 @@
           <h4><a href="/">{{site.title}}</a></h4>
           {% for page in site.pages %}
           {% if page.name != "index.html" %}
-          <p><a href="{{site.baseurl}}/{{page.url}}">{{page.name | replace: ".md", " "}}</a></p>
+          <p><a href="{{site.baseurl}}{{page.url}}">{{page.name | replace: ".md", " "}}</a></p>
           {% endif %}
           {% endfor %}
       </div>
