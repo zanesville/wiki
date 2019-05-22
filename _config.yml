@@ -1,8 +1,8 @@
 title: COZ GIS Wiki
 
 description: A Jekyll Theme
-baseurl: "wiki"
-url: "https://zanesville.github.io/"
+baseurl: "/wiki"
+url: "https://zanesville.github.io"
 
 defaults:
   -
