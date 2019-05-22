@@ -64,8 +64,9 @@
       padding: 1rem 0;
     }
     .off-canvas .off-canvas-content {
-      padding: .4rem .4rem .4rem 2rem;
+      padding: 1rem;
       min-height: 100vh;
+      max-width: 100%;
     }
     .off-canvas .off-canvas-sidebar {
       padding: 1rem;
@@ -80,8 +81,8 @@
         position: fixed;
       }
       .off-canvas .off-canvas-content {
+        padding: .4rem .4rem .4rem 2rem
         position: relative;
-        left: 360px;
         max-width: calc(100vw - 360px);
       }
     }
@@ -122,10 +123,10 @@
       <div class="container">
         <div class="content">
           <div class="columns">
-            <div class="column col-10">
+            <div class="column col-9">
             {{ content }}
             </div>
-            <div class="column col-2">
+            <div class="column col-3">
               <div class="js-toc">
               </div>
             </div>
