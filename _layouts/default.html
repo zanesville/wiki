@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
   <!-- <link rel="stylesheet" href="https://unpkg.com/chota@latest"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
   <style>
     :root {
       --color-primary: #1a639f;
@@ -89,13 +90,33 @@
     <div class="off-canvas-content">
       <div class="container">
         <div class="content">
+          <div class="columns">
+            <div class="column col-10">
             {{ content }}
+            </div>
+            <div class="column col-2">
+              <div class="js-toc">
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <script src="" async defer></script>
+  <script async defer src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+  <script>
+    window.onload = function() {
+       tocbot.init({
+        // Where to render the table of contents.
+        tocSelector: '.js-toc',
+        // Where to grab the headings to build the table of contents.
+        contentSelector: '.content',
+        // Which headings to grab inside of the contentSelector element.
+        headingSelector: 'h1, h2, h3, h4, h5',
+      });
+    }
+  </script>
 </body>
 
 </html>
