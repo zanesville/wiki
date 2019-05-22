@@ -13,3 +13,5 @@ defaults:
       
 plugins:
   - jekyll-admin
+  
+highlighter: rouge
