@@ -1,0 +1,15 @@
+---
+layout: default
+---
+<!-- We're going to give each page a tag when we create it.
+This will be the title -->
+<section class="column col-12 text-center">
+  <h1>{{ page.tag | capitalize }}</h1>
+  <ul>
+    {% for post in site.tags[page.tag] %}
+    <li style="list-style:none;">
+        <!-- {{ post.date | date: "%B %d, %Y" }}: --><a href="{{ post.url }}"><h2>{{ post.title }}</h2></a>
+    </li>
+    {% endfor %}
+  </ul>
+</section>

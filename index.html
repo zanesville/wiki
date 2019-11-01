@@ -1,44 +1,24 @@
 ---
 layout: default
 ---
-
-<!-- <div class="row">
-  <div class="cards">
-    {% for page in site.pages %}
-    {% if page.name != "index.html" %}
+{% for post in site.posts %}
+{% if post.name != "index.html" %}
+<article class=" column col-3 col-sm-12">
     <div class="card">
-      <h5 class="card-header">{{ page.link }}{{page.name | replace: ".md", " "}}</h5>
-      <p class="card-body">{{ page.excerpt }}</p>
-      <div class="card-footer center text-center">
-        <p>{{ page.url }}</p>
+      <div class="card-header">
+        <a href="{{post.url}}" style="color:inherit;">
+          <h3>{{post.title | replace: "_posts/", ""}}</h3>
+        </a>
+        <div></div>
+      </div>
+      <div class="card-body">
+        {{ post.subtitle }}
+      </div>
+      <div class="card-footer">
+        <a href="{{ post.url }}"><button class=" btn btn-outline">Read More</button>
+        </a>
       </div>
     </div>
-  {% endif %}
-  {% endfor %}
-  </div>
-</div> -->
-
-<!-- <div class="container">
-  <div class="columns">
-    {% for page in site.pages %}
-    {% if page.name != "index.html" %}
-    <div class="column">
-      <div class="card">
-        <div class="card-image">
-        </div>
-        <div class="card-header">
-          <div class="card-title h5">{{ page.link }}{{page.name | replace: ".md", " "}}</div>
-          <div class="card-subtitle text-gray"></div>
-        </div>
-        <div class="card-body">
-          {{ page.summary }}
-        </div>
-        <div class="card-footer">
-          <button class="btn btn-primary">{{ page.permalink }}</button>
-        </div>
-      </div>
-    </div>
+    </article>
     {% endif %}
     {% endfor %}
-  </div>
-</div> -->

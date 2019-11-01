@@ -1,0 +1,24 @@
+{
+  "name": "Wiki",
+  "version": "1.0.0",
+  "description": "This site serves as the Wiki for the City of Zanesville GIS processes and procedures. It is based on Spectre and uses Tocbot for the heading menus.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zanesville/wiki.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zanesville/wiki/issues"
+  },
+  "homepage": "https://github.com/zanesville/wiki#readme",
+  "dependencies": {
+    "@primer/css": "^13.0.0",
+    "spectre.css": "^0.5.8"
+  }
+}

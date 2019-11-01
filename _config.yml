@@ -1,17 +1,32 @@
 title: COZ GIS Wiki
 
-description: A Jekyll Wiki or Docs Theme
-baseurl: "/wiki"
-url: "https://zanesville.github.io"
+description: A website documenting GIS and data workflows for the City of Zanesville.
+baseurl: ""
+url: "https://zanesville.github.io/"
+
+# permalink: :categories/:title/
+highlighter: rouge
 
 defaults:
   -
     scope:
-      path: "" # an empty string here means all files in the project
+      path: "_posts"
     values:
-      layout: "page"
-      
+      layout: "posts"
+      permalink: /docs/:title/
+  -
+    scope:
+      path: "_tags"
+    values:
+      layout: "tags"
+
 plugins:
   - jekyll-admin
-  
-highlighter: rouge
+
+sass:
+  sass_dir: _sass
+
+include: 
+  - _tags
+
+exclude: ["package.json", "package-lock.json", "README.md"]

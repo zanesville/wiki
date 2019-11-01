@@ -1,10 +1,4 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js">
-<!--<![endif]-->
 
 <head>
   <meta charset="utf-8">
@@ -12,138 +6,103 @@
   <title>{{site.title}}</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700|Noto+Sans:400,400i,700,700i|Source+Code+Pro&amp;subset=latin-ext">
-  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
-  <style>
-    body {
-      background: white;
-      font-family: "Noto Sans", -apple-system, BlinkMacSystemFont, Avenir, "Avenir Next", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif
-    }
-
-    h1,
-    h2,
-    h3,
-    h4 {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      font-family: "Montserrat";
-      font-weight: 700;
-    }
-    nav {
-      background: white;
-    }
-    p {
-      margin: 0 0 0.8rem;
-    }
-    a {
-      color: #07619D;
-    }
-    a:visited {
-      color: #07619D;
-    }
-    a.active, a:active, a:hover, a:focus {
-      color: #064f80;
-    }
-    .content {
-      padding: 1rem 0;
-    }
-    .off-canvas .off-canvas-content {
-      padding: 1rem;
-      min-height: 100vh;
-      max-width: 100%;
-      word-break: break-word;
-    }
-    .off-canvas .off-canvas-sidebar {
-      padding: 1rem;
-      min-height: 100vh;
-    }
-    .off-canvas .off-canvas-sidebar {
-      background: whitesmoke;
-      width: 360px;
-    }
-    @media screen and (min-width:960px) {
-      .off-canvas .off-canvas-sidebar {
-        position: fixed;
-      }
-      .off-canvas .off-canvas-content {
-        padding: .4rem .4rem .4rem 2rem
-        position: relative;
-        max-width: calc(100vw - 360px);
-      }
-    }
-
-    /********/
-    /*JS TOC*/
-    /********/
-    .js-toc {
-      position: fixed;
-    }
-    .toc-list li {
-      list-style: none;
-    }
-    .is-active-link::before {
-      background-color: #07619d78;
-    }
-    /********/
-    @media screen and (max-width:768px) {
-      .js-toc {
-        display: none;
-      }
-    }
-  </style>
+  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,500,500i,700,700i|Noto+Sans:400,400i,700,700i|Source+Code+Pro&amp;subset=latin-ext"> -->
+  <link rel="stylesheet" href="/assets/spectre.css">
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" as="style"
+    onload="this.rel='stylesheet'">
+  <link rel="preload" href="/assets/colorful.css" as="style" onload="this.rel='stylesheet'">
+  <!-- <link rel="preload" href="/assets/prism.css" as="style" onload="this.rel='stylesheet'"> -->
 </head>
 
 <body>
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
+  <header class="navbar">
+    <section class="navbar-section">
+      <a href="/" class="navbar-brand mr-2">COZ GIS Wiki</a>
+    </section>
+    <section class="navbar-section">
+      <a class="btn btn-link" href="/admin/collections/{{page.path | replace: "_", ""}}"><i
+          class="icon icon-edit"></i>
+        Edit this page</a>
+    </section>
+  </header>
   <div class="off-canvas off-canvas-sidebar-show">
     <!-- off-screen toggle button -->
-    <a class="off-canvas-toggle btn btn-primary btn-action" href="#sidebar-id">
-      <i class="icon icon-menu"></i>
+    <a class="off-canvas-toggle btn btn-link btn-action" href="#sidebar-id">
+      <i class="icon icon-arrow-right"></i>
     </a>
-  
+
     <div id="sidebar-id" class="off-canvas-sidebar">
+      <form class="input-group input-inline" style="width:100%;margin-bottom:1rem;">
+        <input autocomplete="off" class="form-input" type="text" id="search-input" placeholder="search">
+        <ul id="results-container"></ul>
+      </form>
       <div class="container">
-          <h4><a href="/">{{site.title}}</a></h4>
-          {% for page in site.pages %}
-          {% if page.name != "index.html" and page.name != "style.scss" %}
-          <p><a href="{{site.baseurl}}{{page.url}}">{{page.name | replace: ".md", " "}}</a></p>
-          <!--{{page.url}}-->
-          {% endif %}
-          {% endfor %}
+        <h4>Docs</h4>
+        {% assign sorted_posts = site.posts | sort: "title" %}
+        {% for post in sorted_posts %}
+        <p style="margin-bottom: 0.4rem;"><a rel="prefetch" class="siteLinks" href="{{post.url}}">{{post.title}}</a></p>
+        {% endfor %}
+        <p>
+          <a style="width:100%;" href="/admin/collections/posts/new/"><button style="width:100%;" class="btn"><i
+            class="icon icon-edit"></i> New Doc</button>
+          </a>
+        </p>
+        <h4>Tags</h4>
+        {% assign tags = site.tags | sort %}
+        {% for tag in tags %}
+        <span class="site-tag">
+          <a href="/tags/{{ tag | first | slugify }}/"
+            style="font-size: {{ tag | last | size  |  times: 4 | plus: 80  }}%">
+            {{ tag[0] | replace:'-', ' ' }} ({{ tag | last | size }})
+          </a>
+        </span>
+        {% endfor %}
       </div>
     </div>
-  
     <a class="off-canvas-overlay" href="#close"></a>
-  
     <div class="off-canvas-content">
-      <div class="container">
-        <div class="content">
-          <div class="columns">
-            <div class="column col-9">
-            {{ content }}
-            </div>
-            <div class="column col-3">
-              <div class="js-toc">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <main class="container content">
+        <section class="columns">
+          {{ content }}
+        </section>
+      </main>
     </div>
   </div>
 
+  {% if page.path != "index.html" %}
   <script async defer src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
   <script>
-    window.onload = function() {
-       tocbot.init({
+    var url = window.location.pathname;
+    // console.log(url);
+    var links = document.getElementsByClassName("siteLinks");
+    // console.log(links[0].innerText)
+  </script>
+  <!-- <script src="/assets/prism.js"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script> -->
+  <!-- <script>
+    hljs.initHighlightingOnLoad();
+  </script> -->
+
+  {% endif %}
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script>
+    window.onload = function () {
+      console.log("jekyll search")
+      var sjs = SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('results-container'),
+        json: '/search.json'
+      });
+
+      console.log("tocbot")
+      tocbot.init({
         // Where to render the table of contents.
-        tocSelector: '.js-toc',
+        tocSelector: '#toc',
         // Where to grab the headings to build the table of contents.
-        contentSelector: '.content',
+        contentSelector: '#content',
         orderedList: false,
         // Which headings to grab inside of the contentSelector element.
         headingSelector: 'h1, h2, h3, h4, h5',
