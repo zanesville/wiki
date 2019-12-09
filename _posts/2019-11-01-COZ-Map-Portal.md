@@ -1,6 +1,6 @@
 ---
 title: COZ Map Portal | gis.coz.org
-tags: mapbox, test
+tags: mapbox
 ---
 
 This describes the publication process for the City of Zanesville Map Portal - gis.coz.org.

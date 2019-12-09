@@ -14,19 +14,16 @@ defaults:
     values:
       layout: "posts"
       permalink: /docs/:title/
-  -
-    scope:
-      path: "_tags"
-    values:
-      layout: "tags"
 
-plugins:
+plugins: 
   - jekyll-admin
+  - jekyll/tagging
 
 sass:
   sass_dir: _sass
 
-include: 
-  - _tags
-
 exclude: ["package.json", "package-lock.json", "README.md"]
+
+tag_page_layout: tags
+tag_page_dir: tags
+tag_permalink_style: pretty
