@@ -1,5 +1,6 @@
 ---
 title: Map-Portal Site Upgrades
+tags: mapbox
 ---
 
 #### ADA Layer Toggles with multiple group nesting

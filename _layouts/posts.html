@@ -2,6 +2,7 @@
 layout: default
 ---
 <div id="content" class="column col-md-12 col-10">
+
   <div id="breadcrumbs" style="opacity: 0.8;font-size:smaller;">
     {% assign crumbs = page.url | remove:'/index.html' | split: '/' %}
     <a href="/">Home</a>
@@ -14,6 +15,7 @@ layout: default
     {% endif %}
     {% endfor %}
   </div>
+  
   <h1>{% if page.title %}{{page.title}}{% else %}{{ page.name | replace: ".md", " "}}{% endif %}</h1>
   {{ content }}
 </div>
