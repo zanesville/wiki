@@ -1,7 +1,7 @@
 title: COZ GIS Wiki
 
 description: A website documenting GIS and data workflows for the City of Zanesville.
-baseurl: ""
+baseurl: "https://zanesville.github.io/wiki"
 url: "https://zanesville.github.io/"
 
 # permalink: :categories/:title/

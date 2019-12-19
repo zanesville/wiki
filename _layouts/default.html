@@ -7,10 +7,10 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,500,500i,700,700i|Noto+Sans:400,400i,700,700i|Source+Code+Pro&amp;subset=latin-ext"> -->
-  <link rel="stylesheet" href="/assets/spectre.css">
+  <link rel="stylesheet" href="{{site.baseurl}}/assets/spectre.css">
   <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" as="style"
     onload="this.rel='stylesheet'">
-  <link rel="preload" href="/assets/tango.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="{{site.baseurl}}/assets/tango.css" as="style" onload="this.rel='stylesheet'">
   <!-- <link rel="preload" href="/assets/prism.css" as="style" onload="this.rel='stylesheet'"> -->
 </head>
 
@@ -23,7 +23,7 @@
       <a href="/" class="navbar-brand mr-2">COZ GIS Wiki</a>
     </section>
     <section class="navbar-section">
-      <a class="btn btn-link" href="/admin/collections/{{page.path | replace: "_", ""}}"><i
+      <a class="btn btn-link" href="{{site.baseurl}}/admin/collections/{{page.path | replace: "_", ""}}"><i
           class="icon icon-edit"></i>
         Edit this page</a>
     </section>
@@ -46,7 +46,7 @@
         <p style="margin-bottom: 0.4rem;"><a rel="prefetch" class="siteLinks" href="{{post.url}}">{{post.title}}</a></p>
         {% endfor %}
         <p>
-          <a style="width:100%;" href="/admin/collections/posts/new/"><button style="width:100%;" class="btn"><i
+          <a style="width:100%;" href="{{site.baseurl}}/admin/collections/posts/new/"><button style="width:100%;" class="btn"><i
             class="icon icon-edit"></i> New Doc</button>
           </a>
         </p>
@@ -54,7 +54,7 @@
         {% assign tags = site.tags | sort %}
         {% for tag in tags %}
         <span class="site-tag">
-          <a href="/tags/{{ tag | first | slugify }}/"
+          <a href="{{site.baseurl}}/tags/{{ tag | first | slugify }}/"
             style="font-size: {{ tag | last | size  |  times: 4 | plus: 80  }}%">
             {{ tag[0] | replace:'-', ' ' }} ({{ tag | last | size }})
           </a>

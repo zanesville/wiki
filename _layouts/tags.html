@@ -6,7 +6,7 @@ This will be the title -->
 <div id="content" class="column col-md-12 col-10">
   <div id="breadcrumbs" style="opacity: 0.8;font-size:smaller;">
     {% assign crumbs = page.url | remove:'/index.html' | split: '/' %}
-    <a href="/">Home</a>
+    <a href="{{site.baseurl}}/">Home</a>
     {% for crumb in crumbs offset: 1 %}
     {% if forloop.last %}
     / {{ crumb | replace:'-',' ' | remove:'.html' | capitalize }}
@@ -22,7 +22,7 @@ This will be the title -->
   <h1>{{ page.tag | capitalize }}</h1>
   {% for post in site.tags[page.tag] %}
   <p>
-    <a href="{{ post.url }}"><h4>{{ post.title }}</h4></a>
+    <a href="{{site.baseurl}}{{ post.url }}"><h4>{{ post.title }}</h4></a>
   </p>
   {% endfor %}
 </section>
