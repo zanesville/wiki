@@ -14,4 +14,4 @@ tags: mapbox
 
 #### Attribute Table w/Export
 
-#### Better printed map with legends
+~~Better printed map with legends~~

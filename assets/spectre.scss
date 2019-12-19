@@ -236,7 +236,7 @@ BREADCRUMBS
   background-color: #07619d78;
 }
 /********/
-@media screen and (max-width:768px) {
+@media screen and (max-width:900px) {
   .js-toc {
     display: none;
   }
@@ -248,21 +248,17 @@ blockquote {
 }
 
 pre, pre.highlight {
-  margin: 1rem 0!important;
+  // margin: 1rem 0!important;
   background: #f9f9f9;
+  // background: #121212;
   padding: 0.5rem;
-  border-left: 0.25rem solid $dark-color;
-  border-right: 1px solid rgba(0,0,0,0.05);
-  border-top: 1px solid rgba(0,0,0,0.05);
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  // border-left: 0.25rem solid $dark-color;
+  // border-right: 1px solid rgba(0,0,0,0.05);
+  // border-top: 1px solid rgba(0,0,0,0.05);
+  // border-bottom: 1px solid rgba(0,0,0,0.05);
   line-height: 1.5;
   overflow-y: auto;
-}
-
-code {
-  background: transparent;
-  color: inherit;
-  font-family: inherit;
+  border: solid;
 }
 
 #results-container {

@@ -12,15 +12,6 @@ For example:
 ```
 utl_stormwater_impervious_areas
 ```
-Non-editable layers that do not need to be hosted on a web map will go in a separate database - ``ext``
-
-```
-group_owner_layer
-```
-For example:
-```
-trn_esri_railraods
-```
 
 **For administrative, engineering and a few other layers, look under all the groups types as the delination between what group things should be in was my own choice and may not be immediately apparent.** For example, right of way could go under administrative, engineering or transportation. I put the layer under engineering but it would fit into any of those categories.
 
@@ -36,8 +27,7 @@ Layer names should be all lowercase, with no spaces. Projections are 3735 NAD83 
 * census
 * esri (Esri data from the downloadable datasets should not be hosted online)
 
-Datasets created for one-off public request maps should be named pr_yyyymmdd_title and stored under GIS_Public_Requests/Year/Folder of the PR as shapefiles or GeoPackages
-?? COULD STORE THESE IN A PUBLIC REQUESTS DATABASE pub TO MAKE EVERYTHING LIVE IN THE SAME PLACE
+Datasets created for one-off public request maps should be named request_yyyymmdd_title and stored under GIS_Public_Requests/Year/Folder of the PR as shapefiles or GeoPackages
 
 ---
 ## Map Layer Groups 
@@ -58,13 +48,7 @@ Datasets created for one-off public request maps should be named pr_yyyymmdd_tit
 ## Database Names
 coz *Edit database defaults to edit do not show in db name*
 
-external, but that is a reserved name so ext *View only no edits allowed - if edits then move to coz* this is for data obtained from external sources and not maintained or edited by Zanesville
-
-## Materialized Views
-
-coz_view *View-only database - once we get postgres installed*
-
-> CONVERT LAYER LIST TO ACCORDIANS WITH JAVASCRIPT
+> TODO - CONVERT LAYER LIST TO ACCORDIANS WITH JAVASCRIPT
 
 Layer | Name | Category |
 --- | --- | --- |
