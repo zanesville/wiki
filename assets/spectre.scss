@@ -126,17 +126,17 @@ $zindex-4: 400 !default;
 
 @font-face {
   font-family: Metropolis;
-  src: url("/assets/metropolis/Metropolis-Regular.otf") format("opentype");
+  src: url("{{site.baseurl}}/assets/metropolis/Metropolis-Regular.otf") format("opentype");
 }
 
 @font-face {
   font-family: "Metropolis Bold";
-  src: url("/assets/metropolis/Metropolis-Bold.otf") format("opentype");
+  src: url("{{site.baseurl}}/assets/metropolis/Metropolis-Bold.otf") format("opentype");
 }
 
 @font-face {
   font-family: "Metropolis Light";
-  src: url("/assets/metropolis/Metropolis-Light.otf") format("opentype");
+  src: url("{{site.baseurl}}/assets/metropolis/Metropolis-Light.otf") format("opentype");
 }
 
 /**
@@ -150,7 +150,7 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: "Metropolis Bold";
+  font-family: "Metropolis Bold", inherit;
   font-weight: 700;
 }
 /****
