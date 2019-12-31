@@ -73,31 +73,20 @@
     </div>
   </div>
 
-  {% if page.path != "index.html" %}
-  <script async defer src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
-  <script>
-    var url = window.location.pathname;
-    // console.log(url);
-    var links = document.getElementsByClassName("siteLinks");
-    // console.log(links[0].innerText)
-  </script>
-  <!-- <script src="/assets/prism.js"></script> -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script> -->
-  <!-- <script>
-    hljs.initHighlightingOnLoad();
-  </script> -->
 
-  {% endif %}
   <script src="{{site.baseurl}}/assets/js/simple-jekyll-search.min.js"></script>
   <script>
+    console.log("jekyll search")
+    var sjs = SimpleJekyllSearch({
+      searchInput: document.getElementById('search-input'),
+      resultsContainer: document.getElementById('results-container'),
+      json: '{{site.baseurl}}/search.json'
+    });
+  </script>
+  {% if page.id %}
+  <script async defer src="{{site.baseurl}}/assets/js/tocbot.min.js"></script>
+  <script>
     window.onload = function () {
-      console.log("jekyll search")
-      var sjs = SimpleJekyllSearch({
-        searchInput: document.getElementById('search-input'),
-        resultsContainer: document.getElementById('results-container'),
-        json: '/search.json'
-      });
-
       console.log("tocbot")
       tocbot.init({
         // Where to render the table of contents.
@@ -110,6 +99,7 @@
       });
     }
   </script>
+  {% endif %}
 </body>
 
 </html>
