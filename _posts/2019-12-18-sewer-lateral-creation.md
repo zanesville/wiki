@@ -1,25 +1,29 @@
 ---
 title: Sewer Lateral Creation
 tags: sewers python models automation
+subtitle: Using ArcMap's Model Builder to Create Laterals from Inspection Camera Observations
 ---
 
->The following steps will snap the observation points to the existing sanitary lines with a 3 foot tolerance. It may be necessary to adjust the original lines to account for any errors in the existing dataset. Then the model will then create laterals of 20 feet at a 90 degree angle to the sanitary line. The inspection direction is not exported with the observations, so the model has to be run separately for the downstream inspections and the upstream inspections.
+>The following model will create laterals of 20 feet at a 90 degree angle to the sanitary line. The inspection direction is not exported with the observations, so the model has to be run separately for the downstream inspections and the upstream inspections. The obervation points need to already be snapped to the sanitary lines.
 
 ### Steps
 
-1. From WinCan - connect to the WinCan Map and export the Observation points
-2. In ArcMap - load a shapefile of the sanitary line layer ``utl_sanitary_lines`` (export from original if need be)
-3. Add the observation points to ArcMap
-4. Add the following definition query to the observation points, adjusting the OBS_OPCODE to capture all taps if need be
+1. From WinCan - connect to the WinCan Map.
+2. Highlight the Observation points, then  Layer > then Export, making sure to set the projection to 3735.
+3. In ArcMap - load a shapefile of the sanitary line layer ``utl_sanitary_lines`` (export from original if need be)
+4. Add the observation points to ArcMap
+5. Add the following definition query to the observation points, adjusting the OBS_OPCODE to capture all taps if need be
 ```sql
-"OBS_CLOCKP" <> 0 AND "OBS_OPCODE" IN ( 'TFA', 'TF', 'TBA')
+"OBS_OPCODE" IN ('TBA', 'TFA', 'TFB', 'TFC')
 ```
-5. Select the observations collected while running downstream
-6. Run the Lateral_Creation model in the WinCan_Models.tbx toolbox against these observations, checking the ``Downstream`` checkbox
-7. Do the same for the upstream observations, leaving the ``Downstream`` box unchecked
-8. Join the created laterals to the observation points on the OBS_PK field
-9. Copy over the DISTANCE field from the observations to the DISTANCE field in the laterals
-10. Copy over the OBS_OBSERV field to the NOTES field in the laterals
-11. Manually fill in the DIAMETER field
-12. Manually fill in the Class field with either "Lateral" or "Storm"
-13. Append the laterals to the master utl_sanitary_laterals feature in the Enterprise database (from QGIS)
+6. Select all the observation points that intersect the sanitary lines layer.
+7. Switch the selection, being sure to snap everything that did not snap to the sanitary lines layer. (Use integrate at your own risk.)
+8. Select the observations collected while running downstream
+9. Run the Lateral_Creation model in the WinCan_Models.tbx toolbox against these observations, leaving the ``Downstream`` checkbox checked
+10. Do the same for the upstream observations, unchecking the ``Downstream`` box
+11. Join the created laterals to the observation points on the OBS_PK field
+12. Copy over the DISTANCE field from the observations to the DISTANCE field in the laterals
+13. Copy over the OBS_OBSERV field to the NOTES field in the laterals
+14. Manually fill in the DIAMETER field
+15. Manually fill in the Class field with either "Lateral" or "Storm"
+16. Append the laterals to the master utl_sanitary_laterals feature in the Enterprise database (from QGIS)

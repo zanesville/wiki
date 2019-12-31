@@ -217,6 +217,11 @@ OFF CANVAS MAIN CONTENT
   margin: 0 0.2rem 1rem;
   min-height: 300px;
 }
+.card:hover, .card:focus {
+  background-color: whitesmoke;
+  box-shadow: 2px 2px 0px 0px #8acbf8;
+  cursor: pointer;
+}
 /****
 BREADCRUMBS
 ****/
