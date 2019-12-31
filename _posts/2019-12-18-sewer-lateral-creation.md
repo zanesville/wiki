@@ -26,4 +26,7 @@ subtitle: Using ArcMap's Model Builder to Create Laterals from Inspection Camera
 13. Copy over the OBS_OBSERV field to the NOTES field in the laterals
 14. Manually fill in the DIAMETER field
 15. Manually fill in the Class field with either "Lateral" or "Storm"
-16. Append the laterals to the master utl_sanitary_laterals feature in the Enterprise database (from QGIS)
+16. Manually fill in the VIDEO_TIME field and VIDEO_LINK field
+17. Manually fill in the PROJECT field (using the name of the WinCan project)
+18. Manually add the VIDEO_LINK to the AS YET UNKNOWN FIELD MAYBE INSPECT_LINK to the sanitary line layer (in QGIS)
+19. Append the laterals to the master utl_sanitary_laterals feature in the Enterprise database (in QGIS)
