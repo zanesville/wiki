@@ -7,7 +7,7 @@ tags: webmaps
 
 ### Using QGIS & Generate XYZ Tiles
 
-1. Georeference and Export the raster using the Web Mercator 3857 Projection (256 for No DATA)
+1. Georeference and Export the raster using the Web Mercator 3857 Projection (256 for No DATA) - Make sure to use the ITRF00 transformation when exporting (in QGIS the projection needs to be in CORS86 for this option to show up)
 2. Load the raster into QGIS
 3. Change the zoomed in sampling to Average and any other settings under properties
 4. Export to raster tiles using the Generate XYZ tiles tool
