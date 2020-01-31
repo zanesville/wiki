@@ -1,5 +1,6 @@
 ---
 title: GIS Vector Tile Servers
+tags: webmaps
 ---
 
 ## Tegola

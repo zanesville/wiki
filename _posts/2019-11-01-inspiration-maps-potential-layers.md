@@ -1,5 +1,6 @@
 ---
 title: Inspiration Maps & Potential Layers
+tags: webmaps
 ---
 
 ## Inspirational Municipal Map Viewers

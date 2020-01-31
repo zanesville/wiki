@@ -51,16 +51,18 @@
             class="icon icon-edit"></i> New Doc</button>
           </a>
         </p>
-        <h4>Tags</h4>
-        {% assign tags = site.tags | sort %}
-        {% for tag in tags %}
-        <span class="site-tag">
-          <a href="{{site.baseurl}}/tags/{{ tag | first | slugify }}/"
-            style="font-size: {{ tag | last | size  |  times: 4 | plus: 80  }}%">
-            {{ tag[0] | replace:'-', ' ' }} ({{ tag | last | size }})
-          </a>
-        </span>
-        {% endfor %}
+        <!-- <div>
+          <h4>Tags</h4>
+          {% assign tags = site.tags | sort %}
+          {% for tag in tags %}
+          <span class="site-tag">
+            <a href="{{site.baseurl}}/tags/{{ tag | first | slugify }}/"
+              style="font-size: {{ tag | last | size  |  times: 4 | plus: 80  }}%">
+              {{ tag[0] | replace:'-', ' ' }} ({{ tag | last | size }})
+            </a>
+          </span>
+        </div>
+        {% endfor %} -->
       </div>
     </div>
     <a class="off-canvas-overlay" href="#close"></a>

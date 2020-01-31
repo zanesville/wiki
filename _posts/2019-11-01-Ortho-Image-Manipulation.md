@@ -1,5 +1,6 @@
 ---
 title: Ortho Image Manipulation
+tags: webmaps
 ---
 
 ## Clipping and Resizing using GDAL or QGIS

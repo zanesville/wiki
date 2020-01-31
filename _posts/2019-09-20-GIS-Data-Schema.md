@@ -1,5 +1,6 @@
 ---
 title: GIS Data Schema
+tags: postgis
 ---
 
 ## Naming Convention

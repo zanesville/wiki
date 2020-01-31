@@ -1,6 +1,6 @@
 ---
 title: Sewer Lateral Creation
-tags: sewers python models automation
+tags: sewers python models
 subtitle: Using ArcMap's Model Builder to Create Laterals from Inspection Camera Observations
 ---
 

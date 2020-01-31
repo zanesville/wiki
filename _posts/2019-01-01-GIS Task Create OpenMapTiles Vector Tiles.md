@@ -1,5 +1,6 @@
 ---
 title: OpenMapTile Vector Tiles
+tags: webmaps vector-tiles
 ---
 
 ### In Ubunutu 18.04

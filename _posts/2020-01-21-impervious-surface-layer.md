@@ -5,7 +5,7 @@ tags: postgis
 
 The Impervious Surface layer was created in 2019. It was originally put together using aerial photos and field visits by students at Ohio University's Voinivich Center. The city finalized the dataset. 
 
-The master layer is broken out by parcel, billing account number, and partially by surface type. To get the final ERU, the features are dissolved on the account number. This was previously done with a complicated ArcMap model, but is now done directly Posgres. The view will not update automatically, but can be updated by right clicking in QGIS and clicking refresh view.
+The master layer is broken out by parcel, billing account number, and partially by surface type. To get the final ERU, the features are dissolved on the account number. This was previously done with a complicated ArcMap model, but is now done directly Postgres. The view will not update automatically, but can be updated by right clicking in QGIS and clicking refresh view.
 
 ## Creating the Master Dissolved Impervious Layer
 

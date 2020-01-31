@@ -9,7 +9,7 @@ tags: postgis
 - ArcGIS will not load up data from the default ``postgres`` database. You need to create a new database besides this default database.
 - [https://pro.arcgis.com/en/pro-app/help/data/geodatabases/manage-postgresql/data-types-postgresql.htm](https://pro.arcgis.com/en/pro-app/help/data/geodatabases/manage-postgresql/data-types-postgresql.htm)
 - Using the PostGIS built-in geometry
-- Row column ID for ArcGIS and when creating new layers - leave blank - PostGIS or Postgres using "id" and will auto increment this in QGIS if all goes well.
+- When creating new layers in QGIS by using the exporting to Postgres tool , leave the ID column blank, and make sure there is not field called "id".  Postgres will create an auto increment integer "id" field for you if all goes well.
 
 ## Split lines with Points
 ```sql
@@ -46,6 +46,8 @@ for each row execute procedure calc_length();
 ```
 
 ## Auto Increment ID
+Aain, this should be done for you when exporting to Postgres from QGIS. This method works but is not recommended.
+
 ```sql
 CREATE SEQUENCE project_id_seq;
 
