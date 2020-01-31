@@ -62,7 +62,7 @@ for (var i = 0; i < tags.length; i++) {
 
 for (var i=0; i < cards.length; i++) {
   cards[i].addEventListener("click", function(e) {
-    if (e.target.classList.contains("card-body")) window.location = this.children[0].dataset.link
+    if (!e.target.classList.contains("js-tags") && !e.target.classList.contains("chip") ) window.location = this.children[0].dataset.link
   })
 }
 
