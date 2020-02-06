@@ -11,6 +11,15 @@ tags: postgis
 - Using the PostGIS built-in geometry
 - When creating new layers in QGIS by using the exporting to Postgres tool , leave the ID column blank, and make sure there is not field called "id".  Postgres will create an auto increment integer "id" field for you if all goes well.
 
+## Node Postgres Tweaks
+
+**When adding INSERT priviledges to a Postgres user, this does give them the ability to add new features due to the user not having priviledges to the auto id_sequence.**
+
+```sql
+GRANT USAGE, SELECT ON SEQUENCE cities_id_seq TO www;
+```
+
+See [https://stackoverflow.com/questions/9325017/error-permission-denied-for-sequence-cities-id-seq-using-postgres](https://stackoverflow.com/questions/9325017/error-permission-denied-for-sequence-cities-id-seq-using-postgres)
 ## Split lines with Points
 ```sql
 CREATE MATERIALIZED VIEW lines_split_mv AS
