@@ -1,11 +1,17 @@
 ---
 title: Impervious Surface Layer
 tags: postgis
+subtitle: Explanation of the history and creation of the Impervious Surface layer
+  and the public layer view
 ---
 
 The Impervious Surface layer was created in 2019. It was originally put together using aerial photos and field visits by students at Ohio University's Voinivich Center. The city finalized the dataset. 
 
-The master layer is broken out by parcel, billing account number, and partially by surface type. To get the final ERU, the features are dissolved on the account number. This was previously done with a complicated ArcMap model, but is now done directly Postgres. The view will not update automatically, but can be updated by right clicking in QGIS and clicking refresh view.
+The master layer is broken out by parcel, billing account number, and partially by surface type. To get the final ERU, the features are dissolved on the account number. This was previously done with a complicated ArcMap model, but is now done directly in Postgres. The view will not update automatically, but can be updated by right clicking on the view in the QGIS 'Browser' and clicking refresh view.
+
+The layer consists of a polygon layer and a related table. The table keeps track of ERU credits and apartment credits. 
+
+In the following SQL definition, the "3" value is the current ERU fee. Billing keeps track of this fee themselves based on the ERU they have on file, so the ``imp_fee`` field is only used for GIS purposes, in case for example we want to quickly see the impervious fee for a property.
 
 ## Creating the Master Dissolved Impervious Layer
 

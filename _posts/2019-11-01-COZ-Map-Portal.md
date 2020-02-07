@@ -1,11 +1,11 @@
 ---
 title: COZ Map Portal | gis.coz.org
-tags: mapbox
+tags: mapbox webmaps
 ---
 
 >This documentation is not complete!!!!!!
 
-### Software
+### Software & Building
 NodeJS needs to be installed to build and deploy this website.
 
 Major Dependencies
@@ -13,15 +13,19 @@ Major Dependencies
 - Hexo
 - Gulp
 
+The site is hosted on Netlify and on an internal city server. Use netlify-cli command-line tools to deploy to Netlify, this is taken care of in the ``npm run deploy script``. 
+
 ### Maps
 
 ### Build Process
 
-### Host
-
-The site is hosted on Netlify and on an internal city server. Use netlify-cli command-line tools to deploy to Netlify, this is taken care of in the ``npm run deploy script``. 
-
 ### Data Sources
+
+- Mapbox
+	- basemap and ortho for one of our apps
+- 311.coz.org/data
+	- all vector data is derived from the database, updated nightly
+	- raster data is created from either QGIS or ArcMap/Pro and copied over manually
 
 ### Scripts
 
@@ -39,30 +43,13 @@ The site is hosted on Netlify and on an internal city server. Use netlify-cli co
   "deploy": "hexo clean & npm run tile & gulp build-mapbox & npm run parcel & npm run docs & hexo generate & gulp clean-public & gulp cdn & npm run pwa & netlify deploy --prod"
 ```
 
+## Possible Upgrades
+Multi-Select on features
+Imagery Historic Slider
+Multi-View for popup information, step through
+Attribute Table w/Export
 
 ## THIS ALL NEEDS UPATED Minimal Setup
-
-### Firewall
-
-I would need any firewall setup to allow the node server to talk to the cloud-based managed database
-
-### IIS Reverse Proxy
-
-For the interactive maps I need to proxy certain requests to NodeJS
-
-[https://www.sapho.com/documentation/how-to-configure-microsoft-iis-http-server-as-a-reverse-proxy-for-sapho-server-running-on-apache-tomcat/](https://www.sapho.com/documentation/how-to-configure-microsoft-iis-http-server-as-a-reverse-proxy-for-sapho-server-running-on-apache-tomcat/)
-
-
-[https://dev.to/petereysermans/hosting-a-node-js-application-on-windows-with-iis-as-reverse-proxy-397b](https://dev.to/petereysermans/hosting-a-node-js-application-on-windows-with-iis-as-reverse-proxy-397b)
-
-### SSL Certificate
-
-Everything needs to run on SSL to make all APIs happy
-
-[https://weblog.west-wind.com/posts/2016/feb/22/using-lets-encrypt-with-iis-on-windows](https://weblog.west-wind.com/posts/2016/feb/22/using-lets-encrypt-with-iis-on-windows)
-
-### Node Modules Globally Installed
-- pm2 - globally installed - this manages the node app, restarts it if it crashes, can force it to run on multiple cores, and can restart the app on-demand
 
 ### Some way to sync data from my computer to the server
 

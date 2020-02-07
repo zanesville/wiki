@@ -1,6 +1,6 @@
 ---
 title: Windows IIS Server 2012 R2
-tags: webserver
+tags: webmaps
 ---
 
 ## Compression
@@ -36,6 +36,18 @@ The users that are allowed to access the folders protected with Authentication a
 ## Node Reverse Proxy/URL Redirect
 
 [https://dev.to/petereysermans/hosting-a-node-js-application-on-windows-with-iis-as-reverse-proxy-397b](https://dev.to/petereysermans/hosting-a-node-js-application-on-windows-with-iis-as-reverse-proxy-397b)
+
+
+## SSL Certificate
+
+Everything needs to run on SSL to make all APIs happy
+
+[https://weblog.west-wind.com/posts/2016/feb/22/using-lets-encrypt-with-iis-on-windows](https://weblog.west-wind.com/posts/2016/feb/22/using-lets-encrypt-with-iis-on-windows)
+
+## Node Modules Globally Installed
+- pm2 - globally installed - this manages the node app, restarts it if it crashes, can force it to run on multiple cores, and can restart the app on-demand
+- pm2-windows-service pm2 normally runs as the user, so we need to run it as a service so that is does not shutdown when you logout of the server
+	- see [https://github.com/jon-hall/pm2-windows-service#readme](https://github.com/jon-hall/pm2-windows-service#readme)
 
 ## CORS
 
