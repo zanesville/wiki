@@ -31,6 +31,8 @@ Data collected outside of Collector, but with an RTK connection, needs transform
 
 ## References
 
+[Geographic Transformation Table with Accuracies](https://desktop.arcgis.com/en/arcmap/latest/map/projections/pdf/geographic_transformations.pdf)
+
 [Custom IRTF00 PostGIS Transformation](https://gis.stackexchange.com/questions/112198/proj4-postgis-transformations-between-wgs84-and-nad83-transformations-in-alask?rq=1)
 
 [Shift Toward More Accurate Data](http://proceedings.esri.com/library/userconf/seuc18/papers/seuc-31.pdf)
