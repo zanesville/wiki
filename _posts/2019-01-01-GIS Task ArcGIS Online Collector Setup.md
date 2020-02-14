@@ -1,17 +1,33 @@
 ---
 title: ArcGIS Online Collector Setup
-tags: agol
+tags: agol webmaps gps
 ---
-<span class="bg-error">Esri's Collector does not allow for snapping lines to points.</span>
+
+<span class="bg-error">Esri's Collector (not classic) on iOS now allows for snapping lines to points. This is not yet in Collector for Android.</span>
 
 ## All about Datum Transformations
 
-All data collected using ArcMap and published to the web via GeoJSON should be transformed using the IRTF00 transformation (the default in Pro, needs to be set in ArcMap). 
+Collector maps use the Web Mercator projection. When you upload data to AGOL from ArcPro, **I belive it is transformed with the default transformation - ITRF00 for NAD83**. Then when this is downloaded again, it is transformed back. This needs checked.
 
 For data collected with a GPS unit connected to the ODOT RTK or some other correction network, **according to [this post](https://community.esri.com/thread/225752-issues-with-wgs1984itrf00tonad1983-datum-transformation) by an Esri staffer:**
-> ...if the data went through any RTK or post-processing, it was aligned with the control points that were used--usually either an ITRF system or some realization of NAD83. At that point, the data is in the same coordinate system as the control point network, but software sometimes doesn't say that.
+> "...if the data went through any RTK or post-processing, it was aligned with the control points that were used--usually either an ITRF system or some realization of NAD83. At that point, the data is in the same coordinate system as the control point network, but software sometimes doesn't say that." - This is why you must set the transformation in Collector. It transforms the RTK point to Web Mercator. Again, this is transformed back to the origin projection of the map when downloaded.
 
-This seems to indicate that the data can be used as-is, at least according to this author.
+Data collected outside of Collector, but with an RTK connection, needs transformed to WGS84 with the ITRF00 projection to be viewed properly. It would then need to be transformed back to the origin projection if downloaded say as WGS84 GeoJSON.
+
+## Collector and Field Inspections
+
+1. Create or use an existing feature in a FileGeodatabase
+2. Create a table for inspections in the **same** database
+3. Add GlobalIDs to the feature(s)
+4. Add a field for the parent key in the inspection table and use the GUID for the type
+5. Optionally enable GlobalIDs for the inspection table
+6. Enable editor tracking - user AGOL defaults for fields in Survey123 or if created in AGOL (optional can do this in AGOL) - use batch mode - right click on tool
+	7. Creator
+	8. CreationDate
+	9. Editor
+	10. EditDate
+11.  Add a simple relationship class with no messaging
+12.  Share to AGOL
 
 ## References
 

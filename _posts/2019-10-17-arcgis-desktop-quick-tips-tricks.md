@@ -1,5 +1,7 @@
 ---
-title: ArcGIS Desktop Quick Tips & Tricks
+title: ArcGIS Desktop & PRO Quick Tips & Tricks
+tags: arcmap arcpro
+subtitle: Duplicate values code, Sequential fields code, and more
 ---
 
 ## Check for Duplicate Values
