@@ -44,7 +44,7 @@
         <h4>Docs</h4>
         {% assign sorted_posts = site.posts | sort: "title" %}
         {% for post in sorted_posts %}
-        <p style="margin-bottom: 0.4rem;"><a rel="prefetch" class="siteLinks" href="{{post.url}}">{{post.title}}</a></p>
+        <p style="margin-bottom: 0.4rem;"><a rel="prefetch" class="siteLinks" href="{{site.baseurl}}{{post.url}}">{{post.title}}</a></p>
         {% endfor %}
         <p>
           <a style="width:100%;" href="{{site.baseurl}}/admin/collections/posts/new/"><button style="width:100%;" class="btn"><i
