@@ -5,12 +5,12 @@ tags: agol webmaps gps
 
 <span class="bg-error">Esri's Collector (not classic) on iOS now allows for snapping lines to points. This is not yet in Collector for Android.</span>
 
-## All about Datum Transformations
+## Datum Transformations
 
-Collector maps use the Web Mercator projection. When you upload data to AGOL from ArcPro, **I belive it is transformed with the default transformation - ITRF00 for NAD83**. Then when this is downloaded again, it is transformed back. This needs checked.
+Collector maps use the Web Mercator projection. When you upload data to from ArcGIS Pro to AGOL, **I belive it is transformed with the default transformation - ITRF00 for NAD83**. Then when this is downloaded again, it is transformed back - not 100% sure of what transformation it uses when converting back but probably the default in ArcGIS Pro, which is the ITRF00.
 
 For data collected with a GPS unit connected to the ODOT RTK or some other correction network, **according to [this post](https://community.esri.com/thread/225752-issues-with-wgs1984itrf00tonad1983-datum-transformation) by an Esri staffer:**
-> "...if the data went through any RTK or post-processing, it was aligned with the control points that were used--usually either an ITRF system or some realization of NAD83. At that point, the data is in the same coordinate system as the control point network, but software sometimes doesn't say that." - This is why you must set the transformation in Collector. It transforms the RTK point to Web Mercator. Again, this is transformed back to the origin projection of the map when downloaded.
+> "...if the data went through any RTK or post-processing, it was aligned with the control points that were used--usually either an ITRF system or some realization of NAD83. At that point, the data is in the same coordinate system as the control point network, but software sometimes doesn't say that." - This is why you must set the transformation in Collector. It transforms the RTK point to Web Mercator. Again, this is transformed back to the original projection of the data when exported from AGOL.
 
 Data collected outside of Collector, but with an RTK connection, needs transformed to WGS84 with the ITRF00 projection to be viewed properly. It would then need to be transformed back to the origin projection if downloaded say as WGS84 GeoJSON.
 
@@ -28,6 +28,8 @@ Data collected outside of Collector, but with an RTK connection, needs transform
 	10. EditDate
 11.  Add a simple relationship class with no messaging
 12.  Share to AGOL
+13.  Any changes to the underlying service in ArcGIS Pro CANNOT CHANGE THE ORDER OF LAYERS OR ADD NEW LAYERS TO THE TOP OF THE LAYER LIST!!
+14.  The feature services are numbered from the layer list - so if you add a new layer to anywhere but the very bottom of the layer list and attempt to overwrite the existing AGOL service definition, it might fail or if it succeeds, it will create new numbers for the features services, hence breaking any existing maps.
 
 ## References
 

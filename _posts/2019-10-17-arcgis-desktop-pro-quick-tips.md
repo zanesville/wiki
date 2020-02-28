@@ -1,5 +1,5 @@
 ---
-title: ArcGIS Desktop & PRO Quick Tips & Tricks
+title: ArcGIS Desktop & PRO Quick Tips
 tags: arcmap arcpro
 subtitle: Duplicate values code, Sequential fields code, and more
 ---

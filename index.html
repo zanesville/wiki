@@ -4,7 +4,7 @@ layout: default
 {% assign sorted_posts = site.posts | sort: "title" %}
 {% for post in sorted_posts %}
 {% if post.name != "index.html" %}
-<article class=" js-cards column col-3 col-xl-6 col-sm-12">
+<article class=" js-cards column col-3 col-xl-6 col-sm-12" style="display: none;">
   <div class="card" data-link="{{site.baseurl}}{{post.url}}">
     <div class="card-header">
       <a href="{{site.baseurl}}{{post.url}}" style="color:inherit;">
@@ -40,31 +40,49 @@ var cards = document.querySelectorAll(".js-cards");
 var cardsMap = [...Array(cards.length)].map((_, i) => i);
 var tagsMap = [...Array(tags.length)].map((_, i) => i)
 
+var hashes = [];
 
 for (var i = 0; i < tags.length; i++) {
+
+  var tagName = tags[i].innerText;
+  if (hashes.indexOf(tagName) < 0) hashes.push(tagName)
+
   tags[i].addEventListener("click", function() {
-    var clicked = this.innerText;
-    console.log(this.innerText)
-    if (this.innerText == "reset") {
-      cardsMap.map((c, index) => {
-        cards[index].style.display = "block"
-      });
-    }else{
-      cardsMap.map((c, index) => {
-        cards[index].style.display = "none"
-      });
-      tagsMap.map((t, index) => {
-        if (tags[index].innerText === clicked) tags[index].closest(".js-cards").style.display = "block"
-      })
-    }
-    
+    var tag = this.innerText;
+    tagToggle(tag)
   })
 }
+
+function tagToggle(e) {
+  if (e == "reset" || hashes.indexOf(e) < 1) {
+    cardsMap.map((c, index) => {
+      cards[index].style.display = "block"
+    });
+    return
+  }else{
+    cardsMap.map((c, index) => {
+      cards[index].style.display = "none"
+    });
+    tagsMap.map((t, index) => {
+      if (tags[index].innerText === e) tags[index].closest(".js-cards").style.display = "block"
+    })
+  }
+}
+
+window.addEventListener("hashchange", function(e) {
+  var tag = e.newURL.split("#")[1];
+  tagToggle(tag)
+})
 
 for (var i=0; i < cards.length; i++) {
   cards[i].addEventListener("click", function(e) {
     if (!e.target.classList.contains("js-tags") && !e.target.classList.contains("chip") ) window.location = this.children[0].dataset.link
   })
+}
+
+window.onload = function() {
+  var hash = window.location.hash.replace("#", '')
+  tagToggle(hash)
 }
 
 </script>

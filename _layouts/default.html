@@ -51,20 +51,20 @@
             class="icon icon-edit"></i> New Doc</button>
           </a>
         </p>
-        <!-- <div>
+        <div id="tags">
           <h4>Tags</h4>
           {% assign tags = site.tags | sort %}
           {% for tag in tags %}
           <span class="site-tag">
-            <a href="{{site.baseurl}}/tags/{{ tag | first | slugify }}/"
-              style="font-size: {{ tag | last | size  |  times: 4 | plus: 80  }}%">
+            <a href="{{site.baseurl}}/#{{ tag | first | slugify }}" style="font-size: {{ tag | last | size  |  times: 4 | plus: 80  }}%">
               {{ tag[0] | replace:'-', ' ' }} ({{ tag | last | size }})
             </a>
           </span>
-        </div>
-        {% endfor %} -->
+        {% endfor %}
+      </div>
       </div>
     </div>
+
     <a class="off-canvas-overlay" href="#close"></a>
     <div class="off-canvas-content">
       <main class="container content">
@@ -97,7 +97,7 @@
         contentSelector: '#content',
         orderedList: false,
         // Which headings to grab inside of the contentSelector element.
-        headingSelector: 'h1, h2, h3, h4, h5',
+        headingSelector: 'h1, h2, h3, h4',
       });
     }
   </script>
