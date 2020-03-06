@@ -12,6 +12,9 @@ tags: webmaps
 
 [Dublin, OH](https://mapping.dublin.oh.us/dubscovery/)
 
+[Issaquah, WA](https://products.issaquahwa.gov/html5viewerpublic/index.html?viewer=activeprojectspublic)
+*Projects listing by polygons with pdf plan image*
+
 ## Potential GIS & Web Map Layers
 
 *  Art in Public Places
