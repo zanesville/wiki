@@ -4,7 +4,13 @@ tags: arcmap arcpro
 subtitle: Duplicate values code, Sequential fields code, and more
 ---
 
-## Check for Duplicate Values
+## Check for Fields that have values that exist more than once in the same field
+
+Use the "Summarize" tool, choose the field you want to check, using the "count" statistic, and a key field if needed, using "first"
+
+## Check for Duplicate Values - DO NOT USE THIS METHOD
+
+This method returns the first **duplicate**, not all values that exist more than once in the field.
 
 ```python
 uniqueList = []
