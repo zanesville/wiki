@@ -4,7 +4,11 @@ subtitle: GIS data is now stored in Postgres and editing in QGIS. This could sti
   be used in the future.
 ---
 
-## In ArcCatalog
+## Postgres Database
+
+The main PG database is backed up nightly offsite just all other city servers. A simple full backup can also be created using pgadmin.
+
+## In ArcCatalog Enable Editor Tracking
 
 1. Load data into the database
 2. Set permissions to the database
@@ -18,8 +22,8 @@ Numbers 3 and 4 can be done with with the  ``enableVersioningAndEditorTracking``
 
 ![](/assets/img/sdebackup.jpg)
 
-## FileGeodatabase Backup
-This model copies all the features inside an SDE database to an existing File Geodatabase with the day of the week in the name. It also writes all the data out to GeoJSON, cnad copies changed GeoJSON to the web server along with the new vector tiles. A similar model is needed to backup the tables inside the database as well. This model is run from inside a Node script using Python, on a schedule in Windows Task Scheduler.
+## FileGeodatabase Backup - NO LONGER USED
+This model copies all the features inside an SDE database to an existing File Geodatabase with the day of the week in the name. It also writes all the data out to GeoJSON, and copies changed GeoJSON to the web server along with the new vector tiles. A similar model is needed to backup the tables inside the database as well. This model is run from inside a Node script using Python, on a schedule in Windows Task Scheduler.
 
 **It is important to set the alias on the Model and the Toolbox for use in the python script!**
 
@@ -48,10 +52,6 @@ shell.end(function (err) {
 ```
 
 ![](/assets/img/fgdb-backup.jpg)
-
-## SDE Backup
-
-Coming Soon...
 
 ## References
 
