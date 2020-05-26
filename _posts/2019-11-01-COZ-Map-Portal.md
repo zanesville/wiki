@@ -3,7 +3,13 @@ title: COZ Map Portal | gis.coz.org
 tags: mapbox webmaps
 ---
 
->This documentation is not complete!!!!!!
+## Intro
+
+THe main city web maps are hosted on Netlify, powered by Mapbox GL JS, and are built with NodeJS. The main build tools are parcel-bundler, Gulp and the static site generator Hexo. The data is a combination of raster and vector tiles and raw GeoJSON data. The raster tiles are created using QGIS export xyz tiles from a raster *already in WGS84*. The vector tiles and GeoJSON data is created using the process below.
+
+The JavaScript that powers the map UI is a custom-built library. This library is bundled using parcel-bundler. It powers the layer control, popups, select, measure control, etc. The files should be self-explanatory but could be broken out even further into individual components.
+
+>The web maps could all be ported over to ArcGIS Online or the AGOL CMV, but those tools lack some of the functionality in the custom maps.
 
 ## Creating the Vector Tile Cache
 
