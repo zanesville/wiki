@@ -1,6 +1,7 @@
 ---
 title: Understanding ArcGIS Enterprise
 New field 1: Understanding ArcGIS Enterprise
+active: true
 ---
 
 ## Levels of ArcGIS Enterprise
