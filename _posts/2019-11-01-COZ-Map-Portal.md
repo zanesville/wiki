@@ -7,7 +7,7 @@ tags: mapbox webmaps
 
 ## Creating the Vector Tile Cache
 
-This is done with a script that runs nightly as a scheduled task on the GIS computer (it could run directly on the server as well). It is located at ``Z:\scans\GIS_Applications\production\geojson-sde-backup-and-vector-tile-cache\index.js``. This script does the following:
+This is done with a script that runs nightly as a scheduled task on the 311 server. It is located at ``\geospatial-applications\node_applications\production\gis-data-vector-tile-cache``. This script does the following:
 
 1. Spins up a simple Node server to serve out GeoJSON endpoints of all data in the Postgres database with user "viewer" select privledges.
 2. Downloads a layer list.
@@ -30,11 +30,7 @@ Major Dependencies
 - Hexo
 - Gulp
 
-The site is hosted on Netlify and on an internal city server. Use netlify-cli command-line tools to deploy to Netlify, this is taken care of in the ``npm run deploy script``. 
-
-### Maps
-
-### Build Process
+The site, besides the static vector tiles, raster tiles, and data attachments (PDFs, asset images, etc) is hosted on Netlify, with the other files hosted on the 311 server. Use netlify-cli command-line tools to deploy to Netlify, this is taken care of in the ``npm run deploy script``. 
 
 ### Data Sources
 
@@ -46,29 +42,10 @@ The site is hosted on Netlify and on an internal city server. Use netlify-cli co
 
 ### Scripts
 
-```sql
-  "tile": "node ./_scripts/tile-data.js",
-  "parcel": "parcel build ./source/assets/css/src/main.scss -d ./source/assets/css/dist & parcel build ./source/assets/js/build/coz-scripts-parcel.js --global cozMAP -d ./source/assets/js/dist --out-file coz-scripts.min.js --no-source-maps",
-  "parcel-dev": "parcel build ./source/assets/css/src/main.scss -d ./source/assets/css/dist & parcel build ./source/assets/js/build/coz-scripts-parcel.js --no-minify --global cozMAP -d ./source/assets/js/dist --out-file coz-scripts.min.js --detailed-report",
-  "docs": "gulp clean-jsdoc & jsdoc source/assets/js/src -c _jsdoc/jsdoc.json -d source/pages/docs",
-  "start": "hexo clean & npm run tile & gulp build-mapbox & npm run parcel-dev & hexo serve",
-  "serve": "hexo serve",
-  "pwa": "sw-precache --config=sw-precache-config.js",
-  "test": "hexo clean & npm run tile & gulp build-mapbox & npm run parcel & npm run docs & hexo generate & npm run pwa & http-server -p 4000 -o -c -1",
-  "test-deploy": "gulp cdn & hexo deploy",
-  "encrypt": "node _encrypt/encrypt.js",
-  "deploy": "hexo clean & npm run tile & gulp build-mapbox & npm run parcel & npm run docs & hexo generate & gulp clean-public & gulp cdn & npm run pwa & netlify deploy --prod"
-```
+See the package.json in the project folder.
 
-## Possible Upgrades
+## Potential Upgrades
 Multi-Select on features
 Imagery Historic Slider
-Multi-View for popup information, step through
 Attribute Table w/Export
-
-## THIS ALL NEEDS UPATED Minimal Setup
-
-### Some way to sync data from my computer to the server
-
-Setting up a git server would be great
- - [https://bonobogitserver.com/install/](https://bonobogitserver.com/install/)
+Area select and export of utility features
