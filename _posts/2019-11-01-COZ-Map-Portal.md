@@ -1,6 +1,7 @@
 ---
-title: COZ Map Portal | gis.coz.org
+title: City Web Maps
 tags: mapbox webmaps
+subtitle: A short overview of the city's web apps, web maps and other geospatial applications
 ---
 
 ## Intro
@@ -11,7 +12,19 @@ The JavaScript that powers the map UI is a custom-built library. This library is
 
 >The web maps could all be ported over to ArcGIS Online or the AGOL CMV, but those tools lack some of the functionality in the custom maps.
 
-## Creating the Vector Tile Cache
+## ArcGIS Online
+
+A few maps and layers are hosted on AGOL. Several Survey123 apps are hosted here, mainly for field inspections.
+
+## 311.coz.org
+
+This is a Windows IIS Server managed by IT that houses our GIS database as well as a NodeJS Fastify server. The Node server runs a few secured apps that talk directly to the GIS database.
+
+## gis.coz.org
+
+HexoJS (NodeJS) static site hosted on Netlify. Contains the majority of our web maps. More information below.
+
+### Creating the Vector Tile Cache
 
 This is done with a script that runs nightly as a scheduled task on the 311 server. It is located at ``\geospatial-applications\node_applications\production\gis-data-vector-tile-cache``. This script does the following:
 
@@ -50,7 +63,7 @@ The site, besides the static vector tiles, raster tiles, and data attachments (P
 
 See the package.json in the project folder.
 
-## Potential Upgrades
+### Potential Upgrades
 Multi-Select on features
 Imagery Historic Slider
 Attribute Table w/Export
