@@ -2,7 +2,7 @@
 layout: default
 ---
 {% assign sorted_posts = site.posts | sort: "title" %}
-<h2>Active Docs</h2><br>
+<h2 class="col-12">Active Docs</h2>
 {% for post in sorted_posts %}
 {% if post.name != "index.html" && post.active == true %}
 <article class=" js-cards column col-3 col-xl-6 col-sm-12" style="display: none;">
@@ -31,7 +31,7 @@ layout: default
 </article>
 {% endif %}
 {% endfor %}
-<h2>Inactive Docs</h2>
+<h2 class="col-12">Inactive Docs</h2>
 {% for post in sorted_posts %}
 {% if post.name != "index.html" && post.active == false %}
 <article class=" js-cards column col-3 col-xl-6 col-sm-12" style="display: none;">
