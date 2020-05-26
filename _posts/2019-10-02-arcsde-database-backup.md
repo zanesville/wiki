@@ -2,6 +2,7 @@
 title: ArcSDE Database Setup & Backup
 subtitle: GIS data is now stored in Postgres and editing in QGIS. This could still
   be used in the future.
+active: false
 ---
 
 ## Postgres Database
