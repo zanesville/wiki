@@ -2,9 +2,9 @@
 layout: default
 ---
 {% assign sorted_posts = site.posts | sort: "title" %}
-<h2>Active Docs</h2>
+<h2>Active Docs</h2><br>
 {% for post in sorted_posts %}
-{% if post.name != "index.html" && post.active %}
+{% if post.name != "index.html" && post.active == true %}
 <article class=" js-cards column col-3 col-xl-6 col-sm-12" style="display: none;">
   <div class="card{% if post.active %} active {%endif%}" data-link="{{site.baseurl}}{{post.url}}">
     <div class="card-header">
