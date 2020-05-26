@@ -9,7 +9,7 @@ tags: postgis
 - ArcGIS will not load up data from the default ``postgres`` database. You need to create a new database besides this default database.
 - [https://pro.arcgis.com/en/pro-app/help/data/geodatabases/manage-postgresql/data-types-postgresql.htm](https://pro.arcgis.com/en/pro-app/help/data/geodatabases/manage-postgresql/data-types-postgresql.htm)
 - Using the PostGIS built-in geometry
-- When creating new layers in QGIS by using the exporting to Postgres tool , leave the ID column blank, and make sure there is not field called "id".  Postgres will create an auto increment integer "id" field for you if all goes well.
+- When creating new layers in QGIS by using the exporting to Postgres tool , leave the ID column blank, and make sure there is not a field called "id" in the table, and if so delete that field.  Postgres will create an auto increment integer "id" field for you if all goes well. If an "id" field already exists Postgres will not create the autoincrementing function.
 
 ## Node Postgres Tweaks
 
@@ -21,6 +21,9 @@ GRANT USAGE, SELECT ON SEQUENCE cities_id_seq TO www;
 
 See [https://stackoverflow.com/questions/9325017/error-permission-denied-for-sequence-cities-id-seq-using-postgres](https://stackoverflow.com/questions/9325017/error-permission-denied-for-sequence-cities-id-seq-using-postgres)
 ## Split lines with Points
+
+It is not possible with the Standard license of ArcGIS Desktop or Pro to split lines with points. Here is a method using PostGIS.
+
 ```sql
 CREATE MATERIALIZED VIEW lines_split_mv AS
 SELECT a.id, (ST_Dump(ST_split(st_segmentize(a.geom,1),ST_Union(b.geom)))).geom::geometry(LINESTRING) AS geom 
@@ -28,7 +31,7 @@ FROM san_lines_post a, san_points b
 GROUP BY a.id;
 ```
 
-Convert a file from one format to another while specifying the destination projection:
+Convert a file from one format to another while specifying the destination projection. Be careful with this as the default transformation may be the same as what ArcGIS uses. Getting transformations to match up between QGIS and ArcGIS and PostGIS is a bit of a pain.
 
 ```powershell
 ogr2ogr -f GeoJSON -t_srs crs:84 lines-new.geojson lines.shp
