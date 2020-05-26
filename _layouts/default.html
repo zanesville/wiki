@@ -41,11 +41,15 @@
         <ul id="results-container"></ul>
       </form>
       <div class="container">
-        <h4>Docs</h4>
         {% assign sorted_posts = site.posts | sort: "title" %}
-        {% for post in sorted_posts %}
+        <h4>Active Docs</h4>
+        {% for post in sorted_posts %}{% if post.active == true %}
         <p style="margin-bottom: 0.4rem;"><a rel="prefetch" class="siteLinks" href="{{site.baseurl}}{{post.url}}">{{post.title}}</a></p>
-        {% endfor %}
+        {% endfor %}{%endif%}
+        <h4>Inactive Docs</h4>
+        {% for post in sorted_posts %}{% if post.active != true %}
+        <p style="margin-bottom: 0.4rem;"><a rel="prefetch" class="siteLinks" href="{{site.baseurl}}{{post.url}}">{{post.title}}</a></p>
+        {% endfor %}{%endif%}
         <p>
           <a style="width:100%;" href="{{site.baseurl}}/admin/collections/posts/new/"><button style="width:100%;" class="btn"><i
             class="icon icon-edit"></i> New Doc</button>
