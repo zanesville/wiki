@@ -5,7 +5,7 @@ layout: default
 {% for post in sorted_posts %}
 {% if post.name != "index.html" %}
 <article class=" js-cards column col-3 col-xl-6 col-sm-12" style="display: none;">
-  <div class="card{% if post.active == "true" %} active {%endif%}" data-link="{{site.baseurl}}{{post.url}}">
+  <div class="card{% if post.active %} active {%endif%}" data-link="{{site.baseurl}}{{post.url}}">
     <div class="card-header">
       <a href="{{site.baseurl}}{{post.url}}" style="color:inherit;">
         <h3>{{post.title | replace: "_posts/", ""}}</h3>
