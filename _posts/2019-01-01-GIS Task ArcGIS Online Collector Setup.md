@@ -1,6 +1,7 @@
 ---
 title: ArcGIS Online Collector Setup
 tags: agol webmaps gps
+active: true
 ---
 
 <span class="bg-error">Esri's Collector (not classic) on iOS now allows for snapping lines to points. This is not yet in Collector for Android.</span>
