@@ -256,12 +256,14 @@ BREADCRUMBS
 
 blockquote {
   background: whitesmoke;
-  border-left: 0.25rem solid #2f363d;
+  border-left: 0.25rem solid #8acbf8;
 }
+
 code {
   background: transparent;
   padding: 0;
 }
+
 pre, pre.highlight {
   // margin: 1rem 0!important;
   // background: #f9f9f9;
@@ -286,6 +288,7 @@ pre, pre.highlight {
   z-index: 2;
   width: calc(100% - 24px);
 }
+
 #results-container li {
   list-style: none;
   padding: 5px 10px;
