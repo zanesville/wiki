@@ -14,6 +14,7 @@ defaults:
     values:
       layout: "posts"
       permalink: /docs/:title/
+      active: true
 
 plugins: 
   - jekyll-admin
