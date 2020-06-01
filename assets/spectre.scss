@@ -229,6 +229,11 @@ OFF CANVAS MAIN CONTENT
   cursor: pointer;
   opacity: 1;
 }
+
+.card-body {
+  text-transform: capitalize;
+}
+
 /****
 BREADCRUMBS
 ****/
