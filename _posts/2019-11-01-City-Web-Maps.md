@@ -6,11 +6,11 @@ subtitle: A short overview of the city's web apps, web maps and other geospatial
 
 ## Intro
 
-THe main city web maps are hosted on Netlify, powered by Mapbox GL JS, and are built with NodeJS. The main build tools are parcel-bundler, Gulp and the static site generator Hexo. The data is a combination of raster and vector tiles and raw GeoJSON data. The raster tiles are created using QGIS export xyz tiles from a raster *already in WGS84*. The vector tiles and GeoJSON data is created using the process below.
+The main city web maps and a handful of apps are (mostly) hosted on Netlify, powered by Mapbox GL JS, and are built with NodeJS. The main build tools are parcel-bundler, Gulp and the static site generator Hexo. The data is a combination of raster and vector tiles and raw GeoJSON data. The raster tiles are created using QGIS export xyz tiles from a raster *already in WGS84*. The vector tiles and GeoJSON data is created using the process below.
 
 >The web maps could all be ported over to ArcGIS Online or the AGOL CMV, but those tools lack some of the functionality in the custom maps.
 
-The JavaScript that powers the map UI is a custom-built library. This library is bundled using parcel-bundler. It powers the layer control, popups, select, measure control, etc. The files should be self-explanatory but could be broken out even further into individual components.
+The JavaScript that powers the map controls such as the layer control and network trace control is a custom-built library. This library is bundled using parcel-bundler. The files should be self-explanatory but could be broken out even further into individual components.
 
 ## ArcGIS Online
 
@@ -18,7 +18,7 @@ A few maps and layers are hosted on AGOL. Several Survey123 apps are hosted here
 
 ## 311.coz.org
 
-This is a Windows IIS Server managed by IT that houses our GIS database as well as a NodeJS Fastify server. The Node server runs a few secured apps that talk directly to the GIS database.
+This is a Windows IIS Server managed by IT that houses our GIS database, static files for the web maps including raster tiles, vector tiles, and attachments, as well as a NodeJS Fastify server for a handful of custom built CRUD apps. These Node apps talk directly to the GIS database.
 
 ## gis.coz.org
 
@@ -38,18 +38,18 @@ This is done with a script that runs nightly as a scheduled task on the 311 serv
 8. Creates a vector tile cache on the 311 server using a modified version of ``geojson2mvt``.
 9. An available layers list is updated on the 311 server as is the layerCacheList.json in the script folder.
 
->Some large files, such as the ``env_contours_10ft_simplified`` are too large to be cached using this script. The vector tiles for any large files such as these were created by first exposting the geojson from QGIS then using the ``vtile`` script directly on this file, increasing the Node memory limit with ``node --max_old_space_size=16384 vtile -f filename -Z 16`` 
+>Some large files, such as the ``env_contours_10ft_simplified`` are too large to be cached using this script. The vector tiles for any large files such as these were created by first exposting the geojson from QGIS then using the ``vtile`` script directly on the file, increasing the Node memory limit with ``node --max_old_space_size=16384 vtile -f filename -Z 16`` 
 
 
 ### Software & Building
 NodeJS needs to be installed to build and deploy this website.
 
 Major Dependencies
-- Parcel
+- Parcel - installed globally
 - Hexo
-- Gulp
+- Gulp - installed globally
 
-The site, besides the static vector tiles, raster tiles, and data attachments (PDFs, asset images, etc) is hosted on Netlify, with the other files hosted on the 311 server. Use netlify-cli command-line tools to deploy to Netlify, this is taken care of in the ``npm run deploy script``. 
+The site, besides the static vector tiles, raster tiles, and data attachments (PDFs, asset images, etc) is hosted on Netlify, with the other files hosted on the 311 server. Use netlify-cli command-line tools to deploy to Netlify, this is taken care of in the ``npm run deploy`` script. 
 
 ### Data Sources
 
