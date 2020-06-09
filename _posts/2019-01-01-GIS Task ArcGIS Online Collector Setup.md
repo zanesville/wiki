@@ -4,6 +4,13 @@ tags: agol webmaps gps
 active: true
 ---
 
+## ODOT VRS RTK Setup
+
+- Apply for a free password from ODOT
+- Setup the Collector profile - each user needs their own profile
+- Use 3735 NAD 83 SP South, Transformation ITRF00 or ITRF08
+- Use Mountpoint ODOT_VRS_RTCM23??????
+
 <span class="bg-error">Esri's Collector (not classic) on iOS now allows for snapping lines to points. This is not yet in Collector for Android.</span>
 
 ## Datum Transformations
