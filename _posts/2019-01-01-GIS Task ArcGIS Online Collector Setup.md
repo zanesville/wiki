@@ -6,7 +6,7 @@ active: true
 
 ## ODOT VRS RTK Setup
 
-- Apply for a free password from ODOT
+- Apply for a free password from ODOT - [more information](http://www.dot.state.oh.us/Divisions/Engineering/CaddMapping/Aerial/Pages/VRSRTK.aspx)
 - Setup the Collector profile - each user needs their own profile
 - Use 3735 NAD 83 SP South, Transformation ITRF00 or ITRF08
 - Use Mountpoint ODOT_VRS_RTCM23??????
