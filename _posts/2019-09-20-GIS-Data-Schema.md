@@ -3,6 +3,8 @@ title: GIS Data Schema
 tags: postgis
 subtitle: The how and why of the layer naming conventions in the GIS Database
 ---
+## Metadata
+Postgres allows for the editing of a "Comments" field in the table metadata. This can be used to store metadata on the layer, as there is no other built-in method for storing metadata in Postgres, and the metadata fields in QGIS exist only inside the current project. This Comments field will show up in QGIS under Properties-Information-Comments.
 
 ## Naming Convention
 This post outlines the naming convention for the layers in the GIS database. I also include some reference material and how I came up with the naming scheme.
