@@ -1,6 +1,6 @@
 ---
 title: Updating the Tax Parcels
-tags: arcgis pro
+tags: arcgispro webmaps
 subtitle: Step by Step Process for Updating Parcel Data from the County GIS
 ---
 Download ExtractExcel to Z:\scans\GIS\Tax Parcel\ParcelsMUS\Updates
