@@ -30,3 +30,5 @@ ftp://ftp.mceo.org/Transfer/GIS/Parcel/
 9. Update the Public Notification AGOL Web Map Layer by overwirting existing service - reads from Postgres
 
 10. Add view permissions to parcels in Postgres to viewer so they will get downloaded during nightly updates
+
+11. Run the vector tile script on the 311 server if need be. 
