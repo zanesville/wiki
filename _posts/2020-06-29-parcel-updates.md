@@ -16,6 +16,8 @@ Extract both files to their folders, overwriting the existing files
 Download TAXPARCEL19.shp or latest parcel file and overwrite existing
 ftp://ftp.mceo.org/Transfer/GIS/Parcel/
 
+**Careful if downloading a new named file, some of the field names have been changed in the model and will need to be changed again.**
+
 Run the Parcels Update model from the ArcPRO TaxParcelUpdates Project in the GIS\Tax Parcels folder
 
 Update the Public Notification AGOL Web Map Layer by overwirting existing service - reads from ??
