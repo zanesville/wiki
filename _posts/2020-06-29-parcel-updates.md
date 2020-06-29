@@ -4,10 +4,10 @@ tags: arcgispro webmaps
 subtitle: Step by Step Process for Updating Parcel Data from the County GIS
 ---
 1. Download ExtractExcel to Z:\scans\GIS\Tax Parcel\ParcelsMUS\Updates
-ftp://ftp.mceo.org/Transfer/GIS/Tax%20Data/
+ - ftp://ftp.mceo.org/Transfer/GIS/Tax%20Data/
 
 2. Download Full Export ((also named Extract Excel) to Z:\scans\GIS\Tax Parcel\ParcelsMUS\Updates
-ftp://ftp.mceo.org/Transfer/GIS/Tax%20Data/
+ - ftp://ftp.mceo.org/Transfer/GIS/Tax%20Data/
 
 3. Rename Full Export folder to ExtractExcelFull
 
@@ -16,7 +16,7 @@ ftp://ftp.mceo.org/Transfer/GIS/Tax%20Data/
 5. Download TAXPARCEL19.shp or latest parcel file and overwrite existing
 ftp://ftp.mceo.org/Transfer/GIS/Parcel/
 
-**Careful if downloading a new named file as some of the field names have been changed in the field mapping in the model and will need to be changed again to match the current parcel file in Postgres.**
+> **Careful if downloading a new named file as some of the field names have been changed in the field mapping in the model and will need to be changed again to match the current parcel file in Postgres.**
 
 6. Run the Parcels Update model from the ArcPRO TaxParcelUpdates Project in the GIS\Tax Parcels folder
 
