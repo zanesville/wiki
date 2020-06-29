@@ -3,25 +3,27 @@ title: Updating the Tax Parcels
 tags: arcgispro webmaps
 subtitle: Step by Step Process for Updating Parcel Data from the County GIS
 ---
-Download ExtractExcel to Z:\scans\GIS\Tax Parcel\ParcelsMUS\Updates
+1. Download ExtractExcel to Z:\scans\GIS\Tax Parcel\ParcelsMUS\Updates
 ftp://ftp.mceo.org/Transfer/GIS/Tax%20Data/
 
-Download Full Export ((also named Extract Excel) to Z:\scans\GIS\Tax Parcel\ParcelsMUS\Updates
+2. Download Full Export ((also named Extract Excel) to Z:\scans\GIS\Tax Parcel\ParcelsMUS\Updates
 ftp://ftp.mceo.org/Transfer/GIS/Tax%20Data/
 
-Rename Full Export folder to ExtractExcelFull
+3. Rename Full Export folder to ExtractExcelFull
 
-Extract both files to their folders, overwriting the existing files
+4. Extract both files to their folders, overwriting the existing files
 
-Download TAXPARCEL19.shp or latest parcel file and overwrite existing
+5. Download TAXPARCEL19.shp or latest parcel file and overwrite existing
 ftp://ftp.mceo.org/Transfer/GIS/Parcel/
 
 **Careful if downloading a new named file as some of the field names have been changed in the field mapping in the model and will need to be changed again to match the current parcel file in Postgres.**
 
-Run the Parcels Update model from the ArcPRO TaxParcelUpdates Project in the GIS\Tax Parcels folder
+6. Run the Parcels Update model from the ArcPRO TaxParcelUpdates Project in the GIS\Tax Parcels folder
 
-Update the Public Notification AGOL Web Map Layer by overwirting existing service - reads from ??
+7. Run Fix Geometries in QGIS on the updated parcel file
 
-Import the parcels into Postgres, overwriting existing and converting all fields to lowercase
+8. Import the parcels into Postgres, overwriting existing and converting all fields to lowercase
 
-Add view permissions to parcels in Postgres to viewer so they will get downloaded during nightly updates
+9. Update the Public Notification AGOL Web Map Layer by overwirting existing service - reads from Postgres
+
+10. Add view permissions to parcels in Postgres to viewer so they will get downloaded during nightly updates
