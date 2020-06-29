@@ -4,7 +4,7 @@ tags: arcgispro webmaps
 subtitle: Step by Step Process for Updating Parcel Data from the County GIS
 ---
 
-Updating the parcel file seems like a straightforward task, but the process can sometimes take several hours depending on whether or not there are new files from the county, new data schemas, problems with the Postgres import, problems with the AGOL updload...etc.
+> Updating the parcel file seems like a straightforward task, but the process can sometimes take several hours depending on whether or not there are new files from the county, new data schemas, problems with the Postgres import, problems with the AGOL updload...etc.
 
 1. Download ExtractExcel to Z:\scans\GIS\Tax Parcel\ParcelsMUS\Updates
  - ftp://ftp.mceo.org/Transfer/GIS/Tax%20Data/
