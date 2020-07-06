@@ -4,7 +4,7 @@ tags: sewers python models
 subtitle: Using ArcMap's Model Builder to Create Laterals from Inspection Camera Observations
 ---
 
->The following model will create laterals of 20 feet at a 90 degree angle to the sanitary line. The inspection direction is not exported with the observations, so the model has to be run separately for the downstream inspections and the upstream inspections. The obervation points need to already be snapped to the sanitary lines.
+>The following model will create laterals of ~16 feet at a 90 degree angle to the sanitary line. The inspection direction is not exported with the observations, so the model has to be run separately for the downstream inspections and the upstream inspections. The obervation points need to already be snapped to the sanitary lines.
 
 ### Steps
 
