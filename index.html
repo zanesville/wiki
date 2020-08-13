@@ -7,6 +7,11 @@ layout: default
 <blockquote>
   This purpose of this wiki is to provide information for how to manage the Zanesville GIS system. All current word documents stored on the city servers are being transitioned to this wiki to make it easier to find and organize content.
 </blockquote>
+<hr>
+<blockquote>
+  The default definition for SRID 3735 in PostGIS has been updated internally to reflect the ESRI ITRF00 transformation - 
+  <pre>+proj=lcc +lat_1=40.03333333333333 +lat_2=38.73333333333333 +lat_0=38 +lon_0=-82.5 +x_0=600000 +y_0=0 +ellps=GRS80 +towgs84=-0.9956,1.9013,0.5215,0.025915,0.009246,0.011599,-0.00062 +units=us-ft +no_defs</pre>
+</blockquote>
 {% assign sorted_posts = site.posts | sort: "title" %}
 <h2 class="col-12" style="padding: 0 1rem">Active Docs</h2>
 {% for post in sorted_posts %}
