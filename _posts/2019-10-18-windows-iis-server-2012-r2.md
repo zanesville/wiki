@@ -3,6 +3,9 @@ title: Windows IIS Server 2012 R2
 tags: webmaps
 ---
 
+## Node Apps Start at Boot
+see https://thomasswilliams.github.io/2020/04/07/installing-pm2-windows.html
+
 ## Compression
 
 compression types have to be listed before */*
