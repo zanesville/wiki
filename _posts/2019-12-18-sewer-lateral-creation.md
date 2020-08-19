@@ -10,15 +10,15 @@ subtitle: Using ArcMap's Model Builder to Create Laterals from Inspection Camera
 
 1. From WinCan - connect to the WinCan Map.
 2. Highlight the Observation points, then  Layer > then Export, making sure to set the projection to 3735.
-3. In ArcGIS Pro - load a shapefile of the sanitary line layer ``utl_sanitary_lines`` (export from original if need be)
+3. In ArcGIS Pro - load the shapefile of the sanitary line layer that was used to create the WinCan project ``utl_sanitary_lines``.
 4. Add the observation points to Pro
 5. Add the following definition query to the observation points, adjusting the OBS_OPCODE to remove all non-taps - manholes, water level, misc observations
 ```sql
-"OBS_OPCODE" NOT IN ('AMH', 'WL')
+"OBS_OPCODE" NOT IN ('AMH', 'MWL')
 ```
 6. Select all the observation points that intersect the sanitary lines layer.
 7. Switch the selection, being sure to snap everything that did not snap to the sanitary lines layer. (Use integrate at your own risk.)
-8. Select the observations collected while running downstream
+8. Select the observations collected while running downstream.
 9. Run the Lateral_Creation ArcGIS Pro model in the WinCan_Models.tbx toolbox against these observations, leaving the ``Downstream`` checkbox checked
 10. Do the same for the upstream observations, unchecking the ``Downstream`` box
 11. Join the created laterals to the observation points on the OBS_PK field
