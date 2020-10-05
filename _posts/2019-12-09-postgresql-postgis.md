@@ -3,6 +3,15 @@ title: PostgreSQL & PostGIS
 tags: postgis
 ---
 
+## Set X coordinate or y coordinate of Polygon
+
+```sql
+UPDATE layer_name
+SET ycoord = ST_Y(ST_Transform(ST_Centroid(geom), 4326))
+where ycoord IS NULL
+returning *
+```
+
 ## ArcGIS Desktop Query Layers
 > When you access a database table through a Database Connection, query layer, or web service, ArcGIS filters out any unsupported data types. ArcGIS does not display unsupported data types, and you cannot edit unsupported data types through ArcGIS.
 
