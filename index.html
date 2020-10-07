@@ -1,21 +1,41 @@
 ---
 layout: default
 ---
-<h2>
-  Zanesville GIS & Data Wiki
-</h2>
+<div class="hero bg-gray">
+  <div class="hero-body">
+    <h1>Zanesville GIS Wiki</h1>
+    <p>Welcome to the GIS Wiki!</p>
+  </div>
+</div>
+
 <blockquote>
   This purpose of this wiki is to provide information for how to manage the Zanesville GIS system. All current word documents stored on the city servers are being transitioned to this wiki to make it easier to find and organize content.
 </blockquote>
+
 <hr>
+
 <blockquote>
   The default definition for SRID 3735 in PostGIS has been updated internally to reflect the ESRI ITRF00 transformation - 
   <pre>+proj=lcc +lat_1=40.03333333333333 +lat_2=38.73333333333333 +lat_0=38 +lon_0=-82.5 +x_0=600000 +y_0=0 +ellps=GRS80 +towgs84=-0.9956,1.9013,0.5215,0.025915,0.009246,0.011599,-0.00062 +units=us-ft +no_defs</pre>
 </blockquote>
 
 {% for category in site.categories | reverse %}
+<div class="col-4">
+  <div class="card">
+    <div class="card-image"><img class="img-responsive" src="" alt="image"></div>
+    <div class="card-header">
+      <div class="card-title h1" style="text-transform:capitalize;">{{ category[0] }}</div>
+      <div class="card-subtitle text-gray">Subtitle</div>
+    </div>
+    <div class="card-body">Description</div>
+    <div class="card-footer"><a class="btn btn-primary" href="#{{category[0]}}"></a></div>
+  </div>
+</div>
+{% endfor %}
+
+{% for category in site.categories | reverse %}
 {% assign sorted_posts = category[1] | sort: "title" %}
-<h2 class="col-12" style="padding: 0 1rem;text-transform:capitalize;">{{ category[0] }}</h2>
+<h2 class="col-12" style="padding: 0 1rem;text-transform:capitalize;" id="{{ category[0] }}">{{ category[0] }}</h2>
 {% for post in sorted_posts %}
 {% if post.name != "index.html"%}
 <article class=" js-cards column col-3 col-xl-6 col-sm-12" style="display: none;">
