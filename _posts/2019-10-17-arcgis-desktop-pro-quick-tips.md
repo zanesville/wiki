@@ -2,6 +2,7 @@
 title: ArcGIS Desktop & PRO Quick Tips
 tags: arcmap arcpro
 subtitle: Duplicate values code, Sequential fields code, and more
+category: test
 ---
 
 ## Check for Fields that have values that exist more than once in the same field
