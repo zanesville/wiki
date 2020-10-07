@@ -307,3 +307,10 @@ table {
 .form-input {
   border-color: #1976D2;
 }
+
+.card .img-responsive {
+  object-fit: cover;
+  object-position: center;
+  height: 240px;
+  width: 100%;
+}
