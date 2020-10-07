@@ -1,7 +1,7 @@
 ---
 title: OpenMapTile Vector Tiles
 tags: webmaps vector-tiles
-active: false
+category: archive
 ---
 
 This post outlines how you could use the OpenMapTiles project to create a custom OpenStreetMap extract of vector tiles for use in our maps. We use so little credits on Mapbox that this has not been utilized.
