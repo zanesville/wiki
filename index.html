@@ -14,24 +14,29 @@ layout: default
 
 <hr>
 
+{% for category in site.categories | reverse %}
+<div class="col-4">
+  <a class="btn btn-primary" href="#{{category[0]}}">
+  <div class="card active">
+    <div class="card-image"><img class="img-responsive" src="{{ category[0] }}.jpg" alt="map"></div>
+    <div class="card-header">
+      <div class="card-title h2" style="text-transform:capitalize;">{{ category[0] }}</div>
+      <div class="card-subtitle text-gray">Subtitle</div>
+    </div>
+    <div class="card-body">Description</div>
+    <div class="card-footer"></div>
+  </div></a>
+</div>
+{% endfor %}
+
 <blockquote>
   The default definition for SRID 3735 in PostGIS has been updated internally to reflect the ESRI ITRF00 transformation - 
   <pre>+proj=lcc +lat_1=40.03333333333333 +lat_2=38.73333333333333 +lat_0=38 +lon_0=-82.5 +x_0=600000 +y_0=0 +ellps=GRS80 +towgs84=-0.9956,1.9013,0.5215,0.025915,0.009246,0.011599,-0.00062 +units=us-ft +no_defs</pre>
 </blockquote>
 
-{% for category in site.categories | reverse %}
-<div class="col-4">
-  <div class="card active">
-    <div class="card-image"><img class="img-responsive" src="{{ category[0] }}.jpg" alt="map"></div>
-    <div class="card-header">
-      <div class="card-title h1" style="text-transform:capitalize;">{{ category[0] }}</div>
-      <div class="card-subtitle text-gray">Subtitle</div>
-    </div>
-    <div class="card-body">Description</div>
-    <div class="card-footer"><a class="btn btn-primary" href="#{{category[0]}}"></a></div>
-  </div>
-</div>
-{% endfor %}
+<section class="col-12">
+<h1>Categories</h1>
+</section>
 
 {% for category in site.categories | reverse %}
 {% assign sorted_posts = category[1] | sort: "title" %}
