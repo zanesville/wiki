@@ -43,7 +43,7 @@
       <div class="container">
         {% for category in site.categories | reverse %}
         {% assign sorted_posts = category[1] | sort: "title" %}
-        <h4>{{category[0]</h4>
+        <h4>{{category[0]}}</h4>
         {% for post in sorted_posts %}
         <p style="margin-bottom: 0.4rem;"><a rel="prefetch" class="siteLinks" href="{{site.baseurl}}{{post.url}}">{{post.title}}</a></p>
         {% endfor %}
