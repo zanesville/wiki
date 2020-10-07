@@ -37,7 +37,7 @@ layout: default
 <h1>Categories</h1>
 </section>
 
-{% for category in site.categories | reverse %}
+{% for category in site.categories | sort | reversed %}
 {% assign sorted_posts = category[1] | sort: "title" %}
 <h2 class="col-12" style="padding: 0 1rem;text-transform:capitalize;" id="{{ category[0] }}">{{ category[0] }}</h2>
 {% for post in sorted_posts %}
