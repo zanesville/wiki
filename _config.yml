@@ -13,8 +13,9 @@ defaults:
       path: "_posts"
     values:
       layout: "posts"
-      permalink: /docs/:title/
+  #    permalink: /docs/:title/
       active: true
+      category: active
 
 plugins: 
   - jekyll-admin
