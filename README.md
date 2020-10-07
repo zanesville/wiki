@@ -10,7 +10,7 @@ The site is a Jekyll template, served by GitHub. It uses Spectre CSS and Tocbot 
 
 - Projects
   - Main projects for GIS
-- Docs (Default - set in config.yml)
+- Docs (default - set in [config.yml](https://github.com/zanesville/wiki/blob/master/_config.yml))
   - Helpful hints and tricks
 - Archive
   - Old projects and docs that might be of interest
