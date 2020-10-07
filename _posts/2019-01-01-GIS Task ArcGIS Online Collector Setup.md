@@ -2,7 +2,6 @@
 title: ArcGIS Online Collector Setup
 tags: agol webmaps gps
 active: true
-category: test
 ---
 
 ## ODOT VRS RTK Setup
