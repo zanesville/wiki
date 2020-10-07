@@ -14,7 +14,6 @@ defaults:
     values:
       layout: "posts"
       permalink: /:categories/:title/
-      active: true
       category: docs
 
 plugins: 
