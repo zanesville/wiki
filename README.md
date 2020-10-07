@@ -8,8 +8,11 @@ The site is a Jekyll template, served by GitHub. It uses Spectre CSS and Tocbot 
 
 ### There are three main categories
 
-- Projects - Main projects for GIS
-- Docs - helpful hints and tricks
-- Archive Old projects and docs that might be of interest
+- Projects
+ - Main projects for GIS
+- Docs
+ - Helpful hints and tricks
+- Archive
+ - Old projects and docs that might be of interest
 
 The template is very sparse - categories are on the index page and soreted in reverse to get "Archive" to show up last, "Projects" to show up first and "Docs" in between.
