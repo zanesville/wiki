@@ -12,7 +12,7 @@ layout: default
   This purpose of this wiki is to provide information for how to manage the Zanesville GIS system. All current word documents stored on the city servers are being transitioned to this wiki to make it easier to find and organize content.
 </blockquote>
 
-{% for category in site.categories | reverse %}
+{% for category in site.categories | sort | reversed %}
 <div class="col-4">
   <a href="#{{category[0]}}">
     <div class="card active">
