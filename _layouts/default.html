@@ -48,7 +48,7 @@
       </form>
       
       <div class="container">
-        {% assign categories = site.categories |reversed %}
+        {% assign categories = site.categories |sort | reverse %}
         {% for category in categories %}
         {% assign sorted_posts = category[1] | sort: "title" %}
         
