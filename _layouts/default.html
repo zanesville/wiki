@@ -34,21 +34,33 @@
     <a class="off-canvas-toggle btn btn-link btn-action" href="#sidebar-id">
       <i class="icon icon-arrow-right"></i>
     </a>
-
+    
     <div id="sidebar-id" class="off-canvas-sidebar">
+      
       <form class="input-group input-inline" style="width:100%;margin-bottom:1rem;">
         <input autocomplete="off" class="form-input" type="text" id="search-input" placeholder="search">
         <ul id="results-container"></ul>
       </form>
+      
       <div class="container">
-        {% for category in site.categories | reverse %}
+        {% assign categories = site.categories | sort | reversed %}
+        {% for category in categories %}
         {% assign sorted_posts = category[1] | sort: "title" %}
-        <h4 style="text-transform:capitalize;">{{category[0]}}</h4>
-        {% for post in sorted_posts %}
-        <p style="margin-bottom: 0.4rem;"><a rel="prefetch" class="siteLinks" href="{{site.baseurl}}{{post.url}}">{{post.title}}</a></p>
+        
+        <details class="accordion">
+          <summary class="accordion-header" style="text-transform:capitalize;">
+            <i class="icon icon-arrow-right mr-1"></i>
+            {{category[0]}}
+          </summary>
+          
+          <div class="accordion-body">         
+          {% for post in sorted_posts %}
+            <p style="margin-bottom: 0.4rem;"><a rel="prefetch" class="siteLinks" href="{{site.baseurl}}{{post.url}}">{{post.title}}</a></p>
+          {% endfor %}
+          </div>
         {% endfor %}
-        {% endfor %}
-        <p>
+        </details>
+         <p>
           <a style="width:100%;" href="{{site.baseurl}}/admin/collections/posts/new/"><button style="width:100%;" class="btn"><i
             class="icon icon-edit"></i> New Doc</button>
           </a>
