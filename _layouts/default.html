@@ -13,6 +13,11 @@
   <link rel="preload" href="{{site.baseurl}}/assets/monokai.css" as="style" onload="this.rel='stylesheet'">
   <!--http://jwarby.github.io/jekyll-pygments-themes/languages/javascript.html-->
   <!-- <link rel="preload" href="/assets/prism.css" as="style" onload="this.rel='stylesheet'"> -->
+  <style>
+    details {
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
@@ -43,7 +48,7 @@
       </form>
       
       <div class="container">
-        {% assign categories = site.categories | sort | reversed %}
+        {% assign categories = site.categories | sort | reverse %}
         {% for category in categories %}
         {% assign sorted_posts = category[1] | sort: "title" %}
         
@@ -51,15 +56,14 @@
           <summary class="accordion-header" style="text-transform:capitalize;">
             <i class="icon icon-arrow-right mr-1"></i>
             {{category[0]}}
-          </summary>
-          
+          </summary>          
           <div class="accordion-body">         
           {% for post in sorted_posts %}
             <p style="margin-bottom: 0.4rem;"><a rel="prefetch" class="siteLinks" href="{{site.baseurl}}{{post.url}}">{{post.title}}</a></p>
           {% endfor %}
-          </div>
-        {% endfor %}
-        </details>
+           </div>
+         </details>
+         {% endfor %}
          <p>
           <a style="width:100%;" href="{{site.baseurl}}/admin/collections/posts/new/"><button style="width:100%;" class="btn"><i
             class="icon icon-edit"></i> New Doc</button>
