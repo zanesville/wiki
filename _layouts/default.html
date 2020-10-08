@@ -48,7 +48,7 @@
       </form>
       
       <div class="container">
-        {% assign categories = site.categories | sort | reverse %}
+        {% assign categories = site.categories |reversed %}
         {% for category in categories %}
         {% assign sorted_posts = category[1] | sort: "title" %}
         
@@ -63,6 +63,7 @@
           {% endfor %}
            </div>
          </details>
+        
          {% endfor %}
          <p>
           <a style="width:100%;" href="{{site.baseurl}}/admin/collections/posts/new/"><button style="width:100%;" class="btn"><i
