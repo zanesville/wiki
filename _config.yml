@@ -9,6 +9,12 @@ highlighter: rouge
 defaults:
   -
     scope:
+      path: "docs"
+      type: "pages"
+    values:
+      layout: "category"
+  -
+    scope:
       path: ""
       type: "posts"
     values:
@@ -18,7 +24,7 @@ defaults:
 plugins: 
   - jekyll-admin
 #  - jekyll/tagging
-  - jekyll-archives
+#  - jekyll-archives
 
 jekyll-archives:
   enabled: ["categories", "tags"]
