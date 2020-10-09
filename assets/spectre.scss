@@ -218,6 +218,7 @@ OFF CANVAS MAIN CONTENT
 }*/
 
 .card {
+  border-radius: 6px;
   margin: 0 0.2rem 1rem;
   min-height: 300px;
   opacity: 0.6;
@@ -236,6 +237,13 @@ OFF CANVAS MAIN CONTENT
 
 .card-body {
   text-transform: capitalize;
+}
+
+.card .img-responsive {
+  object-fit: cover;
+  object-position: center;
+  height: 144px;
+  width: 100%;
 }
 
 /****
@@ -310,13 +318,6 @@ table {
 
 .form-input {
   border-color: #1976D2;
-}
-
-.card .img-responsive {
-  object-fit: cover;
-  object-position: center;
-  height: 240px;
-  width: 100%;
 }
 
 /*DETAILS*/
