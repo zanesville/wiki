@@ -1,0 +1,347 @@
+I"�,<h2 id="metadata">Metadata</h2>
+<p>Postgres allows for the editing of a “Comments” field in the table metadata. This can be used to store metadata on the layer, as there is no other built-in method for storing metadata in Postgres, and the metadata fields in QGIS exist only inside the current project. This Comments field will show up in QGIS under Properties-Information-Comments.</p>
+
+<h2 id="naming-convention">Naming Convention</h2>
+<p>This post outlines the naming convention for the layers in the GIS database. I also include some reference material and how I came up with the naming scheme.</p>
+
+<p>Typical layer name:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">utl_stormwater_impervious_areas</span> <span class="cm">/*category_ownerIfNotZanesville_division_OR_goup_layer_projection (if not 3735)*/</span>
+</code></pre></div></div>
+
+<p>Layer names should be all lowercase, with no spaces, as with all field names (Postgres convention). The naming convention is as follows, with definitions of each section of the name found below.</p>
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">category_ownerIfNotZanesville_division_OR_goup_layer_projection (if not 3735)</code></p>
+</blockquote>
+
+<p>Projections are 3735 NAD83 SP Ohio South unless otherwise noted in the layer name. <em>Web map data if on Mapbox GL JS or AGOL is in Web Mercator and is transformed with the IRTF00 transformation during the export process.</em>  The layer content should be easily determined by the layer name, so abbreviations are used sparingly. Data years can be omitted for most layers as updating these would break source links when updated. The year or publication should be included in the attributes or metadata for the layer 🤣. Older versions of the data, if kept, should include the year or have the date in the layer name. One exception is imagery; imagery should always have the year in the layer name. If the data owner is not the City of Zanesville, the data owner should be in the name. Owners should be easily identifiable if abbreviated, such as “mus” for Muskingum County. Common abbrevations include:</p>
+
+<ul>
+  <li>odot</li>
+  <li>mus</li>
+  <li>odnr</li>
+  <li>fema</li>
+  <li>census</li>
+  <li>esri (Esri data from the downloadable datasets should not be hosted online unless the Terms of Service for that layer explicitly allows publishing)</li>
+</ul>
+
+<p><strong>For administrative, engineering and a few other layers, look under all the group types as the delination between what group things should be in was my own choice and may not be immediately apparent.</strong> For example, right of way could go under administrative, engineering or transportation. I put the layer under engineering but it would fit into any of those categories.</p>
+
+<p>Datasets created for one-off public request maps should be named request_yyyymmdd_title and stored under GIS_Public_Requests/Year/Folder of the PR as shapefiles or GeoPackages</p>
+
+<hr />
+<h2 id="map-layer-groups">Map Layer Groups</h2>
+
+<ul>
+  <li>Administraive Boundaries - adm</li>
+  <li>Census/Demographics -  cen</li>
+  <li>Utilities -  utl - utl_stormwater, utl_wastewater_stm, utl_wastewater_san</li>
+  <li>Community Development &amp; Zoning -  dev</li>
+  <li>Environmental - enviro - env</li>
+  <li>Parks &amp; Recreation/Cemeteries - rec_parks, rec_cemeteries</li>
+  <li>Air/Roads/Rail/ -  trn</li>
+  <li>Public Safety/Police/Fire/Code - psf_fire, psf_police, psf_code</li>
+  <li>Places - poi</li>
+  <li>Engineering - eng</li>
+  <li>Imagery - img</li>
+  <li>Streets &amp; Sanitation - utl_sanitation, utl_streets</li>
+</ul>
+
+<h2 id="database-names">Database Names</h2>
+<p>We only have one database - <code class="language-plaintext highlighter-rouge">coz</code>.  ArcGIS software does not allow for use of the <code class="language-plaintext highlighter-rouge">postgres</code> default database.</p>
+
+<blockquote>
+  <p>TODO - CONVERT LAYER LIST TO ACCORDIANS WITH JAVASCRIPT</p>
+</blockquote>
+
+<table>
+  <thead>
+    <tr>
+      <th>Layer</th>
+      <th>Name</th>
+      <th>Category</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Engineering</strong></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>eng_mus_eop</td>
+      <td>Test</td>
+      <td>Test</td>
+    </tr>
+    <tr>
+      <td>eng_mus_row</td>
+      <td>Test</td>
+      <td>Test</td>
+    </tr>
+    <tr>
+      <td>eng_building_footprints</td>
+      <td>Test</td>
+      <td>Test</td>
+    </tr>
+    <tr>
+      <td>eng_culverts</td>
+      <td>Test</td>
+      <td>Test</td>
+    </tr>
+    <tr>
+      <td>eng_centerlines_pci</td>
+      <td>Test</td>
+      <td>Test</td>
+    </tr>
+    <tr>
+      <td>eng_roads_signs</td>
+      <td>Test</td>
+      <td>Test</td>
+    </tr>
+    <tr>
+      <td>eng_streetview_points</td>
+      <td>Test</td>
+      <td>Test</td>
+    </tr>
+    <tr>
+      <td>eng_streetview_photos</td>
+      <td>Test</td>
+      <td>Test</td>
+    </tr>
+    <tr>
+      <td>eng_projects (geocoded to points or polygons)</td>
+      <td>Test</td>
+      <td>Test</td>
+    </tr>
+    <tr>
+      <td>eng_private_development (geocoded to points or polygons)</td>
+      <td>Test</td>
+      <td>Test</td>
+    </tr>
+    <tr>
+      <td>eng_permits_stormwater_residential</td>
+      <td>Test</td>
+      <td>Test</td>
+    </tr>
+    <tr>
+      <td>eng_permits_stormwater_commercial</td>
+      <td>Test</td>
+      <td>Test</td>
+    </tr>
+    <tr>
+      <td>eng_permits_stormwater_commercial</td>
+      <td>Test</td>
+      <td>Test</td>
+    </tr>
+    <tr>
+      <td>eng_permits_curbcut</td>
+      <td>Test</td>
+      <td>Test</td>
+    </tr>
+    <tr>
+      <td>eng_permits_row</td>
+      <td>Test</td>
+      <td>Test</td>
+    </tr>
+    <tr>
+      <td>eng_places_of_interest - NOT SURE ABOUT THIS ONE COULD GO UNDER ADMIN OR PARKS AND REC</td>
+      <td>Test</td>
+      <td>Test</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="web-map-layers">Web Map Layers</h2>
+
+<p>The following layers are available in the geojson and vector tile cache. A few layers may exists in the database and not in the cache, for example due to being too large to export as geojson and convert.</p>
+
+<pre id="js-layers"></pre>
+
+<ul>
+  <li>transportation
+    <ul>
+      <li>trn_mus_centerlines</li>
+      <li>trn_esri_rail</li>
+      <li>trn_odot_bridges</li>
+    </ul>
+  </li>
+  <li>engineering
+    <ul>
+      <li>eng_mus_eop</li>
+      <li>eng_mus_row</li>
+      <li>eng_building_footprints</li>
+      <li>eng_culverts</li>
+      <li>eng_centerlines_pci</li>
+      <li>eng_roads_signs</li>
+      <li>eng_streetview_points</li>
+      <li>eng_streetview_photos</li>
+      <li>eng_projects (geocoded to points or polygons)</li>
+      <li>eng_private_development (geocoded to points or polygons)</li>
+      <li>eng_permits_stormwater_residential</li>
+      <li>eng_permits_stormwater_commercial</li>
+      <li>eng_permits_stormwater_commercial</li>
+      <li>eng_permits_curbcut</li>
+      <li>eng_permits_row</li>
+      <li>eng_places_of_interest - NOT SURE ABOUT THIS ONE COULD GO UNDER ADMIN OR PARKS AND REC</li>
+    </ul>
+  </li>
+  <li>admin
+    <ul>
+      <li>adm_mus_administrative_boundaries</li>
+      <li>adm_mus_parcels</li>
+      <li>adm_mus_addresses</li>
+      <li>adm_mus_annexations</li>
+      <li>
+        <p>adm_mus_voting_precincts</p>
+      </li>
+      <li>schools
+        <ul>
+          <li>adm_school_districts</li>
+          <li>adm_school_building_points (could be a subset of pois)</li>
+          <li>adm_school_building_footprints</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>utilities
+    <ul>
+      <li>sewers
+        <ul>
+          <li>utl_sanitary_lines</li>
+          <li>utl_sanitary_points</li>
+          <li>utl_sanitary_photos</li>
+          <li>utl_sanitary_plans - lines or polygons</li>
+          <li>utl_stormwater_mains</li>
+          <li>utl_stormwater_points</li>
+          <li>utl_stormater_photos</li>
+          <li>utl_stormater_plans</li>
+          <li>utl_mus_sanitary_lines</li>
+          <li>utl_mus_sanitary_points</li>
+        </ul>
+      </li>
+      <li>water
+        <ul>
+          <li>utl_water_lines</li>
+          <li>utl_water_points</li>
+        </ul>
+      </li>
+      <li>electric
+        <ul>
+          <li>utl_elec_conduit</li>
+          <li>utl_elec_utility_poles</li>
+          <li>utl_elec_signal_poles</li>
+          <li>utl_elec_light_poles</li>
+          <li>utl_elec_pedestrian_signals</li>
+        </ul>
+      </li>
+      <li>stormwater utility
+        <ul>
+          <li>utl_stormwater_impervious_areas</li>
+          <li>utl_stormwater_impervious_areas_dissolve</li>
+          <li>utl_stormwater_billing_table</li>
+          <li>utl_stormwater_credits_table</li>
+          <li>utl_stormwater_plans (linked to polygons)</li>
+          <li>utl_stormwater_permits (points)</li>
+        </ul>
+      </li>
+      <li>gas
+        <ul>
+          <li>utl_ukn_gas_lines</li>
+        </ul>
+      </li>
+      <li>electric
+        <ul>
+          <li>utl_ukn_electric_lines</li>
+          <li>utl_ukn_electric_points</li>
+          <li>utl_ukn_electric_service_areas</li>
+          <li>utl_ukn_electric_poles</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>parks &amp; recreation
+    <ul>
+      <li>cemeteries
+        <ul>
+          <li>rec_cemetery_boundaries</li>
+          <li>rec_cemetery_plot_boundaries</li>
+          <li>rec_cemetery_plans</li>
+          <li>rec_cemetery_plot_points</li>
+          <li>rec_cemetery_photos</li>
+        </ul>
+      </li>
+      <li>parks
+        <ul>
+          <li>rec_park_boundaries</li>
+          <li>rec_park_points</li>
+          <li>rec_park_trails</li>
+          <li>rec_park_poi</li>
+          <li>rec_park_tree_inventory</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>environmental
+    <ul>
+      <li>env_fema_nfhl</li>
+      <li>env_usgs_hyrdro</li>
+      <li>env_mus_contours</li>
+      <li>env_odnr_wetlands</li>
+    </ul>
+  </li>
+  <li>public safety
+    <ul>
+      <li>fire
+        <ul>
+          <li>psf_fire_districts</li>
+          <li>psf_fire_stations</li>
+          <li>psf_fire_hydrants</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>community development
+    <ul>
+      <li>dev_drd_boundaries</li>
+      <li>dev_econ_dev_districts</li>
+      <li>dev_brownfield_boundaries</li>
+      <li>dev_zoning</li>
+      <li>dev_zoning_districts</li>
+      <li>dev_zoning_boundaries</li>
+      <li>dev_zoning_boundaries_dissolve</li>
+      <li>dev_zoning_wards</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="reference">Reference</h2>
+
+<h3 id="mapzen-map-style-layer-groups">Mapzen Map Style Layer Groups</h3>
+<p>boundaries, buildings, earth, landuse, places, pois, roads, transit, and water</p>
+
+<h3 id="example-from-geonet">Example from GeoNet</h3>
+<blockquote>
+  <p>So for example, i18_CalTrans_MjrHwy_15, where the i18 (transportation ISO), CalTrans (author of data), MjrHwy (subject), 15 (year of publication)</p>
+</blockquote>
+
+<script>
+
+fetch('https://311.coz.org/data/dataIndex.json')
+.then(res => { return res.json()})
+.then(data => {
+	var div = document.querySelector("#js-layers");
+	
+	var length = data.length;
+	var num = document.createElement("div");
+	num.innerText = "Total layers available in the cache " + length;
+	div.insertBefore(num, null);
+	div.innerText = JSON.stringify(data,0,2)
+})
+
+var table = document.querySelector("table");
+table.className = "table";
+</script>
+
+:ET

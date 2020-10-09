@@ -4,19 +4,25 @@ layout: default
 <div class="hero col-12">
   <div class="hero-body text-center content">
     <h1>Zanesville GIS Wiki</h1>
-    <p>Welcome to the GIS Wiki!</p>
+    <p>Documentation & Resources for Zanesville GIS</p>
     <blockquote class="col-12">
-      This purpose of this wiki is to provide information for how to manage the Zanesville GIS system. All current word documents stored on the city servers are being transitioned to this wiki to make it easier to find and organize content.
+      This purpose of this wiki is to provide information for how to manage the Zanesville GIS system. Further ReadMe files may be present in project folders.
     </blockquote>
   </div>
 </div>
 
+<!-- <form class="col-12" style="width:100%;margin-bottom:4rem;">
+  <input autocomplete="off" class="form-input" type="text" id="search-input" placeholder="Search the docs..." style="border: 0.05rem solid #8acbf8;border-radius:6px;">
+  <ul id="results-container" class="col-12"></ul>
+</form> -->
+
 {% assign categories = site.categories | sort %}
 {% for category in categories %}
+{% if category[0] != "docs" %}
 <div class="col-4">
-  <a href="#{{category[0]}}">
+  <a href="{{site.baseurl}}/docs/{{category[0]}}/">
     <div class="card active">
-      <div class="card-image"><img class="img-responsive" src="{{ category[0] }}.jpg" alt="map"></div>
+      <div class="card-image"><img class="img-responsive" data-icon="{{category[0]}}" src="" alt="map"></div>
       <div class="card-header">
         <div class="card-title h3" style="text-transform:capitalize;">{{ category[0] }}</div>
         <div class="card-subtitle text-gray"></div>
@@ -26,4 +32,19 @@ layout: default
     </div>
   </a>
 </div>
+{% endif %}
 {% endfor %}
+<script>
+  const icons = {
+    apps: "map-pin",
+    data: "layers",
+    research: "book-open",
+    tasks: "settings",
+    tips: "bookmark",
+    "x-archive": "archive"
+  }
+  const images = [...document.querySelectorAll(".card-image img")]
+  images.map(i => {
+    i.src = `https://icongr.am/feather/${icons[i.dataset.icon]}.svg?size=128&color=8ACBF8`
+  })
+</script>

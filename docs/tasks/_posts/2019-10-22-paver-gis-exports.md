@@ -1,6 +1,5 @@
 ---
 title: PAVER GIS Exports
-category: projects
 ---
 
 ## Creating the Excel Sheet or Table for Displaying the PAVER PCI Latest Conditions in  ArcGIS Desktop

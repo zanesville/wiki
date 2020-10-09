@@ -1,8 +1,7 @@
 title: COZ GIS Wiki
 
 description: A website documenting GIS and data workflows for the City of Zanesville.
-baseurl: "https://zanesville.github.io/wiki"
-url: "https://zanesville.github.io/"
+baseurl: "/wiki"
 
 # permalink: :categories/:title/
 highlighter: rouge
@@ -10,15 +9,26 @@ highlighter: rouge
 defaults:
   -
     scope:
-      path: "_posts"
+      path: ""
+      type: "posts"
     values:
       layout: "posts"
       permalink: /:categories/:title/
-      category: docs
 
 plugins: 
   - jekyll-admin
-  - jekyll/tagging
+#  - jekyll/tagging
+  - jekyll-archives
+
+jekyll-archives:
+  enabled: ["categories", "tags"]
+  layout: category
+  permalinks:
+    year: '/:year/'
+    month: '/:year/:month/'
+    day: '/:year/:month/:day/'
+    tag: '/tag/:name/'
+    category: '/docs/:name/'
 
 sass:
   sass_dir: _sass
@@ -28,3 +38,11 @@ exclude: ["package.json", "package-lock.json", "README.md"]
 tag_page_layout: tags
 tag_page_dir: tags
 tag_permalink_style: pretty
+
+category_icons:
+  apps: layers.svg
+  data: layers.svg
+  research: layers.svg
+  tasks: layers.svg
+  tips: layers.svg
+  x-archive: layers.svg

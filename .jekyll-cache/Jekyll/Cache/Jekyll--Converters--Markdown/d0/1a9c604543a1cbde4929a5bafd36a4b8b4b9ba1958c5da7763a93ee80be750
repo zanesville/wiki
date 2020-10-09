@@ -1,0 +1,59 @@
+I"L<h2 id="tegola">Tegola</h2>
+
+<p><code class="language-plaintext highlighter-rouge">./tegola cache seed --bounds -84,38,-81,42 --max-zoom 18</code></p>
+
+<h3 id="benefits">Benefits</h3>
+<ul>
+  <li>No tile artifacts like in t_rex or geojson-vt</li>
+  <li>Can read from postgis database</li>
+</ul>
+
+<h3 id="issues">Issues</h3>
+<ul>
+  <li>Cannot convert from EPSG:3735 to EPSG:3857 (NAD 83 Ohio SP South to Web Mercator)
+    <ul>
+      <li>This will mean making a duplicate copy of the data in another projection unless I can query the data out into Web Mercator</li>
+    </ul>
+  </li>
+  <li>On-the-Fly tile creation is slow compared to t_rex and geojson-vt but it does have a caching option</li>
+</ul>
+
+<h2 id="geojson-vt-nodejs-server">geojson-vt NodeJS Server</h2>
+
+<h4 id="benefits-1">Benefits</h4>
+<ul>
+  <li>Easy to understand the code</li>
+  <li>Simple</li>
+  <li>Fast</li>
+</ul>
+
+<h4 id="issues-1">Issues</h4>
+<ul>
+  <li>Tile rendering issues</li>
+</ul>
+
+<h2 id="t_rex">t_rex</h2>
+
+<h4 id="issues-2">Issues</h4>
+<ul>
+  <li>PostgreSQL as a datasource not working</li>
+  <li>Tile rendering issues</li>
+  <li>Slower than the Node Server</li>
+</ul>
+
+<h2 id="geoserver">Geoserver</h2>
+
+<h4 id="benefits-2">Benefits</h4>
+<ul>
+  <li>OGC Compliant server with WMS, WFS, WFS-T, raster tiles, vector tiles and and raw data files</li>
+  <li>WMS searching for layer search</li>
+  <li>Has it’s own caching system</li>
+  <li>Can use a variety of data sources from PostGIS to shapefiles and more</li>
+</ul>
+
+<h4 id="issues-3">Issues</h4>
+<ul>
+  <li>Resource heavy</li>
+  <li>Complicated setup and configuration</li>
+</ul>
+:ET

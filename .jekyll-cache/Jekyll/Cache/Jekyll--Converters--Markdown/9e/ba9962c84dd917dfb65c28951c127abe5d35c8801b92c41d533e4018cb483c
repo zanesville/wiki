@@ -1,0 +1,33 @@
+I"�<p>The Impervious Surface layer was created in 2019. It was originally put together using aerial photos and field visits by students at Ohio University’s Voinivich Center. The city finalized the dataset.</p>
+
+<p>The master layer is broken out by parcel, billing account number, and partially by surface type. To get the final ERU, the features are dissolved on the account number. This was previously done with a complicated ArcMap model, but is now done directly in Postgres. The view will not update automatically, but can be updated by right clicking on the view in the QGIS ‘Browser’ and clicking refresh view.</p>
+
+<p>The layer consists of a polygon layer and a related table. The table keeps track of ERU credits and apartment credits.</p>
+
+<p>In the following SQL definition, the “3” value is the current ERU fee. Billing keeps track of this fee themselves based on the ERU they have on file, so the <code class="language-plaintext highlighter-rouge">imp_fee</code> field is only used for GIS purposes, in case for example we want to quickly see the impervious fee for a property.</p>
+
+<h2 id="creating-the-master-dissolved-impervious-layer">Creating the Master Dissolved Impervious Layer</h2>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">drop</span> <span class="n">materialized</span> <span class="k">view</span> <span class="n">if</span> <span class="k">exists</span> <span class="n">utl_stormwater_impervious_view</span><span class="p">;</span>
+
+<span class="k">create</span> <span class="n">materialized</span> <span class="k">view</span> <span class="n">utl_stormwater_impervious_view</span> <span class="k">as</span>
+<span class="k">select</span>
+	<span class="n">row_number</span><span class="p">()</span> <span class="n">over</span> <span class="p">()</span> <span class="k">as</span> <span class="n">id</span><span class="p">,</span>
+	<span class="n">ST_Union</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span> <span class="k">as</span> <span class="n">geom</span><span class="p">,</span>
+	<span class="n">imp_master</span><span class="p">,</span>
+	<span class="n">imp_accnt</span><span class="p">,</span>
+	<span class="k">sum</span><span class="p">(</span><span class="n">st_area</span><span class="p">(</span><span class="n">geom</span><span class="p">))</span> <span class="k">as</span> <span class="n">imp_total_area</span><span class="p">,</span>
+	<span class="n">round</span><span class="p">(</span><span class="k">sum</span><span class="p">(</span><span class="n">st_area</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2300</span><span class="p">))</span> <span class="k">as</span> <span class="n">imp_eru</span><span class="p">,</span>
+	<span class="n">credits</span> <span class="k">as</span> <span class="n">imp_credits</span><span class="p">,</span>
+	<span class="n">units</span> <span class="k">as</span> <span class="n">imp_units</span><span class="p">,</span>
+	<span class="n">greatest</span><span class="p">(((</span><span class="n">round</span><span class="p">(</span><span class="k">sum</span><span class="p">(</span><span class="n">st_area</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2300</span><span class="p">))</span> <span class="o">-</span> <span class="n">units</span> <span class="o">-</span> <span class="n">credits</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span><span class="p">),</span> <span class="mi">3</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">units</span> <span class="o">-</span> <span class="n">credits</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> <span class="k">as</span> <span class="n">imp_fee</span>
+<span class="k">from</span> <span class="n">utl_stormwater_impervious</span><span class="p">,</span> <span class="n">utl_stormwater_impervious_billing</span>
+<span class="k">where</span> <span class="n">imp_type</span> <span class="o">!=</span> <span class="s1">'EXEMPT'</span> <span class="k">and</span> <span class="n">utl_stormwater_impervious</span><span class="p">.</span><span class="n">imp_accnt</span> <span class="o">=</span> <span class="nv">"UTL_ACCNT"</span>
+<span class="k">group</span> <span class="k">by</span> <span class="n">imp_accnt</span><span class="p">,</span> <span class="n">imp_master</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">credits</span><span class="p">;</span>
+
+<span class="k">create</span> <span class="k">unique</span> <span class="k">index</span> <span class="k">on</span> <span class="n">utl_stormwater_impervious_view</span> <span class="p">(</span><span class="n">id</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="resources">Resources</h3>
+<p><a href="https://gis.stackexchange.com/questions/229367/st-union-fails-with-topologyexception-despite-valid-polygons-and-using-st-snapto">https://gis.stackexchange.com/questions/229367/st-union-fails-with-topologyexception-despite-valid-polygons-and-using-st-snapto</a></p>
+:ET

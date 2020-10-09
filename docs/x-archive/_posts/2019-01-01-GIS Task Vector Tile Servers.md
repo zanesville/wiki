@@ -1,6 +1,6 @@
 ---
-layout: wiki
-title: Vector Tile Servers Comparison
+title: GIS Vector Tile Servers
+tags: webmaps
 ---
 
 ## Tegola

@@ -1,0 +1,85 @@
+I"�&<h2 id="set-x-coordinate-or-y-coordinate-of-polygon">Set X coordinate or y coordinate of Polygon</h2>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">UPDATE</span> <span class="n">layer_name</span>
+<span class="k">SET</span> <span class="n">ycoord</span> <span class="o">=</span> <span class="n">ST_Y</span><span class="p">(</span><span class="n">ST_Transform</span><span class="p">(</span><span class="n">ST_Centroid</span><span class="p">(</span><span class="n">geom</span><span class="p">),</span> <span class="mi">4326</span><span class="p">))</span>
+<span class="k">where</span> <span class="n">ycoord</span> <span class="k">IS</span> <span class="k">NULL</span>
+<span class="n">returning</span> <span class="o">*</span>
+</code></pre></div></div>
+
+<h2 id="arcgis-desktop-query-layers">ArcGIS Desktop Query Layers</h2>
+<blockquote>
+  <p>When you access a database table through a Database Connection, query layer, or web service, ArcGIS filters out any unsupported data types. ArcGIS does not display unsupported data types, and you cannot edit unsupported data types through ArcGIS.</p>
+</blockquote>
+
+<ul>
+  <li>ArcGIS will not load up data from the default <code class="language-plaintext highlighter-rouge">postgres</code> database. You need to create a new database besides this default database.</li>
+  <li><a href="https://pro.arcgis.com/en/pro-app/help/data/geodatabases/manage-postgresql/data-types-postgresql.htm">https://pro.arcgis.com/en/pro-app/help/data/geodatabases/manage-postgresql/data-types-postgresql.htm</a></li>
+  <li>Using the PostGIS built-in geometry</li>
+  <li>When creating new layers in QGIS by using the exporting to Postgres tool , leave the ID column blank, and make sure there is not a field called “id” in the table, and if so delete that field.  Postgres will create an auto increment integer “id” field for you if all goes well. If an “id” field already exists Postgres will not create the autoincrementing function.</li>
+</ul>
+
+<h2 id="node-postgres-tweaks">Node Postgres Tweaks</h2>
+
+<p><strong>When adding INSERT priviledges to a Postgres user, this does give them the ability to add new features due to the user not having priviledges to the auto id_sequence.</strong></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">GRANT</span> <span class="k">USAGE</span><span class="p">,</span> <span class="k">SELECT</span> <span class="k">ON</span> <span class="n">SEQUENCE</span> <span class="n">cities_id_seq</span> <span class="k">TO</span> <span class="n">www</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>See <a href="https://stackoverflow.com/questions/9325017/error-permission-denied-for-sequence-cities-id-seq-using-postgres">https://stackoverflow.com/questions/9325017/error-permission-denied-for-sequence-cities-id-seq-using-postgres</a></p>
+<h2 id="split-lines-with-points">Split lines with Points</h2>
+
+<p>It is not possible with the Standard license of ArcGIS Desktop or Pro to split lines with points. Here is a method using PostGIS.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">lines_split_mv</span> <span class="k">AS</span>
+<span class="k">SELECT</span> <span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="p">,</span> <span class="p">(</span><span class="n">ST_Dump</span><span class="p">(</span><span class="n">ST_split</span><span class="p">(</span><span class="n">st_segmentize</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">ST_Union</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">geom</span><span class="p">)))).</span><span class="n">geom</span><span class="p">::</span><span class="n">geometry</span><span class="p">(</span><span class="n">LINESTRING</span><span class="p">)</span> <span class="k">AS</span> <span class="n">geom</span> 
+<span class="k">FROM</span> <span class="n">san_lines_post</span> <span class="n">a</span><span class="p">,</span> <span class="n">san_points</span> <span class="n">b</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Convert a file from one format to another while specifying the destination projection. Be careful with this as the default transformation may be the same as what ArcGIS uses. Getting transformations to match up between QGIS and ArcGIS and PostGIS is a bit of a pain.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">ogr2ogr</span><span class="w"> </span><span class="nt">-f</span><span class="w"> </span><span class="nx">GeoJSON</span><span class="w"> </span><span class="nt">-t_srs</span><span class="w"> </span><span class="nx">crs:84</span><span class="w"> </span><span class="nx">lines-new.geojson</span><span class="w"> </span><span class="nx">lines.shp</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="tuning-postgres-for-spatial">Tuning Postgres for Spatial</h2>
+<p><a href="https://postgis.net/workshops/postgis-intro/tuning.html">https://postgis.net/workshops/postgis-intro/tuning.html</a></p>
+
+<h2 id="triggers">Triggers</h2>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">Create</span> <span class="k">or</span> <span class="k">replace</span> <span class="k">function</span> <span class="n">calc_length</span><span class="p">()</span>
+<span class="k">returns</span> <span class="k">trigger</span> <span class="k">as</span>
+<span class="err">$</span><span class="n">BODY</span><span class="err">$</span>
+<span class="k">BEGIN</span>
+<span class="k">NEW</span><span class="p">.</span><span class="n">shape_length</span> <span class="p">:</span><span class="o">=</span> <span class="n">st_length</span><span class="p">(</span><span class="k">NEW</span><span class="p">.</span><span class="n">geom</span><span class="p">);</span>
+<span class="k">return</span> <span class="k">new</span><span class="p">;</span>
+<span class="k">end</span><span class="p">;</span>
+<span class="err">$</span><span class="n">BODY</span><span class="err">$</span>
+<span class="k">language</span> <span class="n">plpgsql</span><span class="p">;</span>
+
+<span class="k">Create</span> <span class="k">trigger</span> <span class="n">calc_length</span> <span class="k">before</span> <span class="k">insert</span> <span class="k">or</span> <span class="k">update</span> <span class="k">on</span> <span class="k">public</span><span class="p">.</span><span class="n">utl_stormwater_stm_lines</span>
+<span class="k">for</span> <span class="k">each</span> <span class="k">row</span> <span class="k">execute</span> <span class="k">procedure</span> <span class="n">calc_length</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h2 id="auto-increment-id">Auto Increment ID</h2>
+<p>Aain, this should be done for you when exporting to Postgres from QGIS. This method works but is not recommended.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="n">SEQUENCE</span> <span class="n">project_id_seq</span><span class="p">;</span>
+
+<span class="k">SELECT</span> <span class="n">SETVAL</span><span class="p">(</span><span class="s1">'project_id_seq'</span><span class="p">,</span> <span class="p">(</span><span class="k">SELECT</span> <span class="k">MAX</span><span class="p">(</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">FROM</span> <span class="n">project</span><span class="p">));</span>
+
+<span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">project</span> 
+<span class="k">ALTER</span> <span class="n">id</span> 
+<span class="k">SET</span> <span class="k">DEFAULT</span> <span class="n">NEXTVAL</span><span class="p">(</span><span class="s1">'project_id_seq'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><a href="https://kylewbanks.com/blog/Adding-or-Modifying-a-PostgreSQL-Sequence-Auto-Increment">https://kylewbanks.com/blog/Adding-or-Modifying-a-PostgreSQL-Sequence-Auto-Increment</a></p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">ALTER</span> <span class="k">table</span> <span class="n">utl_sanitary_lines</span> <span class="k">drop</span> <span class="k">constraint</span> <span class="n">utl_sanitary_lines_pkey</span><span class="p">;</span>
+<span class="k">alter</span> <span class="k">table</span> <span class="n">utl_sanitary_lines</span> <span class="k">add</span> <span class="k">column</span> <span class="n">uid</span> <span class="n">bigserial</span> <span class="k">primary</span> <span class="k">key</span><span class="p">;</span>
+<span class="k">alter</span> <span class="k">table</span> <span class="n">utl_sanitary_lines</span> <span class="k">drop</span> <span class="k">column</span> <span class="n">id</span><span class="p">;</span>
+<span class="k">alter</span> <span class="k">table</span> <span class="n">utl_sanitary_lines</span> <span class="k">rename</span> <span class="k">column</span> <span class="n">uid</span> <span class="k">to</span> <span class="n">id</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="resources">Resources</h2>
+
+<p><a href="https://gist.github.com/justinlewis/4398913">https://gist.github.com/justinlewis/4398913</a></p>
+:ET

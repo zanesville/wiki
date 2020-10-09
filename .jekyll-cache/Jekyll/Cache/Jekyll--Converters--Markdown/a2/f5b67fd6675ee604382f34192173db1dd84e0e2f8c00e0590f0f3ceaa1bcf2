@@ -1,0 +1,32 @@
+I"�	<h2 id="check-for-fields-that-have-values-that-exist-more-than-once-in-the-same-field">Check for Fields that have values that exist more than once in the same field</h2>
+
+<p>Use the “Summarize” tool, choose the field you want to check, using the “count” statistic, and a key field if needed, using “first”</p>
+
+<h2 id="check-for-duplicate-values---do-not-use-this-method">Check for Duplicate Values - DO NOT USE THIS METHOD</h2>
+
+<p>This method returns the first <strong>duplicate</strong>, not all values that exist more than once in the field.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uniqueList</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">def</span> <span class="nf">isDuplicate</span><span class="p">(</span><span class="n">inValue</span><span class="p">):</span>
+  <span class="k">if</span> <span class="n">inValue</span> <span class="ow">in</span> <span class="n">uniqueList</span><span class="p">:</span>
+    <span class="k">return</span> <span class="mi">1</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">uniqueList</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">inValue</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">0</span>
+</code></pre></div></div>
+
+<h2 id="sequential-field-values">Sequential Field Values</h2>
+<p>This is used to create the FIELDID for GIS assets.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rec</span><span class="o">=</span><span class="mi">0</span> 
+<span class="k">def</span> <span class="nf">autoIncrement</span><span class="p">():</span> 
+ <span class="k">global</span> <span class="n">rec</span> 
+ <span class="n">pStart</span> <span class="o">=</span> <span class="mi">1</span>  
+ <span class="n">pInterval</span> <span class="o">=</span> <span class="mi">1</span> 
+ <span class="k">if</span> <span class="p">(</span><span class="n">rec</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>  
+  <span class="n">rec</span> <span class="o">=</span> <span class="n">pStart</span>  
+ <span class="k">else</span><span class="p">:</span>  
+  <span class="n">rec</span> <span class="o">+=</span> <span class="n">pInterval</span>  
+ <span class="k">return</span> <span class="n">rec</span>
+</code></pre></div></div>
+:ET

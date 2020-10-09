@@ -1,6 +1,15 @@
 ---
-permalink: /docs/
+layout: default
 ---
-<script>
-window.location.href = "{{site.baseurl}}/"
-</script>
+{% include breadcrumbs.html %}
+
+<h1>Zanesville GIS Wiki Document Index</h1>
+
+<ul>
+  {% assign posts = site.posts | sort: "title" %}
+  {% for post in posts %}
+  <li>
+    <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+  </li>
+  {% endfor %}
+</ul>
