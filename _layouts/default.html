@@ -24,6 +24,7 @@
   <!--[if lt IE 7]>
       <p class="browsehappy2">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
+  
   <header class="navbar">
     <section class="navbar-section">
       <a href="{{site.baseurl}}/" class="navbar-brand mr-2">COZ GIS Wiki</a>
@@ -34,6 +35,7 @@
         Edit this page</a>
     </section>
   </header>
+  
   <div class="off-canvas">
     <!-- off-screen toggle button -->
     <a class="off-canvas-toggle btn btn-link btn-action" href="#sidebar-id">
@@ -85,12 +87,15 @@
     </div>
 
     <a class="off-canvas-overlay" href="#close"></a>
+    
     <div class="off-canvas-content">
-      <main class="container content">
+      
+      <main class="container">
         <section class="columns">
           {{ content }}
         </section>
       </main>
+      
     </div>
   </div>
 
