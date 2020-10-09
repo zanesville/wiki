@@ -153,18 +153,21 @@ h4 {
   font-family: "Metropolis Bold", "Segoe UI", "Montserrat", "Metropolis", -apple-system, BlinkMacSystemFont, Avenir, "Avenir Next", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-weight: 700;
 }
+
+/****
+CUSTOM CONTAINER
+****/
+.content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
 /****
 NAVBAR
 ****/
 .navbar {
   padding: 0.5rem 1rem;
   border-bottom: solid thin #e8e8e8;
-}
-
-.content {
-  margin: 0.5rem auto;
-  width: 1600px;
-  max-width: 100%;
 }
 
 /****
