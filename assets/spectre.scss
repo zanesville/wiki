@@ -216,7 +216,12 @@ OFF CANVAS MAIN CONTENT
     max-width: calc(100vw - 420px);
   }
 }*/
-
+/****
+CARDS
+****/
+a:not(:hover) .card, a:not(:focus) .card {
+  color: $primary-color;
+}
 .card {
   border-radius: 6px;
   margin: 0 0.2rem 1rem;
