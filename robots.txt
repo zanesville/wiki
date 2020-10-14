@@ -1,2 +1,0 @@
-DISALUser-agent: *
-Disallow: /

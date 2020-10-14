@@ -1,0 +1,29 @@
+---
+layout: default
+permalink: /tags/
+---
+<div class="column col-12">
+  {% include breadcrumbs.html %}
+</div>
+<div class="column col-12">
+
+{% assign tags = site.tags | sort %}
+{% for tag in tags %}
+  {% assign t = tag | first %}
+  {% assign posts = tag | last %}
+<div id="{{t}}">
+  <br>
+  <h2>{{ t | upcase }}</h2>
+  {% for post in posts %}
+  {% if post.tags contains t %}
+  <h5>
+    <a href="{{site.baseurl}}{{ post.url }}">{{ post.title }}</a><br>
+  </h5>
+  <span class="date">{{ post.date | date: "%B %-d, %Y"  }}</span>
+  <br>
+  <br>
+  {% endif %}
+  {% endfor %}
+</div>
+{% endfor %}
+</div>

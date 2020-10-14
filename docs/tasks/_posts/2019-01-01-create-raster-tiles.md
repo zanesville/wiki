@@ -1,22 +1,29 @@
 ---
-title: Raster Conversions and Web Map Tiles
-tags: webmaps
+title: Create Raster Tiles
+tags: rasters
 ---
 
-## Creating Web Map Tiles
+## Creating Raster Tiles
+
+## Preferred Method
 
 ### Using QGIS & Generate XYZ Tiles
 
-1. Georeference and Export the raster using the Web Mercator 3857 Projection (256 for No DATA) - Make sure to use the ITRF00 transformation when exporting (in QGIS the projection needs to be in CORS86 for this option to show up)
+1. Georeference and Export the raster using the Web Mercator 3857 Projection (256 for No DATA) in ArcMap or ArcPro using ITRF00 transformation. QGIS is missing the ITRF00 transformation. It is hardcoded into PostGIS but not in QGIS, which is why we use Arc* here.
 2. Load the raster into QGIS
 3. Change the zoomed in sampling to Average and any other settings under properties
 4. Export to raster tiles using the Generate XYZ tiles tool
 5. See the screenshot with settings - all defaut except make sure to use the extent of the raster layer
-	6. Use maxzoom 16 for old paper maps, 19 or 20 for satellite  imagery
-7. Use the  node script to add the image layers to the dataIndex.json
-	8. "C:\_Master_GIS\GIS_Applications\production\sde-backup-vector-tile-cache\src\createJsonForRasterTiles.js"
+6. Use maxzoom 16 for old paper maps, 20 for satellite imagery
+    7. Each additional zoom inceases the total tiles by ``previous zoom ^ 2``
+7. Copy the tiles folder to the current raster server static data directory, renaiming to match the schema of the other folders. Currently this directory is:
+    8. ``\\311 server IP address\wwwroot\data\rasters\``
 
 ![](/assets/img/generate_xyz_tiles.jpg)
+
+---
+
+## Other Methods
 
 ### Using gdal2tilesp.py
 

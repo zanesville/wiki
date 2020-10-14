@@ -23,8 +23,6 @@ defaults:
 
 plugins: 
   - jekyll-admin
-#  - jekyll/tagging
-#  - jekyll-archives
 
 jekyll-archives:
   enabled: ["categories", "tags"]
@@ -39,16 +37,11 @@ jekyll-archives:
 sass:
   sass_dir: _sass
 
+include: 
+ - _pages
+
 exclude: ["package.json", "package-lock.json", "README.md"]
 
-tag_page_layout: tags
-tag_page_dir: tags
-tag_permalink_style: pretty
-
-category_icons:
-  apps: layers.svg
-  data: layers.svg
-  research: layers.svg
-  tasks: layers.svg
-  tips: layers.svg
-  x-archive: layers.svg
+#tag_page_layout: tags
+#tag_page_dir: tags
+#tag_permalink_style: pretty
