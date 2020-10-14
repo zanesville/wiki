@@ -1,25 +1,25 @@
 ---
-title: Create Raster Tiles
+title: Creating Raster Tiles
 tags: rasters
 ---
 
-## Creating Raster Tiles
+### Using QGIS & Generate XYZ Tiles (Preferred Method)
 
-## Preferred Method
-
-### Using QGIS & Generate XYZ Tiles
-
-1. Georeference and Export the raster using the Web Mercator 3857 Projection (256 for No DATA) in ArcMap or ArcPro using ITRF00 transformation. QGIS is missing the ITRF00 transformation. It is hardcoded into PostGIS but not in QGIS, which is why we use Arc* here.
+1. Georeference (if needed) and Export the raster using the Web Mercator 3857 Projection (256 for No DATA) in ArcPro using ITRF00 transformation. *QGIS is missing the ITRF00 transformation. It is hardcoded into PostGIS so the vector data transforms correctly, but I am not using PostGIS for rasters.*
+2. See the settings below for the export. Optionally turn off pyramid generation (under settings) to speed up processing.
+    1. For larger rasters such as whole county orthos this process will take some time.
+    ![]({{site.baseurl}}/assets/img/export_raster_arcpro.jpg)
 2. Load the raster into QGIS
-3. Change the zoomed in sampling to Average and any other settings under properties
-4. Export to raster tiles using the Generate XYZ tiles tool
+3. Change the zoomed in sampling to Average and any other settings under properties. *Not sure if this matters.*
+4. Export to raster tiles using the tool Generate XYZ Tiles
 5. See the screenshot with settings - all defaut except make sure to use the extent of the raster layer
-6. Use maxzoom 16 for old paper maps, 20 for satellite imagery
+    5. Use **png** for the format, this allows for the transparency on the edges of the raster to be maintined, but this does come at a cost of larger file size when compared to **jpg**
+6. Use maxzoom 16 for old paper maps, 20 for satellite imagery. Again this export will take some time, run it overnight or over the weekend.
     7. Each additional zoom inceases the total tiles by ``previous zoom ^ 2``
-7. Copy the tiles folder to the current raster server static data directory, renaiming to match the schema of the other folders. Currently this directory is:
+7. Copy the tiles folder to the current server static data directory, renaiming the folder to match the schema of the other folders. Currently this directory is:
     8. ``\\311 server IP address\wwwroot\data\rasters\``
 
-![](/assets/img/generate_xyz_tiles.jpg)
+![]({{site.baseurl}}/assets/img/generate_xyz_tiles.jpg)
 
 ---
 
@@ -29,7 +29,7 @@ tags: rasters
 
 Reproject the original image to EPSG:3857 using gdalwarp. Use all the same options as before expcept use a higher compression. **This needs to be checked to make sure that the geographic transformation is happening correctly.** *This might not make that much difference if using JPG tiles as final output.*
 
- ```javascript
+ ```python
  gdalwarp -of GeoTIFF -co COMPRESS=JPEG -co JPEG_QUALITY=60 ...
  ```
 
@@ -54,13 +54,13 @@ python gdal2tilesp.py -f JPEG -e -z 0-20 --processes=4 input.tif outputFolder
 
 Use gdal_translate to generate the mbtiles file
 
-```
+```python
 gdal_translate -of mbtiles mymap.tif mymap.mbtiles
 ```
 
 Use gdal_gdaladdo to generate the rest of the tiles (overview tiles)
 
-```
+```python
 gdaladdo -r nearest mymap.mbtiles 2 4 8 16
 ```
 	- this results in tiles from z levels??
@@ -74,7 +74,7 @@ Unpack the mbiles to folders using [mbutil](https://github.com/mapbox/mbutil) wh
 
 Saving using LZW or DEFLATE resulted in a very large tif. Using ``-co compression=JPEG -co JPEG_QUALITY=75`` results in great image quality in a much smaller file. Settings used:
 
-```
+```python
 -multi 			// Uses two processes to manipulate the images
 -wo			// DOES NOT SEEM TO BE WORKING Total number of CPUs for calculations
 -cutline		// Shapefile to clip the polygon referenced with the full file path in quotes
@@ -84,11 +84,11 @@ Saving using LZW or DEFLATE resulted in a very large tif. Using ``-co compressio
 
 ```
 
-```
+```python
 gdalwarp -multi -wo NUM_THREADS=8 -of GTiff -cutline E:\ortho18\clip-coz.shp -crop_to_cutline -dstalpha -co COMPRESS=JPEG -co JPEG_QUALITY=75 "E:/ortho18/Area Wide Mosaics/OHMUSK18-SID-3INCH/OHMUSK18-SID-3INCH.sid" E:/ortho18/qgis-testing/OHMUSK18_3IN_GDALWARP_CLIP_JPG75_ALPHA.tif
 ```
 
-```
+```python
 gdalwarp -wo NUM_THREADS=ALL_CPUS -multi -of GTiff -cutline E:\ortho18\clip-coz.shp -crop_to_cutline -dstalpha -co COMPRESS=JPEG -co JPEG_QUALITY=75 -co TILED=yes -co BIGTIFF=YES "E:/ortho18/Area Wide Mosaics/OHMUSK18-SID-3INCH/OHMUSK18-SID-3INCH.sid" E:/ortho18/qgis-testing/OHMUSK18_3IN_GDALWARP_CLIP_JPG75_ALPHA_BIGTIFF.tif
 ```
 

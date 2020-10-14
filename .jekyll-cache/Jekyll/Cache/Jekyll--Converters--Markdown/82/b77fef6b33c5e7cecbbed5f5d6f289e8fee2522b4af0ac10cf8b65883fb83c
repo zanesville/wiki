@@ -1,0 +1,117 @@
+I"é7<h3 id="using-qgis--generate-xyz-tiles-preferred-method">Using QGIS &amp; Generate XYZ Tiles (Preferred Method)</h3>
+
+<ol>
+  <li>Georeference and Export the raster using the Web Mercator 3857 Projection (256 for No DATA) in ArcMap or ArcPro using ITRF00 transformation. <em>QGIS is missing the ITRF00 transformation. It is hardcoded into PostGIS so the vector data transforms correctly, but I am not using PostGIS for rasters.</em>
+  <img src="/wiki/assets/img/export_raster_arcmap.jpg" alt="" />
+    <ol>
+      <li>This process will take time and may fail, just keep trying. It will work eventually.</li>
+    </ol>
+  </li>
+  <li>Load the raster into QGIS</li>
+  <li>Change the zoomed in sampling to Average and any other settings under properties. <em>Not sure if this matters.</em></li>
+  <li>Export to raster tiles using the tool Generate XYZ Tiles</li>
+  <li>See the screenshot with settings - all defaut except make sure to use the extent of the raster layer
+    <ol>
+      <li>Use <strong>png</strong> for the format, this allows for the transparency on the edges of the raster to be maintined, but this does come at a cost of larger file size when compared to <strong>jpg</strong></li>
+    </ol>
+  </li>
+  <li>Use maxzoom 16 for old paper maps, 20 for satellite imagery
+    <ol>
+      <li>Each additional zoom inceases the total tiles by <code class="language-plaintext highlighter-rouge">previous zoom ^ 2</code></li>
+    </ol>
+  </li>
+  <li>Copy the tiles folder to the current server static data directory, renaiming the folder to match the schema of the other folders. Currently this directory is:
+    <ol>
+      <li><code class="language-plaintext highlighter-rouge">\\311 server IP address\wwwroot\data\rasters\</code></li>
+    </ol>
+  </li>
+</ol>
+
+<p><img src="/wiki/assets/img/generate_xyz_tiles.jpg" alt="" /></p>
+
+<hr />
+
+<h2 id="other-methods">Other Methods</h2>
+
+<h3 id="using-gdal2tilesppy">Using gdal2tilesp.py</h3>
+
+<p>Reproject the original image to EPSG:3857 using gdalwarp. Use all the same options as before expcept use a higher compression. <strong>This needs to be checked to make sure that the geographic transformation is happening correctly.</strong> <em>This might not make that much difference if using JPG tiles as final output.</em></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">gdalwarp</span> <span class="o">-</span><span class="n">of</span> <span class="n">GeoTIFF</span> <span class="o">-</span><span class="n">co</span> <span class="n">COMPRESS</span><span class="o">=</span><span class="n">JPEG</span> <span class="o">-</span><span class="n">co</span> <span class="n">JPEG_QUALITY</span><span class="o">=</span><span class="mi">60</span> <span class="p">...</span>
+</code></pre></div></div>
+
+<p>Use the customized gdal2tilesp.py python script to cut the tif into a folder of raster tiles for use in web mapping. There are similar scripts that will output to mbtiles or geopackage. This script was originally written by the developer of <a href="https://www.maptiler.com/">MapTiler</a>. The gdal2tiles that is built in to gdal only outputs images in png format and <strong>does not use parallel processing</strong>. The default for this updated script is to use all the availabel cpu cores, so be careful when running it. Set the <code class="language-plaintext highlighter-rouge">--processes</code> to something you can live with, such as half the available cores. A maximum zoom limit of 20 seems to be a good limit, which is about street level.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">python</span> <span class="n">gdal2tilesp</span><span class="p">.</span><span class="n">py</span> <span class="o">-</span><span class="n">f</span> <span class="n">JPEG</span> <span class="o">-</span><span class="n">e</span> <span class="o">-</span><span class="n">z</span> <span class="mi">0</span><span class="o">-</span><span class="mi">20</span> <span class="o">--</span><span class="n">processes</span><span class="o">=</span><span class="mi">4</span> <span class="nb">input</span><span class="p">.</span><span class="n">tif</span> <span class="n">outputFolder</span>
+</code></pre></div></div>
+
+<p><em>JPEG results in smaller files but looses the transparency.</em></p>
+
+<p><strong>30GB .sid file =&gt; 6.56GB tif (JPG_QUALITY 50% using gdalwarp) =&gt; 15 GB raster tiles (PNG)</strong>
+<strong>30GB .sid file =&gt; 6.56GB tif (JPG_QUALITY 50% using gdalwarp) =&gt; 4 GB raster tiles (JPG)</strong></p>
+
+<h4 id="references">References</h4>
+<ul>
+  <li><a href="https://alastaira.wordpress.com/2011/07/11/maptiler-gdal2tiles-and-raster-resampling/">https://alastaira.wordpress.com/2011/07/11/maptiler-gdal2tiles-and-raster-resampling/</a></li>
+  <li><a href="https://github.com/pramsey/gdal2tilesp">https://github.com/pramsey/gdal2tilesp</a></li>
+  <li><a href="https://pvanb.wordpress.com/2017/03/06/raster2mbtiles/">https://pvanb.wordpress.com/2017/03/06/raster2mbtiles/</a></li>
+</ul>
+
+<h3 id="using-gdal_gdaladdo">Using gdal_gdaladdo</h3>
+
+<p>Use gdal_translate to generate the mbtiles file</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gdal_translate</span> <span class="o">-</span><span class="n">of</span> <span class="n">mbtiles</span> <span class="n">mymap</span><span class="p">.</span><span class="n">tif</span> <span class="n">mymap</span><span class="p">.</span><span class="n">mbtiles</span>
+</code></pre></div></div>
+
+<p>Use gdal_gdaladdo to generate the rest of the tiles (overview tiles)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gdaladdo</span> <span class="o">-</span><span class="n">r</span> <span class="n">nearest</span> <span class="n">mymap</span><span class="p">.</span><span class="n">mbtiles</span> <span class="mi">2</span> <span class="mi">4</span> <span class="mi">8</span> <span class="mi">16</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- this results in tiles from z levels??
+</code></pre></div></div>
+
+<p>Unpack the mbiles to folders using <a href="https://github.com/mapbox/mbutil">mbutil</a> which is a python script, run it using cmd.exe in its own folder like this:
+	<code class="language-plaintext highlighter-rouge">python mb-util</code></p>
+
+<h2 id="clipping-and-resizing-using-gdal-or-qgis">Clipping and Resizing using GDAL or QGIS</h2>
+
+<p><strong>Two images will be created, one in the original projection Ohio SP South - EPSG:3735 with a JPEG quality of 75. This one is for desktop GIS use. The second image will be in Web Mercator EPSG:3857, with a JPEG quality between 50 and 60, which will be used to create the image tile cache for web applications.</strong> <em>This may not matter if using JPEG for the final output raster tiles.</em></p>
+
+<p>Saving using LZW or DEFLATE resulted in a very large tif. Using <code class="language-plaintext highlighter-rouge">-co compression=JPEG -co JPEG_QUALITY=75</code> results in great image quality in a much smaller file. Settings used:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">-</span><span class="n">multi</span> 			<span class="o">//</span> <span class="n">Uses</span> <span class="n">two</span> <span class="n">processes</span> <span class="n">to</span> <span class="n">manipulate</span> <span class="n">the</span> <span class="n">images</span>
+<span class="o">-</span><span class="n">wo</span>			<span class="o">//</span> <span class="n">DOES</span> <span class="n">NOT</span> <span class="n">SEEM</span> <span class="n">TO</span> <span class="n">BE</span> <span class="n">WORKING</span> <span class="n">Total</span> <span class="n">number</span> <span class="n">of</span> <span class="n">CPUs</span> <span class="k">for</span> <span class="n">calculations</span>
+<span class="o">-</span><span class="n">cutline</span>		<span class="o">//</span> <span class="n">Shapefile</span> <span class="n">to</span> <span class="n">clip</span> <span class="n">the</span> <span class="n">polygon</span> <span class="n">referenced</span> <span class="k">with</span> <span class="n">the</span> <span class="n">full</span> <span class="nb">file</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">quotes</span>
+<span class="o">-</span><span class="n">crop_to_cutline</span>	<span class="o">//</span> <span class="n">Clip</span> <span class="n">the</span> <span class="n">raster</span> <span class="n">using</span> <span class="n">the</span> <span class="n">cutline</span> <span class="n">polygon</span> 
+<span class="o">-</span><span class="n">co</span>			<span class="o">//</span> <span class="n">Compression</span> <span class="n">used</span> <span class="ow">and</span> <span class="n">options</span>
+<span class="o">-</span><span class="n">dstalpha</span>		<span class="o">//</span> <span class="n">Use</span> <span class="n">an</span> <span class="n">Alpha</span> <span class="n">layer</span> <span class="n">to</span> <span class="n">store</span> <span class="n">transparency</span> <span class="o">-</span> <span class="n">the</span> <span class="n">original</span> <span class="n">channel</span> <span class="ow">is</span> <span class="n">used</span> <span class="k">if</span> <span class="n">none</span> <span class="ow">is</span> <span class="n">provided</span> <span class="n">elsewhere</span>
+
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gdalwarp</span> <span class="o">-</span><span class="n">multi</span> <span class="o">-</span><span class="n">wo</span> <span class="n">NUM_THREADS</span><span class="o">=</span><span class="mi">8</span> <span class="o">-</span><span class="n">of</span> <span class="n">GTiff</span> <span class="o">-</span><span class="n">cutline</span> <span class="n">E</span><span class="p">:</span>\<span class="n">ortho18</span>\<span class="n">clip</span><span class="o">-</span><span class="n">coz</span><span class="p">.</span><span class="n">shp</span> <span class="o">-</span><span class="n">crop_to_cutline</span> <span class="o">-</span><span class="n">dstalpha</span> <span class="o">-</span><span class="n">co</span> <span class="n">COMPRESS</span><span class="o">=</span><span class="n">JPEG</span> <span class="o">-</span><span class="n">co</span> <span class="n">JPEG_QUALITY</span><span class="o">=</span><span class="mi">75</span> <span class="s">"E:/ortho18/Area Wide Mosaics/OHMUSK18-SID-3INCH/OHMUSK18-SID-3INCH.sid"</span> <span class="n">E</span><span class="p">:</span><span class="o">/</span><span class="n">ortho18</span><span class="o">/</span><span class="n">qgis</span><span class="o">-</span><span class="n">testing</span><span class="o">/</span><span class="n">OHMUSK18_3IN_GDALWARP_CLIP_JPG75_ALPHA</span><span class="p">.</span><span class="n">tif</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gdalwarp</span> <span class="o">-</span><span class="n">wo</span> <span class="n">NUM_THREADS</span><span class="o">=</span><span class="n">ALL_CPUS</span> <span class="o">-</span><span class="n">multi</span> <span class="o">-</span><span class="n">of</span> <span class="n">GTiff</span> <span class="o">-</span><span class="n">cutline</span> <span class="n">E</span><span class="p">:</span>\<span class="n">ortho18</span>\<span class="n">clip</span><span class="o">-</span><span class="n">coz</span><span class="p">.</span><span class="n">shp</span> <span class="o">-</span><span class="n">crop_to_cutline</span> <span class="o">-</span><span class="n">dstalpha</span> <span class="o">-</span><span class="n">co</span> <span class="n">COMPRESS</span><span class="o">=</span><span class="n">JPEG</span> <span class="o">-</span><span class="n">co</span> <span class="n">JPEG_QUALITY</span><span class="o">=</span><span class="mi">75</span> <span class="o">-</span><span class="n">co</span> <span class="n">TILED</span><span class="o">=</span><span class="n">yes</span> <span class="o">-</span><span class="n">co</span> <span class="n">BIGTIFF</span><span class="o">=</span><span class="n">YES</span> <span class="s">"E:/ortho18/Area Wide Mosaics/OHMUSK18-SID-3INCH/OHMUSK18-SID-3INCH.sid"</span> <span class="n">E</span><span class="p">:</span><span class="o">/</span><span class="n">ortho18</span><span class="o">/</span><span class="n">qgis</span><span class="o">-</span><span class="n">testing</span><span class="o">/</span><span class="n">OHMUSK18_3IN_GDALWARP_CLIP_JPG75_ALPHA_BIGTIFF</span><span class="p">.</span><span class="n">tif</span>
+</code></pre></div></div>
+
+<p>If an error comes up about the size being too large try adding these settings -</p>
+
+<p><code class="language-plaintext highlighter-rouge">-co TILED=yes -co BLOCKXSIZE=256 -co BLOCKYSIZE=256</code> - <strong>started task at 11:30 on march 26th</strong></p>
+
+<h4 id="references-1">References</h4>
+
+<p><a href="https://www.gdal.org/frmt_gtiff.html">https://www.gdal.org/frmt_gtiff.html</a></p>
+
+<p><a href="https://www.gdal.org/gdalwarp.html">https://www.gdal.org/gdalwarp.html</a></p>
+
+<p><a href="https://github.com/dwtkns/gdal-cheat-sheet">https://github.com/dwtkns/gdal-cheat-sheet</a></p>
+
+<p><a href="https://www.azavea.com/blog/2018/10/11/creating-leaflet-tiles-from-open-data/">https://www.azavea.com/blog/2018/10/11/creating-leaflet-tiles-from-open-data/</a></p>
+
+<p><a href="http://www.thesjg.com/2013/03/generating-aerial-tiles-from-naip-imagery/">http://www.thesjg.com/2013/03/generating-aerial-tiles-from-naip-imagery/</a></p>
+
+<p><a href="https://gis.stackexchange.com/questions/104453/why-result-of-merge-of-multiple-raster-is-so-big">https://gis.stackexchange.com/questions/104453/why-result-of-merge-of-multiple-raster-is-so-big</a></p>
+
+<p><a href="http://docs.geonode.org/en/master/tutorials/advanced/adv_data_mgmt/adv_raster/processing.html">http://docs.geonode.org/en/master/tutorials/advanced/adv_data_mgmt/adv_raster/processing.html</a></p>
+:ET

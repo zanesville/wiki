@@ -157,10 +157,20 @@ a:hover:not(p) {
   text-decoration: none;
 }
 
+.highlight {
+  border-radius: 3px;
+}
+
 hr {
   border: none;
   border-bottom: solid 2px #eee;
   margin: 2rem 0;
+}
+.post img {
+  border: solid thin #eee;
+  border-radius: 3px;
+  margin: 1rem 0;
+  width: 100%;
 }
 /****
 HERO

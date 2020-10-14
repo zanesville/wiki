@@ -8,19 +8,7 @@ subtitle: Duplicate values code, Sequential fields code, and more
 
 Use the "Summarize" tool, choose the field you want to check, using the "count" statistic, and a key field if needed, using "first"
 
-## Check for Duplicate Values - DO NOT USE THIS METHOD
-
-This method returns the first **duplicate**, not all values that exist more than once in the field.
-
-```python
-uniqueList = []
-def isDuplicate(inValue):
-  if inValue in uniqueList:
-    return 1
-  else:
-    uniqueList.append(inValue)
-    return 0
-```
+---
 
 ## Sequential Field Values
 This is used to create the FIELDID for GIS assets. 
@@ -36,4 +24,20 @@ def autoIncrement():
  else:  
   rec += pInterval  
  return rec
+```
+
+---
+
+## Check for Duplicate Values - DO NOT USE THIS METHOD
+
+This method returns the first **duplicate**, not all values that exist more than once in the field.
+
+```python
+uniqueList = []
+def isDuplicate(inValue):
+  if inValue in uniqueList:
+    return 1
+  else:
+    uniqueList.append(inValue)
+    return 0
 ```

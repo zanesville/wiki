@@ -1,0 +1,8 @@
+- question: What is QGIS and how do I use it?
+  answer: QGIS is a free and open source GIS desktop software program. It integrates nicely with Postgres/PostGIS and has all the functionality of commercial GIS software. There are a wide variety of tutorials online for QGIS but the best way to learn is to start using it.
+
+- question: Where is all the data stored?
+  answer: Most of the city vector data is stored in Postgres running on a city server. Some utility data (Water) is stored in ArcGIS Online, as well as a handful of feature services that accompany Survey123 forms. Raster data is stored locally on each GIS machine and on the local file server.
+
+- question: Why Mapbox and how do I update the web maps?
+  answer: Mapbox GL JS is a highly performant webGL-based JavaScript library for creating interactive maps. Theses maps are powered by vector tiles, GeoJSON, and a custom mapping library. They are built with Hexo and Parcel and served hosted on Netlify. Documentation on updating the maps can be found under the Apps category. The basemap data comes from Mapbox but all raster and vector overlays are either internal or WMS/WFS services.

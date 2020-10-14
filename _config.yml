@@ -6,6 +6,8 @@ baseurl: "/wiki"
 # permalink: :categories/:title/
 highlighter: rouge
 
+permalink: /:title/
+
 defaults:
   -
     scope:
@@ -21,18 +23,18 @@ defaults:
       layout: "posts"
       permalink: /:categories/:title/
 
-plugins: 
-  - jekyll-admin
+# plugins: 
+  # - jekyll-admin
 
-jekyll-archives:
-  enabled: ["categories", "tags"]
-  layout: category
-  permalinks:
-    year: '/:year/'
-    month: '/:year/:month/'
-    day: '/:year/:month/:day/'
-    tag: '/tag/:name/'
-    category: '/docs/:name/'
+# jekyll-archives:
+#   enabled: ["categories", "tags"]
+#   layout: category
+#   permalinks:
+#     year: '/:year/'
+#     month: '/:year/:month/'
+#     day: '/:year/:month/:day/'
+#     tag: '/tag/:name/'
+#     category: '/docs/:name/'
 
 sass:
   sass_dir: _sass
