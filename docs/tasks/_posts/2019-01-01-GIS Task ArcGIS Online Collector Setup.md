@@ -20,7 +20,7 @@ Collector maps use the Web Mercator projection. When you upload data to from Arc
 For data collected with a GPS unit connected to the ODOT RTK or some other correction network, **according to [this post](https://community.esri.com/thread/225752-issues-with-wgs1984itrf00tonad1983-datum-transformation) by an Esri staffer:**
 > "...if the data went through any RTK or post-processing, it was aligned with the control points that were used--usually either an ITRF system or some realization of NAD83. At that point, the data is in the same coordinate system as the control point network, but software sometimes doesn't say that." - This is why you must set the transformation in Collector. It transforms the RTK point to Web Mercator. Again, this is transformed back to the original projection of the data when exported from AGOL.
 
-Data collected outside of Collector, but with an RTK connection, needs transformed to WGS84 with the ITRF00 projection to be viewed properly on a web map that is in WebMercator (such as Mapbox maps). It would then need to be transformed back to the original projection if downloaded say as WGS84 GeoJSON from inside the web map.
+Data collected outside of Collector, but with an RTK connection, needs transformed to WGS84 with the ITRF00 projection to be viewed properly on a web map that is in WebMercator (such as Mapbox maps). It would then need to be transformed back to the original projection in ArcMap or QGIS if downloaded as WGS84 GeoJSON from inside the web map.
 
 ## Collector and Field Inspections
 
