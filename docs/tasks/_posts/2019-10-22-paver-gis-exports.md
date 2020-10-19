@@ -19,4 +19,4 @@ This data is displayed on the web maps using a Postgres View made up of the same
 8. Rename the only sheet to PCI_Latest
 9. Overwrite the ``eng_pci_latest_conditions`` table in Postgres using DB Manager.
 
-![](../../assets/img/paver_import_pci_to_postgres.jpg)
+![]({{site.baseurl}}/assets/img/paver_import_pci_to_postgres.jpg)
