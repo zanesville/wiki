@@ -1,6 +1,6 @@
 ---
 title: PostgreSQL & PostGIS
-tags: postgis
+tags: postgis, postgres
 ---
 
 ## Set X coordinate or Y coordinate of Polygon
