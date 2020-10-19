@@ -5,35 +5,33 @@ subtitle: Explanation of the history and creation of the Impervious Surface laye
   and the public layer view
 ---
 
-The Impervious Surface layer was created in 2019. It was originally put together using aerial photos and field visits by students at Ohio University's Voinivich Center. The city finalized the dataset. 
+The Impervious Surface layer was created in 2019. It was originally put together using aerial photos and field visits by students at Ohio University's Voinivich Center. The city finalized the dataset. The layer is only used to update the billing database. It is not tied directly to billing. The billing database calculates the ERU fee based on credits and aparment units under the same top level account, if any.
 
-The master layer is broken out by parcel, billing account number, and partially by surface type. To get the final ERU, the features are dissolved on the account number. This was previously done with a complicated ArcMap model, but is now done directly in Postgres. The view will not update automatically, but can be updated by right clicking on the view in the QGIS 'Browser' and clicking refresh view.
+The polygon layer is broken out by parcel, billing account number, and partially by surface type. To get the final ERU, the features are dissolved on the account number. This was previously done with a complicated ArcMap model, but is now done directly in Postgres via a View layer, which is a layer stored in memory so it is always up to date.
 
-The layer consists of a polygon layer and a related table. The table keeps track of ERU credits and apartment credits. 
+The layer consists of a polygon layer and a related table. The table keeps track of ERU credits, apartment credits and billing info. 
 
-In the following SQL definition, the "3" value is the current ERU fee. Billing keeps track of this fee themselves based on the ERU they have on file, so the ``imp_fee`` field is only used for GIS purposes, in case for example we want to quickly see the impervious fee for a property.
+In the following SQL definition, the "3.5" value is the current ERU fee. Billing keeps track of this fee themselves based on the ERU they have on file, so the ``imp_fee`` field is only used for GIS purposes, in case for example we want to quickly see the impervious fee for a property.
 
 ## Creating the Master Dissolved Impervious Layer
 
 ```sql
-drop materialized view if exists utl_stormwater_impervious_view;
+drop view if exists utl_stormwater_impervious_view;
 
-create materialized view utl_stormwater_impervious_view as
-select
-	row_number() over () as id,
-	ST_Union(geom) as geom,
-	imp_master,
-	imp_accnt,
-	sum(st_area(geom)) as imp_total_area,
-	round(sum(st_area(geom) / 2300)) as imp_eru,
-	credits as imp_credits,
-	units as imp_units,
-	greatest(((round(sum(st_area(geom) / 2300)) - units - credits) * 3), 3 * (1 - units - credits), 0) as imp_fee
-from utl_stormwater_impervious, utl_stormwater_impervious_billing
-where imp_type != 'EXEMPT' and utl_stormwater_impervious.imp_accnt = "UTL_ACCNT"
-group by imp_accnt, imp_master, units, credits;
-
-create unique index on utl_stormwater_impervious_view (id);
+create view utl_stormwater_impervious_view as
+ SELECT row_number() OVER () AS id,
+    st_multi(st_union(utl_stormwater_impervious.geom))::geometry(MultiPolygon,3735) AS geom,
+    utl_stormwater_impervious.imp_master,
+    utl_stormwater_impervious.imp_accnt,
+    sum(st_area(utl_stormwater_impervious.geom)) AS imp_total_area,
+    round(sum(st_area(utl_stormwater_impervious.geom) / 2300::double precision)) AS imp_eru,
+    utl_stormwater_impervious_billing.credits AS imp_credits,
+    utl_stormwater_impervious_billing.units AS imp_units,
+    GREATEST((round(sum(st_area(utl_stormwater_impervious.geom) / 2300::double precision)) - utl_stormwater_impervious_billing.units::double precision - utl_stormwater_impervious_billing.credits::double precision) * 3.5::double precision, (3.5 * (1 - utl_stormwater_impervious_billing.units - utl_stormwater_impervious_billing.credits)::numeric)::double precision, 0::double precision) AS imp_fee
+   FROM utl_stormwater_impervious,
+    utl_stormwater_impervious_billing
+  WHERE utl_stormwater_impervious.imp_type::text <> 'EXEMPT'::text AND utl_stormwater_impervious.imp_accnt::text = utl_stormwater_impervious_billing."UTL_ACCNT"::text
+  GROUP BY utl_stormwater_impervious.imp_accnt, utl_stormwater_impervious.imp_master, utl_stormwater_impervious_billing.units, utl_stormwater_impervious_billing.credits;
 ```
 
 ### Resources
