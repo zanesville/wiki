@@ -3,7 +3,7 @@ title: PostgreSQL & PostGIS
 tags: postgis
 ---
 
-## Set X coordinate or y coordinate of Polygon
+## Set X coordinate or Y coordinate of Polygon
 
 ```sql
 UPDATE layer_name
