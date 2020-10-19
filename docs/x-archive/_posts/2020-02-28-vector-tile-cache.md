@@ -2,6 +2,7 @@
 title: Vector Tile Cache
 tags: webmaps vector-tiles postgres
 ---
+>With the exception of data stored in AGOL, all vector tiles and GeoJSON data is served directly from Postgres via pg_tileserv and pg_featureserv
 
 This is done with a script that runs nightly as a scheduled task on the GIS computer (it could run directly on the server as well). It is located at ``Z:\scans\GIS_Applications\production\geojson-sde-backup-and-vector-tile-cache\index.js``. This script does the following:
 
