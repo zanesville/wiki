@@ -1,4 +1,5 @@
 ---
+title: Uploading Streetview Imagery to Mapillary
 tags: mapillary
 ---
 
