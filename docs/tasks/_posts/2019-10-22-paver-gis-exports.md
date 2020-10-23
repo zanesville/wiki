@@ -26,8 +26,8 @@ This data is displayed on the web maps using a Postgres View made up of the same
 14. Rename the new table ``eng_pci_latest_conditions``.
 15. Remake the view, adding "viewer" user to SELECT priviledges.
 16. Load both pages below to refresh the data server caches of available layers.
-  - https://311.coz.org/api/v1/feature-server/collections.html
-  - https://311.coz.org/api/v1/vector-tiles/
+  17. https://311.coz.org/api/v1/feature-server/collections.html
+  18. https://311.coz.org/api/v1/vector-tiles/
 
 ```SQL
  SELECT row_number() OVER () AS id,
