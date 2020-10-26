@@ -25,7 +25,7 @@ This data is displayed on the web maps using a Postgres View made up of the same
 12. Delete the old view.
 13. Delette the old ``eng_pci_latest_conditions``.
 14. Rename the temporary view to ``eng_paver_pci_view``.
-14. Rename the new table ``eng_pci_latest_conditions``.
+14. Rename the new table ``eng_pci_latest_conditions`` - pg_admin will automatically update the table name in the view.
 15. Add "viewer" user to SELECT priviledges on the view.
 16. Load both pages below to refresh the data server caches of available layers.
   17. https://311.coz.org/api/v1/feature-server/collections.html
