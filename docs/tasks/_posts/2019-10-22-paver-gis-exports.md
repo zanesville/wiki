@@ -31,8 +31,8 @@ This data is displayed on the web maps using a Postgres View made up of the same
 9. Rename the new table back to ``eng_pci_latest_conditions`` - pg_admin will automatically update the table name in the view. Since the table is defined in the view, it could be appended with the date updated.
 10. **IMPORTANT** Add "viewer" user to SELECT priviledges on the view anytime the view is updated.
 11. **IMPORTANT** Load both pages below to refresh the data server caches of available layers.
-  11. https://311.coz.org/api/v1/feature-server/collections.html
-  11. https://311.coz.org/api/v1/vector-tiles/
+  - [https://311.coz.org/api/v1/feature-server/collections.html](https://311.coz.org/api/v1/feature-server/collections.html)
+  - [https://311.coz.org/api/v1/vector-tiles/](https://311.coz.org/api/v1/vector-tiles/)
 
 ```SQL
  SELECT row_number() OVER () AS id,
