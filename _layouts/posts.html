@@ -5,7 +5,7 @@ layout: default
 
   {% include breadcrumbs.html %}
   
-  <h1>{% if page.title %}{{page.title}}{% else %}{{ page.name | replace: ".md", " " | replace: "-", " "}}{% endif %}</h1>
+  <h1>{% if page.title %}{{page.title}}{% else %}{{ page.name | replace: ".md", " "}}{% endif %}</h1>
   {{ content }}
   <div>
   <hr>
