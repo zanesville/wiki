@@ -9,6 +9,7 @@ This data is displayed on the web maps using a Postgres View made up of the same
 
 ## Creating the LatestConditions Export Table
 
+### Exporting the Table and Preparing to work in the ArcMap and QGIS Layers
 1. Open PAVER
 2. Click Reports
 3. Choose User Defined Reports
@@ -17,32 +18,35 @@ This data is displayed on the web maps using a Postgres View made up of the same
 6. Rename the Excel Table from Table.xls to LatestConditions.xls
 7. Open the table
 8. Rename the only sheet to PCI_Latest
-9. Open QGIS
-10. Load the table into the map
-11. Load the new table into Postgres as ``eng_pci_latest_conditions_new`` in Postgres using DB Manager.
-12. Copy the SQL from the current ``eng_paver_pci_view``.
-13. Create a new, temporary materialized view by using the copied SQL and replacing ``eng_pci_latest_conditions`` with ``eng_pci_latest_conditions_new``.
-14. Delete the old view.
-15. Delette the old ``eng_pci_latest_conditions``.
-16. Rename the temporary view back to ``eng_paver_pci_view``.
-17. Rename the new table back to ``eng_pci_latest_conditions`` - pg_admin will automatically update the table name in the view. Since the table is defined in the view, it could be appended with the date updated.
-18. **IMPORTANT** Add "viewer" user to SELECT priviledges on the view anytime the view is updated.
-19. **IMPORTANT** Load both pages below to refresh the data server caches of available layers.
-  17. https://311.coz.org/api/v1/feature-server/collections.html
-  18. https://311.coz.org/api/v1/vector-tiles/
+
+### Creating the Web Map View
+1. Open QGIS
+2. Load the LatestConditions table into the map.
+3. Load the new table into Postgres as ``eng_pci_latest_conditions_new`` in using DB Manager.
+4. Copy the SQL from the current ``eng_paver_pci_view``.
+5. Create a new, temporary materialized view by using the copied SQL and replacing ``eng_pci_latest_conditions`` with ``eng_pci_latest_conditions_new``. Refresh the view data.
+5. Delete the old view.
+7. Delette the old ``eng_pci_latest_conditions`` table.
+8. Rename the temporary view back to ``eng_paver_pci_view`` so it will not break the web map layer.
+9. Rename the new table back to ``eng_pci_latest_conditions`` - pg_admin will automatically update the table name in the view. Since the table is defined in the view, it could be appended with the date updated.
+10. **IMPORTANT** Add "viewer" user to SELECT priviledges on the view anytime the view is updated.
+11. **IMPORTANT** Load both pages below to refresh the data server caches of available layers.
+  11. https://311.coz.org/api/v1/feature-server/collections.html
+  11. https://311.coz.org/api/v1/vector-tiles/
 
 ```SQL
  SELECT row_number() OVER () AS id,
-  roads.geom,
-  roads.lsn AS name,
-  pci.pci_category,
-  pci.pci,
-  pci.predicted_condition_category AS pci_predicted_category,
-  pci.last_major_work_date,
-  date_part('year'::text, pci.last_major_work_date)::text AS year_last_paved
-FROM eng_paver_centerlines roads,
-  eng_paver_latest_pci pci
-WHERE roads.uniqueid::text = pci.uniqueid::text;
+    roads.geom,
+    roads.lsn AS name,
+    pci.pci_category,
+    pci.pci,
+    pci."predicted_pci_(10_24_2020)" AS pci_predicted,
+    pci.predicted_condition_category AS pci_predicted_category,
+    pci.last_major_work_date,
+    date_part('year'::text, pci.last_major_work_date)::text AS year_last_paved
+   FROM eng_paver_centerlines roads,
+    eng_paver_latest_pci pci
+  WHERE roads.uniqueid::text = pci.uniqueid::text;
 ```
 
 ![]({{site.baseurl}}/assets/img/paver_import_pci_to_postgres.jpg)
