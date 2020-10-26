@@ -20,14 +20,14 @@ This data is displayed on the web maps using a Postgres View made up of the same
 9. Open QGIS
 10. Load the table into the map
 11. Load the new table into Postgres as ``eng_pci_latest_conditions_new`` in Postgres using DB Manager.
-11. Copy the SQL from the current ``eng_paver_pci_view``.
-12. Create a new, temporary materialized view by using the copied SQL and replacing ``eng_pci_latest_conditions`` with ``eng_pci_latest_conditions_new``.
-12. Delete the old view.
-13. Delette the old ``eng_pci_latest_conditions``.
-14. Rename the temporary view to ``eng_paver_pci_view``.
-14. Rename the new table ``eng_pci_latest_conditions`` - pg_admin will automatically update the table name in the view.
-15. Add "viewer" user to SELECT priviledges on the view.
-16. Load both pages below to refresh the data server caches of available layers.
+12. Copy the SQL from the current ``eng_paver_pci_view``.
+13. Create a new, temporary materialized view by using the copied SQL and replacing ``eng_pci_latest_conditions`` with ``eng_pci_latest_conditions_new``.
+14. Delete the old view.
+15. Delette the old ``eng_pci_latest_conditions``.
+16. Rename the temporary view back to ``eng_paver_pci_view``.
+17. Rename the new table back to ``eng_pci_latest_conditions`` - pg_admin will automatically update the table name in the view. Since the table is defined in the view, it could be appended with the date updated.
+18. **IMPORTANT** Add "viewer" user to SELECT priviledges on the view anytime the view is updated.
+19. **IMPORTANT** Load both pages below to refresh the data server caches of available layers.
   17. https://311.coz.org/api/v1/feature-server/collections.html
   18. https://311.coz.org/api/v1/vector-tiles/
 
