@@ -37,30 +37,20 @@ Datasets created for one-off public request maps should go in their repsective f
 
 * Administraive Boundaries - adm
 * Census/Demographics -  cen
-* Utilities -  utl - utl_stormwater, utl_wastewater_stm, utl_wastewater_san
+* Utilities -  utl - utl_stormwater, utl_wastewater_stm, utl_wastewater_san, utl_streets
 * Community Development & Zoning -  dev
 * Environmental - env
 * Parks & Recreation/Cemeteries - rec_parks, rec_cemeteries
 * Air/Roads/Rail/ -  trn
 * Public Safety/Police/Fire/Code - psf_fire, psf_police, psf_code (NOT IN USE)
-* Engineering - eng
+* Engineering - eng (this includes layers managed by engineering such as Alleys and PAVER layers)
 * Imagery - img
 * Streets & Sanitation - utl_sanitation, utl_streets
 
 ## Database
 We only have one database.  ArcGIS software does not allow for use of the ``postgres`` default database.
 
-> TODO - CONVERT LAYER LIST TO ACCORDIANS WITH JAVASCRIPT
-
-### Example
-
-Layer | Name | Category |
---- | --- | --- |
-<strong>Engineering</strong> | | 
- eng_mus_eop | Test | Test
- eng_mus_row | Test | Test
-
-*For all layers see the database in Postgres.*
+*For the list of all layers view he database in pg_admin or QGIS.*
 
 ---
 
