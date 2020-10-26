@@ -11,7 +11,7 @@ This post outlines the naming convention for the layers in the GIS database. I a
 
 Typical layer name:
 
-```sql
+```
 utl_stormwater_impervious_areas /*category_ownerIfNotZanesville_division_OR_goup_layer_projection (if not 3735)*/
 ```
 
