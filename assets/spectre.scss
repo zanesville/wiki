@@ -1,6 +1,5 @@
 ---
 ---
-// Core variables
 $version: "0.5.8";
 
 // Core features
@@ -15,7 +14,7 @@ $secondary-color-dark: darken($secondary-color, 3%) !default;
 $secondary-color-light: lighten($secondary-color, 3%) !default;
 
 // Gray colors
-$dark-color: #032034 !default;//#2f363d !default;
+$dark-color: #032034 !default; //#2f363d !default;
 $light-color: #fff !default;
 $gray-color: lighten($dark-color, 55%) !default;
 $gray-color-dark: darken($gray-color, 30%) !default;
@@ -45,14 +44,58 @@ $link-color-light: lighten($primary-color-dark, 6%) !default;
 
 // Fonts
 // Credit: https://www.smashingmagazine.com/2015/11/using-system-ui-fonts-practical-guide/
-$base-font-family: "Metropolis", "Segoe UI", -apple-system, BlinkMacSystemFont, Avenir, "Avenir Next", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-$mono-font-family: "Source Code Pro", -apple-system, BlinkMacSystemFont, Avenir, "Avenir Next", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-$fallback-font-family: "Helvetica Neue", sans-serif !default;
-$cjk-zh-hans-font-family: $base-font-family, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", $fallback-font-family !default;
-$cjk-zh-hant-font-family: $base-font-family, "PingFang TC", "Hiragino Sans CNS", "Microsoft JhengHei", $fallback-font-family !default;
-$cjk-jp-font-family: $base-font-family, "Hiragino Sans", "Hiragino Kaku Gothic Pro", "Yu Gothic", YuGothic, Meiryo, $fallback-font-family !default;
-$cjk-ko-font-family: $base-font-family, "Malgun Gothic", $fallback-font-family !default;
-$body-font-family: $base-font-family, $fallback-font-family !default;
+$base-font-family: "Metropolis",
+"Segoe UI",
+-apple-system,
+BlinkMacSystemFont,
+Avenir,
+"Avenir Next",
+"Roboto",
+"Oxygen",
+"Ubuntu",
+"Cantarell",
+"Fira Sans",
+"Droid Sans",
+"Helvetica Neue",
+sans-serif;
+$mono-font-family: "Source Code Pro",
+-apple-system,
+BlinkMacSystemFont,
+Avenir,
+"Avenir Next",
+"Segoe UI",
+"Roboto",
+"Oxygen",
+"Ubuntu",
+"Cantarell",
+"Fira Sans",
+"Droid Sans",
+"Helvetica Neue",
+sans-serif;
+$fallback-font-family: "Helvetica Neue",
+sans-serif !default;
+$cjk-zh-hans-font-family: $base-font-family,
+"PingFang SC",
+"Hiragino Sans GB",
+"Microsoft YaHei",
+$fallback-font-family !default;
+$cjk-zh-hant-font-family: $base-font-family,
+"PingFang TC",
+"Hiragino Sans CNS",
+"Microsoft JhengHei",
+$fallback-font-family !default;
+$cjk-jp-font-family: $base-font-family,
+"Hiragino Sans",
+"Hiragino Kaku Gothic Pro",
+"Yu Gothic",
+YuGothic,
+Meiryo,
+$fallback-font-family !default;
+$cjk-ko-font-family: $base-font-family,
+"Malgun Gothic",
+$fallback-font-family !default;
+$body-font-family: $base-font-family,
+$fallback-font-family !default;
 
 // Unit sizes
 $unit-o: .05rem !default;
@@ -139,13 +182,12 @@ $zindex-4: 400 !default;
   src: url("{{site.baseurl}}/assets/metropolis/Metropolis-Light.otf") format("opentype");
 }
 
-/**
-CUSTOM CSS
-**/
+// CUSTOM CSS
 
 body {
   background: white;
 }
+
 h1,
 h2,
 h3,
@@ -153,6 +195,7 @@ h4 {
   font-family: "Metropolis Bold", "Segoe UI", "Montserrat", "Metropolis", -apple-system, BlinkMacSystemFont, Avenir, "Avenir Next", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-weight: 700;
 }
+
 a:hover:not(p) {
   text-decoration: none;
 }
@@ -166,23 +209,30 @@ hr {
   border-bottom: solid 2px #eee;
   margin: 2rem 0;
 }
+
 .post img {
   border: solid thin #eee;
   border-radius: 3px;
   margin: 1rem 0;
   width: 100%;
 }
+
 /****
 HERO
 ****/
-.hero h1, .hero h1 {
+.hero h1,
+.hero h1 {
   font-size: 2.4rem;
 }
+
 .hero p {
   font-size: 1.1rem;
 }
+
 .hero {
   padding: 2rem 0;
+}
+
 /****
 CUSTOM CONTAINER
 ****/
@@ -204,7 +254,6 @@ OFF CANVAS MAIN CONTENT
 ****/
 .off-canvas .off-canvas-content {
   padding: 1rem;
-  // min-height: 100vh;
   max-width: 100%;
   word-break: break-word;
 }
@@ -221,7 +270,8 @@ OFF CANVAS MAIN CONTENT
   color: inherit
 }
 
-.off-canvas .off-canvas-sidebar a:hover, .off-canvas .off-canvas-sidebar a:focus {
+.off-canvas .off-canvas-sidebar a:hover,
+.off-canvas .off-canvas-sidebar a:focus {
   color: $primary-color
 }
 
@@ -236,26 +286,18 @@ OFF CANVAS MAIN CONTENT
   left: 0px;
 }
 
-/*
-@media screen and (min-width:960px) {
-  .off-canvas .off-canvas-sidebar {
-    position: fixed;
-  }
-  .off-canvas .off-canvas-content {
-    padding: .4rem .4rem .4rem 2rem;
-    position: relative;
-    max-width: calc(100vw - 420px);
-  }
-}*/
 /****
 CARDS
 ****/
-a:not(:hover) .card, a:not(:focus) .card {
+a:not(:hover) .card,
+a:not(:focus) .card {
   color: $dark-color;
 }
+
 a .card .card-header {
-  text-decoration: none!important;
+  text-decoration: none !important;
 }
+
 .card {
   border-radius: 6px;
   margin: 0 0.2rem 1rem;
@@ -268,7 +310,8 @@ a .card .card-header {
   opacity: 1;
 }
 
-.card:hover, .card:focus {
+.card:hover,
+.card:focus {
   background-color: whitesmoke;
   box-shadow: 2px 2px 0px 0px #8acbf8;
   cursor: pointer;
@@ -291,20 +334,25 @@ a .card .card-header {
 BREADCRUMBS
 ****/
 #breadcrumbs {
-  margin-bottom: 0.5rem;text-transform: capitalize;
+  margin-bottom: 0.5rem;
+  text-transform: capitalize;
 }
+
 /********/
 /*JS TOC*/
 /********/
 .js-toc {
   position: fixed;
 }
+
 .toc-list li {
   list-style: none;
 }
+
 .is-active-link::before {
   background-color: #07619d78;
 }
+
 /********/
 @media screen and (max-width:900px) {
   .js-toc {
@@ -323,7 +371,8 @@ code {
   padding: 0;
 }
 
-pre, pre.highlight {
+pre,
+pre.highlight {
   // margin: 1rem 0!important;
   // background: #f9f9f9;
   // background: #121212;
@@ -362,17 +411,18 @@ table {
   border-color: #1976D2;
 }
 
-/*DETAILS*/
 details {
   background: white;
 }
+
 summary {
   background: white;
   border-bottom: solid thin whitesmoke;
   margin-bottom: 10px;
 }
-.accordion input:checked ~ .accordion-body, .accordion[open] .accordion-body {
+
+.accordion input:checked>.accordion-body,
+.accordion[open] .accordion-body {
   max-height: 50rem;
   padding: 0 0.6rem;
 }
-/**/
