@@ -1,6 +1,6 @@
 ---
 title: ArcGIS Online Dashboards
-tags: arcgis online
+tags: agol
 ---
 
 ### Sewer East End Work Orders
