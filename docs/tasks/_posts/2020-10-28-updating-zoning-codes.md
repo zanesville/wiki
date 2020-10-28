@@ -1,5 +1,6 @@
 ---
 title: Updating Zoning Codes
+tags: postgres
 ---
 ## Updating the Zoning Code and other Attributes
 
