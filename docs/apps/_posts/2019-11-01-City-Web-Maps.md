@@ -42,10 +42,11 @@ The site, besides the static vector tiles, raster tiles, and data attachments (P
 ### Data Sources
 
 - Mapbox
-	- basemap and ortho for one of our apps
+	- Basemap for one of our apps
+	
 - 311.coz.org/data
-	- all vector data is derived from the database, updated nightly
-	- raster data is created from either QGIS or ArcMap/Pro and copied over manually
+	- All vector data is derived from the database
+	- Raster data is created from either QGIS and copied over to the 311 server manually
 
 ### Scripts
 
