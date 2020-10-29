@@ -17,6 +17,8 @@ This shows any water mains that have been marked as "Active" "False".
 
 ### Zoning Permits
 
+This app acts as a final storage location for completed zoning permits. It uses parcel numbers and centroids. The user can upload the final permit, and add and edit new permit data via a survey123 form.
+
 ---
 
 ### Testing and Archives
