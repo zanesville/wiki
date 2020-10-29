@@ -6,15 +6,15 @@ subtitle: A short overview of the city's web apps, web maps and other geospatial
 
 ## Intro
 
-The main city web maps and a handful of apps are (mostly) hosted on Netlify, powered by Mapbox GL JS, and are built with NodeJS. The main build tools are parcel-bundler, Gulp and the static site generator Hexo. The data is a combination of raster and vector tiles and raw GeoJSON data. The raster tiles are created using QGIS export xyz tiles from a raster *already in WGS84*. The vector tiles and GeoJSON data is created using the process below.
+The main city web maps and a handful of apps are (mostly) hosted on Netlify, powered by Mapbox GL JS, and are built with NodeJS. The main build tools are parcel-bundler, Gulp and the static site generator Hexo. The data is a combination of raster and vector tiles and raw GeoJSON data. The raster tiles are created using QGIS export xyz tiles from a raster *already in WGS84*. The vector tiles and GeoJSON data are for the most part served from pg_tileserv and pg_featureserv. Data hosted on AGOL is either pulled directly from the Feature Service or pulled in via GeoJSON or vector tiles that get updated nightly.
 
->The web maps could all be ported over to ArcGIS Online or the AGOL CMV, but those tools lack some of the functionality in the custom maps.
+>The web maps could all be ported over to ArcGIS Online Maps, ArcGIS Online Maps Beta, or the the Esri open source configurable map viewer (CMV), but those tools lack some of the functionality in the custom maps, in particular decent looking printed maps.
 
-The JavaScript that powers the map controls such as the layer control and network trace control is a custom-built library. This library is bundled using parcel-bundler. The files should be self-explanatory but could be broken out even further into individual components.
+The JavaScript that powers the map controls such as the layer control and network trace control is a custom-built library. This library is bundled using parcel-bundler. The files should be self-explanatory but could be broken out even further into individual components for easier debugging.
 
 ## ArcGIS Online
 
-A few maps and layers are hosted on AGOL. Several Survey123 apps are hosted here, mainly for field inspections.
+A few maps and layers are hosted on AGOL. Several Survey123 apps are hosted there as well, mainly for field inspections.
 
 ## 311.coz.org
 
@@ -24,13 +24,12 @@ This is a Windows IIS Server managed by IT that houses our GIS database, static 
 
 HexoJS (NodeJS) static site hosted on Netlify. Contains the majority of our web maps. More information below.
 
-### Creating the Vector Tile Cache for ArcGIS Online Feature Services
+### Creating Vector Tile Cache for ArcGIS Online Feature Services
 
-coming soon...
-
+The AGOL feature and tile cache is built with two NodeJS tools - ``agol-cache`` and ``vtile``.
 
 ### Software & Building
-NodeJS needs to be installed to build and deploy this website.
+NodeJS needs to be installed to build and deploy the main website.
 
 Major Dependencies
 - Parcel - installed globally
