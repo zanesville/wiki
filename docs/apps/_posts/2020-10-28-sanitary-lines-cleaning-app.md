@@ -6,4 +6,4 @@ This application is part of the postgres-forms-v2 set of applications that read 
 
 ## Key Features
  - The app relies on a join btween the ``utl_sanitary_lines_cleaning table`` to the ``utl_sanitary_lines layer`` via the ``uuid`` field
- - The ``uuid`` field in the ``utl_sanitary_lines`` layer is auto-created on line create in QGIS **NOT IN POSTGRES**
+ - The ``uuid`` field in the ``utl_sanitary_lines`` layer is auto-created on save in QGIS **NOT IN POSTGRES**.
