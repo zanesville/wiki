@@ -51,6 +51,9 @@ ogr2ogr -f GeoJSON -t_srs crs:84 lines-new.geojson lines.shp
 [https://postgis.net/workshops/postgis-intro/tuning.html](https://postgis.net/workshops/postgis-intro/tuning.html)
 
 ## Triggers
+
+While triggers in Postgres are cool, I have tended to apply expressions on save in QGIS instead of trigger functions in Postgres. The only place I am using triggers is calc_length on the sanitary lines, and to create Field IDs for the sanitary manholes (which are based on the id field).
+
 ```sql
 Create or replace function calc_length()
 returns trigger as
@@ -67,7 +70,7 @@ for each row execute procedure calc_length();
 ```
 
 ## Auto Increment ID
-Aain, this should be done for you when exporting to Postgres from QGIS. This method works but is not recommended.
+This should be done for you when exporting to Postgres from QGIS. This method works but is not recommended.
 
 ```sql
 CREATE SEQUENCE project_id_seq;
