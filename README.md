@@ -4,7 +4,7 @@ This site serves as the Wiki for the City of Zanesville GIS processes and proced
 
 The site is a Jekyll template, served by GitHub. It uses Spectre CSS for the main styling, Tocbot for the heading menus and highlight.js for syntax highlighting.
 
-Posts are found under the "/docs" folder, in their respective category folders under a "_posts" folder.
+Posts are found under the `/docs` folder, in their respective category folders under a `_posts` folder.
 
 ---
 
