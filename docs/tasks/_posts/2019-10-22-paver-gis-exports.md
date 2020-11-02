@@ -33,6 +33,8 @@ This data is displayed on the web maps using a Postgres View made up of the same
   - [https://311.coz.org/api/v1/feature-server/collections.html](https://311.coz.org/api/v1/feature-server/collections.html)
   - [https://311.coz.org/api/v1/vector-tiles/](https://311.coz.org/api/v1/vector-tiles/)
 
+{% highlight javascript %}
+
 ```SQL
  SELECT row_number() OVER () AS id,
     roads.geom,
@@ -47,5 +49,6 @@ This data is displayed on the web maps using a Postgres View made up of the same
     eng_paver_latest_pci pci
   WHERE roads.uniqueid::text = pci.uniqueid::text;
 ```
+{% endhighlight %}
 
 ![]({{site.baseurl}}/assets/img/paver_import_pci_to_postgres.jpg)
