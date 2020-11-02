@@ -22,7 +22,7 @@ returning *
 
 ## Node Postgres Tweaks
 
-**When adding INSERT priviledges to a Postgres user, this does give them the ability to add new features due to the user not having priviledges to the auto id_sequence.**
+**When adding INSERT priviledges to a Postgres user, this does NOT give them the ability to add new features due to the user not having priviledges to the auto id_sequence.**
 
 ```sql
 GRANT USAGE, SELECT ON SEQUENCE cities_id_seq TO www;
