@@ -36,18 +36,18 @@ This data is displayed on the web maps using a Postgres View made up of the same
 {% highlight javascript %}
 
 ```SQL
- SELECT row_number() OVER () AS id,
-    roads.geom,
-    roads.lsn AS name,
-    pci.pci_category,
-    pci.pci,
-    pci."predicted_pci_(10_24_2020)" AS pci_predicted,
-    pci.predicted_condition_category AS pci_predicted_category,
-    pci.last_major_work_date,
-    date_part('year'::text, pci.last_major_work_date)::text AS year_last_paved
-   FROM eng_paver_centerlines roads,
-    eng_paver_latest_pci pci
-  WHERE roads.uniqueid::text = pci.uniqueid::text;
+SELECT row_number() OVER () AS id,
+  roads.geom,
+  roads.lsn AS name,
+  pci.pci_category,
+  pci.pci,
+  pci."predicted_pci_(10_24_2020)" AS pci_predicted,
+  pci.predicted_condition_category AS pci_predicted_category,
+  pci.last_major_work_date,
+  date_part('year'::text, pci.last_major_work_date)::text AS year_last_paved
+ FROM eng_paver_centerlines roads,
+  eng_paver_latest_pci pci
+WHERE roads.uniqueid::text = pci.uniqueid::text;
 ```
 {% endhighlight %}
 
