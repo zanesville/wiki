@@ -13,7 +13,7 @@ subtitle: Step by Step Process for Updating Parcel Data from the County GIS
 3. Rename Full Export folder to ExtractExcelFull.
 4. Extract both files to their folders, overwriting the existing files.
 5. Download the last updated TAXPARCEL**.shp or latest parcel file (check the modified date in the ftp) and overwrite existing.
-ftp://ftp.mceo.org/Transfer/GIS/Parcel/
+    5. ftp://ftp.mceo.org/Transfer/GIS/Parcel/
     5. Rename to TAXPARCEL19 so that it will work in the model.
 
 6. Run the Parcels Update model from the ArcPRO TaxParcelUpdates Project in the GIS\Tax Parcels folder.
