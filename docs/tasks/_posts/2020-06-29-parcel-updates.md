@@ -15,10 +15,10 @@ subtitle: Step by Step Process for Updating Parcel Data from the County GIS
 5. Download the last updated TAXPARCEL**.shp or latest parcel file (check the modified date in the ftp) and overwrite existing.
     5. ftp://ftp.mceo.org/Transfer/GIS/Parcel/
     5. Rename to TAXPARCEL19 so that it will work in the model.
-6. Run the Parcels Update model from the ArcPRO TaxParcelUpdates Project in the GIS\Tax Parcels folder.
-7. Run Fix Geometries in QGIS on the updated parcel file.
-8. Import the parcels into Postgres, overwriting existing and converting all fields to lowercase.
-9. Update the Public Notification AGOL Web Map Layer from ArcGIS Pro by overwirting existing service - reads from Postgres. - **Add where is this project found??**
-10. Add view permissions to parcels in Postgres to viewer so they will be accessible to the web maps.
-12. Open the feature server and vector tile server pages to refresh the available layers cache.
-13. Refresh the materialized Views that rely on parcels - zoning view, ward lookup view, and geocoder view - starting with the zoning view.
+6.Run the Parcels Update model from the ArcPRO TaxParcelUpdates Project in the GIS\Tax Parcels folder.
+7.Run Fix Geometries in QGIS on the updated parcel file.
+8.Import the parcels into Postgres, overwriting existing and converting all fields to lowercase.
+9.Update the Public Notification AGOL Web Map Layer from ArcGIS Pro by overwirting existing service - reads from Postgres. - **Add where is this project found??**
+10.Add view permissions to parcels in Postgres to viewer so they will be accessible to the web maps.
+12.Open the feature server and vector tile server pages to refresh the available layers cache.
+13.Refresh the materialized Views that rely on parcels - zoning view, ward lookup view, and geocoder view - starting with the zoning view.
