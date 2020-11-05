@@ -24,14 +24,14 @@ The parcel layer is created from combining the parcel shapefile from the county 
 9. Run the following SQL commands in sequence to update the existing parcel data from the new updated table.
 ```SQL
 /*backup current parcels*/
-CREATE TABLE adm_mus_parcels_bak as TABLE adm_mus_parcels
+CREATE TABLE adm_mus_parcels_bak as TABLE adm_mus_parcels;
 
 /*delete all rows in main parcel table and restart the ID Identity sequence*/
 TRUNCATE TABLE adm_mus_parcels
 RESTART IDENTITY;
 
 /*insert all rows from the updated table to the existing table*/
-INSERT INTO adm_mus_parcels SELECT * FROM adm_mus_parcels_new
+INSERT INTO adm_mus_parcels SELECT * FROM adm_mus_parcels_new;
 ```
 10.Refresh the materialized Views that rely on parcels - zoning view, ward lookup view, and geocoder view - starting with the zoning view.
 11.Update the Public Notification AGOL Web Map Layer from ArcGIS Pro by overwirting existing service - reads from Postgres. - **Add where is this project found??**
