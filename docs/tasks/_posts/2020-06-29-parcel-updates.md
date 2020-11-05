@@ -41,8 +41,9 @@ INSERT INTO adm_mus_parcels SELECT * FROM adm_mus_parcels_update
 ```
 
 ## Update the Public Notification Web Layer
-1.Update the Public Notification AGOL Web Map Layer from ArcGIS Pro by overwirting existing service - reads from Postgres.
+1.Update the Public Notification AGOL Web Map Layer from ArcGIS Pro by overwirting existing service. The ArcPro layers read from Postgres.
  1. ``\scans\GIS_Projects\Web Apps Production\commdev-public-notification-web-application\public-notification-web-application.aprx``
+2. Share > Web Layer >Overwrite Web Layer **NOT REPLACE WEB LAYER**
  
  ## Final Step
  
