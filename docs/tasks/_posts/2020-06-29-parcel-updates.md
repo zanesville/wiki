@@ -8,6 +8,7 @@ The parcel layer is created from combining the parcel shapefile from the county 
 
 > Updating the parcel file seems like a straightforward task, but the process can sometimes take several hours depending on whether or not there are new files from the county, new data schemas, problems with the Postgres import, problems with the AGOL updload...etc.
 
+### Create the Parcel Update
 1. Download ExtractExcel to Z:\scans\GIS\Tax Parcel\ParcelsMUS\Updates
   - ftp://ftp.mceo.org/Transfer/GIS/Tax%20Data/
 2. Download Full Export ((also named Extract Excel) to Z:\scans\GIS\Tax Parcel\ParcelsMUS\Updates
@@ -18,10 +19,15 @@ The parcel layer is created from combining the parcel shapefile from the county 
     5. ftp://ftp.mceo.org/Transfer/GIS/Parcel/
     5. Rename to TAXPARCEL19 so that it will work in the model.
 6.Run the Parcels Update model from the ArcPRO TaxParcelUpdates Project in the GIS\Tax Parcels folder.
-7.Run Fix Geometries in QGIS on the updated parcel file.
-8.Import the parcels into Postgres as ``adm_mus_parcels_update``, overwriting existing and converting all fields to lowercase.
-    8. DO NOT OVERWRITE THE EXISTING adm_mus_parcels LAYER
-9. Run the following SQL commands in sequence to update the existing parcel data from the new updated table.
+
+### Apply the Update to the Parcel Table in Postgres
+
+1.Run Fix Geometries in QGIS on the updated parcel file.
+2.Import the parcels into Postgres as ``adm_mus_parcels_update``, overwriting existing and converting all fields to lowercase.
+    2. DO NOT OVERWRITE THE EXISTING adm_mus_parcels LAYER
+3. Run the following SQL commands below in sequence to update the existing parcel data from the new updated table.
+4.Once the table has been upated, refresh the materialized Views that rely on parcels - zoning view, ward lookup view, and geocoder view - starting with the zoning view.
+
 ```SQL
 /*backup current parcels*/
 CREATE TABLE adm_mus_parcels_bak as TABLE adm_mus_parcels
@@ -33,6 +39,7 @@ RESTART IDENTITY
 /*insert all rows from the updated table to the existing table*/
 INSERT INTO adm_mus_parcels SELECT * FROM adm_mus_parcels_new
 ```
-10.Refresh the materialized Views that rely on parcels - zoning view, ward lookup view, and geocoder view - starting with the zoning view.
-11.Update the Public Notification AGOL Web Map Layer from ArcGIS Pro by overwirting existing service - reads from Postgres. - **Add where is this project found??**
+
+### Update the Public Notification Web Layer
+1.Update the Public Notification AGOL Web Map Layer from ArcGIS Pro by overwirting existing service - reads from Postgres. - **Add where is this project found??**
 
