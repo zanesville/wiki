@@ -4,6 +4,8 @@ tags: arcgispro webmaps
 subtitle: Step by Step Process for Updating Parcel Data from the County GIS
 ---
 
+The parcel layer is created from combining the parcel shapefile from the county and several sheets from the county tax data. Several web map layers are materialized views that depend on this parcel layer in Postgres. This means that once a parcel update layer is created (in a FileGeodatabase), the Postgres data cannot be simply overwritten (as this does a DELETE and CREATE). The Postgres table is backed up, truncated (all rows deleted) and then using the parcel update, appended with the parcel upate table.
+
 > Updating the parcel file seems like a straightforward task, but the process can sometimes take several hours depending on whether or not there are new files from the county, new data schemas, problems with the Postgres import, problems with the AGOL updload...etc.
 
 1. Download ExtractExcel to Z:\scans\GIS\Tax Parcel\ParcelsMUS\Updates
@@ -17,8 +19,20 @@ subtitle: Step by Step Process for Updating Parcel Data from the County GIS
     5. Rename to TAXPARCEL19 so that it will work in the model.
 6.Run the Parcels Update model from the ArcPRO TaxParcelUpdates Project in the GIS\Tax Parcels folder.
 7.Run Fix Geometries in QGIS on the updated parcel file.
-8.Import the parcels into Postgres, overwriting existing and converting all fields to lowercase.
-9.Update the Public Notification AGOL Web Map Layer from ArcGIS Pro by overwirting existing service - reads from Postgres. - **Add where is this project found??**
-10.Add view permissions to parcels in Postgres to viewer so they will be accessible to the web maps.
-12.Open the feature server and vector tile server pages to refresh the available layers cache.
-13.Refresh the materialized Views that rely on parcels - zoning view, ward lookup view, and geocoder view - starting with the zoning view.
+8.Import the parcels into Postgres as ``adm_mus_parcels_update``, overwriting existing and converting all fields to lowercase.
+    8. DO NOT OVERWRITE THE EXISTING adm_mus_parcels LAYER
+9. Run the following SQL commands in sequence to update the existing parcel data from the new updated table.
+```SQL
+/*backup current parcels*/
+CREATE TABLE adm_mus_parcels_bak as TABLE adm_mus_parcels
+
+/*delete all rows in main parcel table and restart the ID Identity sequence*/
+TRUNCATE TABLE adm_mus_parcels
+RESTART IDENTITY;
+
+/*insert all rows from the updated table to the existing table*/
+INSERT INTO adm_mus_parcels SELECT * FROM adm_mus_parcels_new
+```
+10.Refresh the materialized Views that rely on parcels - zoning view, ward lookup view, and geocoder view - starting with the zoning view.
+11.Update the Public Notification AGOL Web Map Layer from ArcGIS Pro by overwirting existing service - reads from Postgres. - **Add where is this project found??**
+
