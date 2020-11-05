@@ -8,7 +8,7 @@ The parcel layer is created from combining the parcel shapefile from the county 
 
 > Updating the parcel file seems like a straightforward task, but the process can sometimes take several hours depending on whether or not there are new files from the county, new data schemas, problems with the Postgres import, problems with the AGOL updload...etc.
 
-### Create the Parcel Update
+## Create the Parcel Update
 1. Download ExtractExcel to Z:\scans\GIS\Tax Parcel\ParcelsMUS\Updates
   - ftp://ftp.mceo.org/Transfer/GIS/Tax%20Data/
 2. Download Full Export ((also named Extract Excel) to Z:\scans\GIS\Tax Parcel\ParcelsMUS\Updates
@@ -20,7 +20,7 @@ The parcel layer is created from combining the parcel shapefile from the county 
     5. Rename to TAXPARCEL19 so that it will work in the model.
 6.Run the Parcels Update model from the ArcPRO TaxParcelUpdates Project in the GIS\Tax Parcels folder.
 
-### Apply the Update to the Parcel Table in Postgres
+## Apply the Update to the Parcel Table in Postgres
 
 1.Run Fix Geometries in QGIS on the updated parcel file.
 2.Import the parcels into Postgres as ``adm_mus_parcels_update``, overwriting existing and converting all fields to lowercase.
@@ -40,6 +40,6 @@ RESTART IDENTITY
 INSERT INTO adm_mus_parcels SELECT * FROM adm_mus_parcels_new
 ```
 
-### Update the Public Notification Web Layer
+## Update the Public Notification Web Layer
 1.Update the Public Notification AGOL Web Map Layer from ArcGIS Pro by overwirting existing service - reads from Postgres. - **Add where is this project found??**
 
