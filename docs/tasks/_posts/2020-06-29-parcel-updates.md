@@ -36,10 +36,15 @@ CREATE TABLE adm_mus_parcels_bak as TABLE adm_mus_parcels
 TRUNCATE TABLE adm_mus_parcels
 RESTART IDENTITY
 
-/*insert all rows from the updated table to the existing table*/
-INSERT INTO adm_mus_parcels SELECT * FROM adm_mus_parcels_new
+/*insert all rows from the updated table into the existing table*/
+INSERT INTO adm_mus_parcels SELECT * FROM adm_mus_parcels_update
 ```
 
 ## Update the Public Notification Web Layer
-1.Update the Public Notification AGOL Web Map Layer from ArcGIS Pro by overwirting existing service - reads from Postgres. - **Add where is this project found??**
+1.Update the Public Notification AGOL Web Map Layer from ArcGIS Pro by overwirting existing service - reads from Postgres.
+ 1. ``\scans\GIS_Projects\Web Apps Production\commdev-public-notification-web-application\public-notification-web-application.aprx``
+ 
+ ## Final Step
+ 
+ If everything went well, delete the ``adm_mus_parcels_update`` table in Postgres.
 
