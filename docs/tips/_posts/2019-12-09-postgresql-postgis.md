@@ -5,9 +5,23 @@ tags: postgis, postgres
 
 ## Simple Queries in pgAdmin using SQL
 
-Queries performed in pgAdmin can be downloaded as CSV files directly from the web UI. 
+Queries performed in pgAdmin can be downloaded as CSV files directly from the web UI.
+
+![](https://raw.githubusercontent.com/zanesville/wiki/master/assets/img/pgAdmin-download.jpg)
+
+For example, below is a query to select all the parcels that fall within a Historic District, saving the ``geom`` in Well Known Text format which allows the table to be loaded into QGIS to inspect and verify the results. Though this could be done in QGIS, sometimes it is nice to simply use SQL to get work done.
 
 ```SQL
+
+SELECT 
+	parcels.id,
+	ST_asText(parcels.geom) as wkt,
+	listed_name as owner,
+	location_address as address,
+	location_city_state_zip as city_st_zip  
+FROM adm_mus_parcels as parcels, dev_zoning_overlays
+WHERE st_within(ST_centroid(parcels.geom), dev_zoning_overlays.geom) AND dev_zoning_overlays.code = 'HIST'
+LIMIT 10
 
 ```
 
