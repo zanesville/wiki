@@ -3,6 +3,14 @@ title: PostgreSQL & PostGIS
 tags: postgis, postgres
 ---
 
+## Simple Queries in pgAdmin using SQL
+
+Queries performed in pgAdmin can be downloaded as CSV files directly from the web UI. 
+
+```SQL
+
+```
+
 ## Set X coordinate or Y coordinate of Polygon
 
 ```sql
