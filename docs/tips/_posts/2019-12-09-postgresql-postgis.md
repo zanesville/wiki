@@ -14,13 +14,18 @@ For example, below is a query to select all the parcels that fall within a Histo
 ```SQL
 
 SELECT 
-	parcels.id,
-	ST_asText(parcels.geom) as wkt,
-	listed_name as owner,
-	location_address as address,
-	location_city_state_zip as city_st_zip  
-FROM adm_mus_parcels as parcels, dev_zoning_overlays
-WHERE st_within(ST_centroid(parcels.geom), dev_zoning_overlays.geom) AND dev_zoning_overlays.code = 'HIST'
+  parcels.id,
+  ST_asText(parcels.geom) AS wkt,
+  listed_name AS owner,
+  location_address AS address,
+  location_city_state_zip AS city_st_zip  
+FROM
+  adm_mus_parcels AS parcels,
+  dev_zoning_overlays
+WHERE
+  st_within(ST_centroid(parcels.geom), dev_zoning_overlays.geom)
+  AND
+  dev_zoning_overlays.code = 'HIST'
 LIMIT 10
 
 ```
