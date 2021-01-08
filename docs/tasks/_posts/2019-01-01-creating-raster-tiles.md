@@ -27,7 +27,7 @@ tags: rasters
 
 *The last time I tried this with a whole county ortho ArcPRO crashed.*
 
-*Also, ArcPRO and ArcMap did not have a transformation for the county ortho.*
+*Also, ArcPRO and ArcMap did not have a transformation for the 2020 county ortho.*
 
 1. Georeference (if needed) and Export the raster using the Web Mercator 3857 Projection (256 for No DATA) in ArcPro using ITRF00 transformation.
    1. *QGIS is missing the ITRF00 transformation. It is hardcoded into PostGIS so the vector data transforms correctly, but I am not using PostGIS for rasters.*
@@ -63,7 +63,7 @@ If an error comes up about the size being too large try adding these settings -
 
 ``-co TILED=yes -co BLOCKXSIZE=256 -co BLOCKYSIZE=256`` - **started task at 11:30 on march 26th**
 
-<div class="divider" style="border-color:lightgray;"></div>
+---
 
 ### [Mapbox GeoTIFF Upload Recommendataions](https://docs.mapbox.com/help/troubleshooting/uploads/)
 
@@ -89,16 +89,16 @@ If you are attempting to upload large TIFFs (multi GBs), here are some ways you 
 ### Using QGIS & Generate XYZ Tiles (Easy & Slow Method)
 
 1. Load the raster into QGIS
-2. Change the zoomed in sampling to Average and any other settings under properties. *Not sure if this matters.*
+2. Change the zoomed in sampling to Average and any other settings under properties
 3. Export to raster tiles using the tool Generate XYZ Tiles
 4. See the screenshot with settings - all defaut except make sure to use the extent of the raster layer
    1. Use **png** for the format, this allows for the transparency on the edges of the raster to be maintined, but this does come at a cost of larger file size when compared to **jpg**
 5. Use maxzoom 16 for old paper maps, 20 for satellite imagery. Again this export will take some time, run it overnight or over the weekend.
-    1. Each additional zoom inceases the total tiles by ``previous zoom ^ 2``
+    1. Each additional zoom inceases the total tiles by ``previous zoom number of tiles ^ 2``
 6. Copy the tiles folder to the current server static data directory, renaiming the folder to match the schema of the other folders. Currently this directory is:
-    1. ``\\311 server IP address\wwwroot\data\rasters\``
+    1. ``\\ip of server\iis_gis_virtual_directory\data\raster-tiles``
 
-*Mapbox now recommends creating high resolution tiles using tile width and height 512.*
+*Mapbox recommends creating high resolution tiles using tile width and height 512.*
 
 ![]({{site.baseurl}}/assets/img/generate_xyz_tiles.jpg)
 
@@ -106,7 +106,7 @@ If you are attempting to upload large TIFFs (multi GBs), here are some ways you 
 ### Using gdal2tilesp_512.py (Fastest Method)
 
 1. GDAL needs to be installed, this can be done using the Express Install of the OSGeo4W installer.
-2. Copy the gdal2tilesp_512.py script from Z:/scans/GIS_Tools/Creating Raster Tiles to C:\OSGeo4W64\apps\Python37 or the Python directory of the OSGeo install
+2. Copy the gdal2tiles_latest.py script from Z:/scans/GIS_Tools/Creating Raster Tiles to C:\OSGeo4W64\apps\Python37 or the Python directory of the OSGeo install
 3. Open the OSGeo Shell from the OSGeo4W Install (not the one with QGIS local install)
 4. Follow the rest of the commands below.
 5. Optionally reproject the original image to EPSG:3857 using gdalwarp (see above).
