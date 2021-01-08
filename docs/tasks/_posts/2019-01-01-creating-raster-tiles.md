@@ -3,12 +3,18 @@ title: Creating Raster Tiles
 tags: rasters
 ---
 
+## Steps
+1. Clip and project the raster
+2. Cut the raster into png XYZ image tiles
+3. Convert the png images to webp
+4. Directly copy the files to the server via USB
+
 ## Clipping the Original Raster
 
 ### Using QGIS (Preferred Method)
 
 1. Create a new QGIS Project
-2. Change the projection to WGS84
+2. Change the projection to WGS84 (or WebMercator, not sure if it makes a difference)
 3. Load the Raster into QGIS
 4. Choose the appropriate transformation
 5. Check the accuracy of the transformation with the Hydrant layer or other data collected with the GPS
@@ -29,7 +35,7 @@ tags: rasters
 
 *Also, ArcPRO and ArcMap did not have a transformation for the 2020 county ortho.*
 
-1. Georeference (if needed) and Export the raster using the Web Mercator 3857 Projection (256 for No DATA) in ArcPro using ITRF00 transformation.
+1. Georeference (if needed) and Export the raster using the Web Mercator 3857 Projection (or WGS84, not sure if it matters) (256 for No DATA) in ArcPro using ITRF00 transformation.
    1. *QGIS is missing the ITRF00 transformation. It is hardcoded into PostGIS so the vector data transforms correctly, but I am not using PostGIS for rasters.*
 2. See the settings below for the export. Optionally turn off pyramid generation (under settings) to speed up processing, espcially for large rasters.
     1. For larger rasters such as whole county orthos this process will take some time.
@@ -97,13 +103,14 @@ If you are attempting to upload large TIFFs (multi GBs), here are some ways you 
     1. Each additional zoom inceases the total tiles by ``previous zoom number of tiles ^ 2``
 6. Copy the tiles folder to the current server static data directory, renaiming the folder to match the schema of the other folders. Currently this directory is:
     1. ``\\ip of server\iis_gis_virtual_directory\data\raster-tiles``
-
+7. Convert the directory of png image tiles to webp tiles using the Node script under GIS_Tools\Creating Raster Tiles
+   1. 
 *Mapbox recommends creating high resolution tiles using tile width and height 512.*
 
 ![]({{site.baseurl}}/assets/img/generate_xyz_tiles.jpg)
 
 
-### Using gdal2tilesp_512.py (Fastest Method)
+### Using gdal2tiles (Fastest Method)
 
 1. GDAL needs to be installed, this can be done using the Express Install of the OSGeo4W installer.
 2. Copy the gdal2tiles_latest.py script from Z:/scans/GIS_Tools/Creating Raster Tiles to C:\OSGeo4W64\apps\Python37 or the Python directory of the OSGeo install
@@ -127,7 +134,8 @@ python gdal2tiles_latest.py -e -z 0-21 -v --xyz -w leaflet --processes=16 C:\Ras
 
 *The latest version of the gdal2tiles script does not add the `tms: false` in the leaflet sample map when using the `--xyz` flag. I have updated this in the script in the GIS_Tools directory, but if you update this script keep an eye our for this error. The `xyz` convention is the default tile format for Leaflet, Mapbox and ArcGIS Online maps.*
 
-#### Using gdal_gdaladdo
+
+### Using gdal_gdaladdo
 
 Use gdal_translate to generate the mbtiles file
 
