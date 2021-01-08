@@ -14,11 +14,14 @@ tags: rasters
 5. Check the accuracy of the transformation with the Hydrant layer or other data collected with the GPS
    1. If the points are off by 3', the transformation is likely wrong
 6. Resize the canvas to the desired size
-7. Right click on the raster and choose Save As
-   1. Choose to use the map canvas as the extent
-   2. Choose WGS84 as the output projection (this will apply the transformation applied above)
-   3. Settings - COMPRESS - Packbits
-   4. Settings - BIGTIFF - YES (this needs to be added manually)
+7. Set any custom display settings for the raster such as Min/Max, bilinear resampling, etc.
+8. Right click on the raster and choose Save As
+   1. Choose to use the rendered image and not the raw image if making display adjustments, otherwise ignore
+   2. Choose to use the map canvas as the extent
+   3. Choose WGS84 as the output projection (this will apply the transformation applied above)
+   4. Choose NO Compression
+   5. Change the Settings to COMPRESS - Packbits
+   6. Change the Settings - BIGTIFF - YES
 
 ### Using ArcGIS Pro
 
@@ -109,13 +112,20 @@ If you are attempting to upload large TIFFs (multi GBs), here are some ways you 
 5. Optionally reproject the original image to EPSG:3857 using gdalwarp (see above).
 6. I used an image projected to WGS84 and this worked out fine, not sure you need to project to 3857
 
-Use the customized gdal2tilesp_512.py python script to cut the tif into a folder of high resolution raster tiles for use in web mapping. There are similar scripts that will output to mbtiles or geopackage. This script was originally written by the developer of [MapTiler](https://www.maptiler.com/). The gdal2tiles that is built in to gdal only outputs images in png format and **does not use parallel processing**. The default for this updated script is to use all the availabel cpu cores, so be careful when running it. Set the ``--processes`` to something you can live with, such as half the available cores. A maximum zoom limit of 20 seems to be a good limit, which is about street level, however if you want to use them in AGOL you will need to go to zoom 21 as AGOL does not overzoom tiles.
+Use the latest gdal2tiles.py python script downloaded from the gdal GitHub site to cut the tif into a folder of high resolution raster tiles for use in web mapping. There are similar scripts that will output to mbtiles or geopackage, or write to JPG files. This script was originally written by the developer of [MapTiler](https://www.maptiler.com/). The default for this updated script is to use all the availabel cpu cores, so be careful when running it. Set the ``--processes`` to something you can live with, such as half the available cores. A maximum zoom limit of 20 seems to be a good limit, which is about street level, however if you want to use them in AGOL you will need to go to zoom 21 as AGOL does not overzoom tiles.
+
+> For the entire bounds of Zanesville cutting a set of tiles takes around 12-24 hours.
 
 ```
-python gdal2tilesp_512.py -f PNG -e -z 0-21 -v --processes=10 C:\Rasters\2020\img_osip_2020.tif D:\img-ortho-osip-2020-ii
+python gdal2tiles_latest.py -e -z 0-21 -v --xyz -w leaflet --tilesize=512 --processes=16 C:\Rasters\2020\test_ortho.tif C:\Rasters\2020\test_ortho
+```
+OR for regular 256 tiles
+
+```
+python gdal2tiles_latest.py -e -z 0-21 -v --xyz -w leaflet --processes=16 C:\Rasters\2020\test_ortho.tif C:\Rasters\2020\test_ortho_256
 ```
 
-*JPEG results in smaller files but looses the transparency.*
+*The latest version of the gdal2tiles script does not add the `tms: false` in the leaflet sample map when using the `--xyz` flag. I have updated this in the script in the GIS_Tools directory, but if you update this script keep an eye our for this error. The `xyz` convention is the default tile format for Leaflet, Mapbox and ArcGIS Online maps.*
 
 #### Using gdal_gdaladdo
 
