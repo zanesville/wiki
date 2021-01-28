@@ -27,5 +27,6 @@ tags: postgres
 1. Open pg_admin
 2. Right click ``eng_coz_ward_lookup_mview``
 3. Click "Refresh View with Data"
+4. If this takes longer than 5 seconds or so there may be an issue with one of the indexes such as the parcel layer index. It usually takes just under 4 seconds.
 
 > Before I created an index on the zoning materialized view, the ward query took forever. With the index it only takes 3 seconds or so.
