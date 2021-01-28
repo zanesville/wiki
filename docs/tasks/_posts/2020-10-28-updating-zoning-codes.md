@@ -2,6 +2,9 @@
 title: Updating Zoning Codes
 tags: postgres
 ---
+
+> Follow these steps to update the Zoning codes for city parcels. It may be possible that you need to first update the parcel layer if there is a parcel split or join.
+
 ## Updating the Zoning Code and other Attributes
 
 1. Open the zoning update app
