@@ -1,5 +1,4 @@
-title: COZ GIS Wiki
-
+title: Zanesville GIS
 description: A website documenting GIS and data workflows for the City of Zanesville.
 baseurl: "/wiki"
 
@@ -11,10 +10,11 @@ permalink: /:title/
 defaults:
   -
     scope:
-      path: "docs"
+      path: "_categories"
       type: "pages"
     values:
       layout: "category"
+      permalink: /:title/
   -
     scope:
       path: ""
@@ -22,27 +22,20 @@ defaults:
     values:
       layout: "posts"
       permalink: /:categories/:title/
+      category: "documents" #default category
+      tags: ["gis"]
 
-# plugins: 
-  # - jekyll-admin
-
-# jekyll-archives:
-#   enabled: ["categories", "tags"]
-#   layout: category
-#   permalinks:
-#     year: '/:year/'
-#     month: '/:year/:month/'
-#     day: '/:year/:month/:day/'
-#     tag: '/tag/:name/'
-#     category: '/docs/:name/'
+plugins: 
+  - jekyll-admin
 
 sass:
   sass_dir: _sass
 
 include: 
  - _pages
+ - _categories
 
-exclude: ["package.json", "package-lock.json", "README.md"]
+exclude: ["package.json", "package-lock.json"]
 
 #tag_page_layout: tags
 #tag_page_dir: tags

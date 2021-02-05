@@ -4,12 +4,16 @@ layout: default
 {% include breadcrumbs.html %}
 {% assign category = page.name | replace: ".md", "" %}
 <!-- {{category}}-->
-<h1 class="column col-12">Cateogry | {{ category | capitalize}}</h1>
+<h1 class="column col-12">{{ category | capitalize}}</h1>
 <div class="column col-12">
   {% assign posts = site.categories[category] | sort:"title" %}
   {% for post in posts %}
   <h5>
-    <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    <a  rel="prefetch" class="post-link" href="{{ post.url | relative_url }}"><h4>{{ post.title }}</h4></a>
+    <p style="opacity: 0.8;font-size: smaller">
+      {{post.content | strip_html | truncate: 100}}
+    </p>
+
   </h5>
   {% endfor %}
 </div>

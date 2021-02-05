@@ -1,0 +1,3 @@
+---
+permalink: /x-archive/
+---

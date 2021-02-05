@@ -17,11 +17,12 @@ permalink: /
   <ul id="results-container" class="col-12"></ul>
 </form> -->
 
+
 {% assign categories = site.categories | sort %}
 {% for category in categories %}
-{% if category[0] != "docs" %}
-<div class="col-xs-12 col-sm-6 col-4">
-  <a href="{{site.baseurl}}/docs/{{category[0]}}/">
+{% if category[0] != 'x-archive' %}
+<div class="column col-sm-12">
+  <a href="{{site.baseurl}}/{{category[0]}}/">
     <div class="card active">
       <div class="card-image"><img class="img-responsive" data-icon="{{category[0]}}" src="" alt="map"></div>
       <div class="card-header">
@@ -39,7 +40,7 @@ permalink: /
 <div class="column col-12" style="margin-top: 2rem;">
 {% for question in site.data.faq %}
 <!-- details and summary Accordions example -->
-<details class="accordion">
+<details class="accordion" open>
   <summary class="accordion-header" style="padding:1rem 1rem;border-radius:3px;background:whitesmoke">
     <i class="icon icon-arrow-right mr-1"></i>
     {{ question.question }}
@@ -52,14 +53,15 @@ permalink: /
 </div>
 
 <div class="column col-12" style="margin-top: 2rem;">
-<a href="{{site.baseurl}}/docs/"><h5 style="letter-spacing:8px;text-align:center;">Document Index</h5></a>
+  <a href="/about/"><h5 style="letter-spacing:8px;text-align:center;">About</h5></a>
+  <a href="{{site.baseurl}}/archive/"><h5 style="letter-spacing:8px;text-align:center;">Document Index</h5></a>
 </div>
 
 <script>
   const icons = {
     apps: "map-pin",
     data: "layers",
-    research: "book-open",
+    documents: "book-open",
     tasks: "settings",
     tips: "bookmark",
     "x-archive": "archive"

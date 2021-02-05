@@ -1,5 +1,6 @@
 ---
 ---
+//SPECTRE CSS
 $version: "0.5.8";
 
 // Core features
@@ -245,13 +246,23 @@ CUSTOM CONTAINER
 NAVBAR
 ****/
 .navbar {
-  padding: 0.5rem 1rem;
+  background: white;
   border-bottom: solid thin #e8e8e8;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  z-index: 2;
 }
 
 /****
 OFF CANVAS MAIN CONTENT
 ****/
+.off-canvas {
+  top: 50px;
+}
+
 .off-canvas .off-canvas-content {
   padding: 1rem;
   max-width: 100%;
@@ -262,7 +273,8 @@ OFF CANVAS MAIN CONTENT
   padding: 1rem 0.5rem;
   min-height: 100vh;
   border-right: solid thin #e8e8e8;
-  background: whitesmoke;
+  background: rgb(250, 250, 250);
+  background: white;
   width: 360px;
 }
 
@@ -277,13 +289,6 @@ OFF CANVAS MAIN CONTENT
 
 .off-canvas .off-canvas-sidebar a.active {
   background-color: $highlight-color
-}
-
-.off-canvas .off-canvas-toggle {
-  background: whitesmoke;
-  position: fixed;
-  top: 70px;
-  left: 0px;
 }
 
 /****
@@ -334,6 +339,7 @@ a .card .card-header {
 BREADCRUMBS
 ****/
 #breadcrumbs {
+  font-size: 14px;
   margin-bottom: 0.5rem;
   text-transform: capitalize;
 }
@@ -363,12 +369,24 @@ BREADCRUMBS
 blockquote {
   background: whitesmoke;
   border-left: 0.25rem solid #8acbf8;
+  padding: 1rem;
 }
 
 code {
   background: transparent;
   font-size: 0.7rem;
   padding: 0;
+}
+
+pre {
+  white-space: pre-wrap;
+  // margin: 1rem -80px;
+}
+
+@media screen and (max-width: 1120px) {
+  pre {
+    margin: 1rem 0;
+  }
 }
 
 pre,
@@ -388,27 +406,14 @@ pre.highlight {
   border: solid;
 }
 
-#results-container {
-  position: absolute;
-  background: #e0dfdf;
-  list-style: none;
-  z-index: 2;
-  width: calc(100% - 1rem);
-  margin: 0;
-}
-
-#results-container li {
-  list-style: none;
-  padding: 5px 10px;
-}
-
 table {
   border: solid;
   margin: 1rem 0;
 }
 
 .form-input {
-  border-color: #1976D2;
+  border-color: transparent;
+  background: whitesmoke;
 }
 
 details {
@@ -421,6 +426,21 @@ summary {
   margin-bottom: 10px;
 }
 
+//ACCORDIANS for sidebar
+
+.accordion .accordion-header {
+  font-weight: bold;
+}
+
+.off-canvas-sidebar .accordion .accordion-body {
+  font-size: 14px;
+  line-height: 1em; //same as font size
+}
+
+.off-canvas .off-canvas-sidebar a:hover {
+  text-decoration: underline;
+}
+
 .accordion input:checked>.accordion-body,
 .accordion[open] .accordion-body {
   max-height: 50rem;
@@ -428,4 +448,65 @@ summary {
 }
 .language-plaintext.highlighter-rouge {
  background: whitesmoke;
+}
+
+.off-canvas .off-canvas-toggle {
+  display: block;
+  position: fixed;
+  top: 10px;
+  left: -6px;
+}
+
+@media screen and (min-width: 1640px) {
+  .off-canvas .off-canvas-toggle {
+    display: none;
+    top: 6px;
+  }
+  .off-canvas .off-canvas-sidebar {
+    transform: translateX(0);
+    top: 57px;
+    }
+  .off-canvas-overlay {
+    display: none;
+  }
+}
+
+// search
+#results-container {
+  position: absolute;
+  background: white;
+  border: solid thin lightgray;
+  border-top: none;
+  list-style: none;
+  z-index: 2;
+  width: calc(40% - 18px);
+  min-width: 200px;
+  margin: 0;
+}
+
+#results-container li {
+  list-style: none;
+  padding: 5px 10px;
+}
+
+@media screen and (max-width: 640px) {
+  .off-canvas .off-canvas-toggle {
+    top: 6px;
+  }
+  .navbar {
+    display: flex;
+    flex-direction: column;
+  }
+  .navbar .navbar-section:not(:first-child):last-child {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  .navbar form {
+    margin: 4px 0;
+    width: 100%!important;
+  }
+  #results-container {
+    width: calc(100% - 40px);
+  }
 }

@@ -4,7 +4,10 @@
   "description": "This site serves as the Wiki for the City of Zanesville GIS processes and procedures. It is based on Spectre and uses Tocbot for the heading menus.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "jekyll clean",
+    "start": "jekyll serve --baseurl=''",
+    "build": "jekyll build"
   },
   "repository": {
     "type": "git",

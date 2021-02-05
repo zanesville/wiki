@@ -10,10 +10,13 @@
   <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" as="style"
     onload="this.rel='stylesheet'">
   <link rel="stylesheet" href="{{site.baseurl}}/assets/xcode.css">
+  <!-- <link rel="stylesheet" href="{{site.baseurl}}/assets/zenburn.css"> -->
+
   <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.3.2/build/highlight.min.js"></script>
   <!--http://jwarby.github.io/jekyll-pygments-themes/languages/javascript.html-->
   <!-- <link rel="preload" href="/assets/prism.css" as="style" onload="this.rel='stylesheet'"> -->
-  <link href="https://fonts.googleapis.com/css2?family=Alata&family=Montserrat:wght@300;400;600;700&family=Spartan:wght@400;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Alata&family=Montserrat:wght@300;400;600;700&family=Spartan:wght@400;700&family=Source+Code+Pro&family=Jost&display=swap" rel="stylesheet">
   <style>
     details {
       cursor: pointer;
@@ -29,15 +32,26 @@
   
   <header class="navbar">
     <section class="navbar-section">
-      <a href="{{site.baseurl}}/" class="navbar-brand mr-2">COZ GIS Wiki</a>
+      <a href="{{site.baseurl}}/" class="navbar-brand mr-2">{{site.title}}</a>
     </section>
+    <form style="width:40%;min-width:200px;">
+      <input autocomplete="off" class="form-input" type="text" id="search-input" placeholder="Search all documents">
+      <ul id="results-container"></ul>
+    </form>
     <section class="navbar-section">
+      {% if site.baseurl == "/wiki" %}
       <a class="btn btn-link" href="https://github.com/zanesville/wiki/blob/master/{{page.path}}"><i
           class="icon icon-edit"></i>
         Edit this page</a>
+      {%else%}
+      <a class="btn btn-link" href="//localhost:4000/admin/{% if page.id %}collections/{{page.path | replace: '_posts', 'posts'}}{%else%}pages/{{page.path}}{% endif %}"><i
+        class="icon icon-edit"></i>
+      Edit this page</a>
+      
+      {% endif %}
     </section>
   </header>
-  
+
   <div class="off-canvas">
     <!-- off-screen toggle button -->
     <a class="off-canvas-toggle btn btn-link btn-action" href="#sidebar-id">
@@ -46,18 +60,15 @@
     
     <div id="sidebar-id" class="off-canvas-sidebar">
 
-      <form style="width:100%;margin-bottom:1rem;">
-        <input autocomplete="off" class="form-input" type="text" id="search-input" placeholder="search">
-        <ul id="results-container"></ul>
-      </form>
-
       <div class="container">
+        <!-- <h4>Categories</h4> -->
+
         {% assign categories = site.categories | sort %}
         {% for category in categories %}
         {% if category[0] != "docs" %}
         {% assign sorted_posts = category[1] | sort: "title" %}
         
-        <details class="accordion">
+        <details class="accordion" open>
           <summary class="accordion-header" style="text-transform:capitalize;">
             <i class="icon icon-arrow-right mr-1"></i>
             {{category[0]}}
@@ -72,9 +83,9 @@
          {% endif %}
          {% endfor %}
          <p>
-          <a style="width:100%;" href="{{site.baseurl}}/admin/collections/posts/new/"><button style="width:100%;" class="btn"><i
+          <!-- <a style="width:100%;" href="{{site.baseurl}}/admin/collections/posts/new/"><button style="width:100%;" class="btn"><i
             class="icon icon-edit"></i> New Doc</button>
-          </a>
+          </a> -->
         </p>
         <div id="tags">
           <h4>Tags</h4>
@@ -117,24 +128,51 @@
     })
     
   </script>
-  {% if page.id %}
-  <script async defer src="{{site.baseurl}}/assets/js/tocbot.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
   <script>
-    window.onload = function () {
-      console.log("tocbot")
-      tocbot.init({
-        // Where to render the table of contents.
-        tocSelector: '#toc',
-        // Where to grab the headings to build the table of contents.
-        contentSelector: '#content',
-        orderedList: false,
-        // Which headings to grab inside of the contentSelector element.
-        headingSelector: 'h1, h2, h3, h4',
-      });
+    //THIS HELPER SCRIPT ALLOWS FOR USING ARROW KEYS IN THE SEARCH RESULTS
+    handleListKeyboardActions("search-input", "results-container")
+    function handleListKeyboardActions(inputId, resultsId) {
+      // targets the input, which triggers the functions populating the list
+      var maininput = document.getElementById(inputId);
+      // targets the <ul>
+      var list = document.getElementById(resultsId);
+      // console.log(list)
+      document.onkeydown = function(e) { // listen to keyboard events
+        var first = list.firstChild; // targets the first <li>
+        switch (e.keyCode) {
+          case 38: // if the UP key is pressed
+              if (document.activeElement == (maininput || first)) {
+                  e.preventDefault();
+                  break;
+              } // stop the script if the focus is on the input or first element
+              else {
+                  e.preventDefault();
+                  if (document.activeElement.parentNode.previousSibling) {
+                      document.activeElement.parentNode.previousSibling.firstChild.focus();
+                  }
+              } // select the element before the current, and focus it
+              break;
+          case 40: // if the DOWN key is pressed
+              if (document.activeElement == maininput) {
+                  e.preventDefault();
+                  first.firstChild.focus();
+              } // if the currently focused element is the main input --> focus the first <li>
+              else {
+                  e.preventDefault();
+                  if (document.activeElement.parentNode.nextSibling) {
+                      document.activeElement.parentNode.nextSibling.firstChild.focus();
+                  }
+              } // target the currently focused element -> <a>, go up a node -> <li>, select the next node, go down a node and focus it
+              break;
+          case 27:
+              maininput.value = " ";
+              maininput.dispatchEvent(new Event("input"))
+              break;
+        }
+      }
     }
   </script>
-  {% endif %}
-  <script>hljs.initHighlightingOnLoad();</script>
 </body>
 
 </html>

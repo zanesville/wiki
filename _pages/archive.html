@@ -1,0 +1,17 @@
+---
+layout: default
+permalink: /archive/
+---
+{% include breadcrumbs.html %}
+
+
+<div class="column">
+  <h1>Zanesville GIS Wiki Document Index</h1>
+
+  {% assign posts = site.posts | sort: "title" %}
+  {% for post in posts %}
+  <h5>
+    <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+  </h5>
+  {% endfor %}
+</div
